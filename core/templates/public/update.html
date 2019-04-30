@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block dir %} Inicio {% endblock %}
+
+{% block body %}
+<section class="container grey-tail">
+    <form method="post" class="col s12">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">turned_in</i>
+            <label for="title">Titulo</label>
+            <input name="title" id="title"
+              value="{{ request.form['title'] or post['title'] }}" required>
+        </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">file</i>
+            <label for="body">Cuerpo</label>
+            <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Actualizar
+            <i class="material-icons right">edit</i>
+        </button>
+    </form>
+    <hr>
+    <form action="{{ url_for('public.delete', id=post['id']) }}" method="post" class="col s12">
+        <button class="btn waves-effect waves-light" type="submit">Borrar
+            <i class="material-icons right">clear</i>
+        </button>
+    </form>
+</section>
+{% endblock %}

@@ -53,6 +53,7 @@
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                         {% if g.user %}
                             <li><span>{{ g.user['username'] }}</span></li>
+                            <li><a href="{{ url_for('public.create') }}">Crear un Post</a></li>
                             <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesion</a></li>
                         {% else %}
                             <li class="active"><a href="{{ url_for('public.index') }}">Inicio</a></li>
@@ -65,17 +66,9 @@
                 </nav>
             </header>
         </section>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, messages in messages %}
-                    {% for class, title in alerts %}
-                        {%- call links.modal(one=class, two=category, title=title) %}
-                            {{ messages }}
-                        {%- endcall %}
-                    {% endfor %}
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        {% for messages in get_flashed_messages() %}
+            <div class="teal-text"> {{ messages }} </div>
+        {% endfor %}
         {%- block body %}{%- endblock %}
     </body>
 </html>

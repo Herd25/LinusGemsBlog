@@ -5,21 +5,22 @@ from flask import (
     Blueprint, flash, g, redirect, request, session, url_for, render_template
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from core.database import get_db
+from core.functions import get_edit_query, get_exists_data, get_query, get_delete_query
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 ##### REquired LOGIN #####
+
 def required_login(view):
     @functools.wraps(view)
     def wrapper_view(*args, **kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
-        
+
         return view(*args, **kwargs)
     return wrapper_view
 
-#### Building Routes #####
+#### Required Auth #####
 
 @auth.before_request
 def load_logget_user():
@@ -28,34 +29,30 @@ def load_logget_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?',
-            (user_id,)
-        ).fetchone()
+        g.user = get_exists_data('SELECT * FROM user WHERE id = ?',(user_id,))
+
+
+#### Building Routes #####
 
 @auth.route('/register', methods = ('GET','POST'))
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
         error = None
 
         if not username:
             error = 'Nombre de usuario requerido'
         elif not password:
             error = 'Contraseña requerida'
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
+        elif get_exists_data('SELECT id FROM user WHERE username = ?',(username,)) is not None:
             error = 'El Usuario {} ya esta registrado.'.format(username)
 
         if error is None:
-            db.execute(
+            get_edit_query(
                 'INSERT INTO user (username, password) VALUES (?, ?)',
                 (username, generate_password_hash(password))
             )
-            db.commit()
             return redirect(url_for('auth.login'))
 
         flash(error)
@@ -67,12 +64,8 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?',
-            (username,)
-        ).fetchone()
+        user = get_exists_data('SELECT * FROM user WHERE username = ?',(username,))
 
         if user is None:
             error = 'Usuario incorrecto.'
@@ -82,7 +75,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('public.index'))
 
         flash(error)
 
@@ -91,4 +84,4 @@ def login():
 @auth.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('public.index'))

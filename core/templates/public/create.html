@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Creador {% endblock %}
+
+{% block dir %} Crear un Post {% endblock %}
+
+{% block body %}
+<section class="container grey-tail">
+    <form method="post" class="col s12">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">turned_in</i>
+            <label for="title">Titulo</label>
+            <input name="title" id="title" value="{{ request.form['title'] }}" required>
+        </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">file</i>
+            <label for="body">Cuerpo</label>
+            <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Enviar
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
+</section>
+{% endblock %}
