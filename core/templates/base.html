@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- MetaLinks -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="{{ url_for('static', filename='images/icons/favicon/ms/ms-icon-144x144.png') }}">
+        <meta name="theme-color" content="#ffffff">
+        {# macros links #}
+        {% import "_macros.jinja" as links with context %}
+        <!-- colors and libraries design -->
+        {{ links.styles(url=[ (url_for('static', filename='css/materialize.css')), (url_for('static', filename='css/materialize.min.css')) ]) }}
+        <!-- icons fonts -->
+        {{ links.styles(url=[ ('https://use.fontawesome.com/releases/v5.7.1/css/solid.css'), ('https://use.fontawesome.com/releases/v5.7.1/css/regular.css'),
+        ('https://use.fontawesome.com/releases/v5.7.1/css/brands.css'), ('https://use.fontawesome.com/releases/v5.7.1/css/fontawesome.css') ]) }}
+        {#{{ links.styles(url=[ (url_for('static',filename='css/icons/fontello.css')), (url_for('static',filename='css/icons/fontello-codes.css')),
+        (url_for('static',filename='css/icons/fontello-ie7-codes.css')), (url_for('static',filename='css/icons/fontello-ie7.css')) ]) }}#}
+        <!-- GoogleFonts -->
+        {{ links.styles(url=[ ("https://fonts.googleapis.com/css?family=Roboto+Slab|Staatliches"), ("https://fonts.googleapis.com/icon?family=Material+Icons") ]) }}
+        <!-- Load Apple favicons and mobile -->
+        {#{{ links.rel(value=[("apple-touch-icon","","","57x57",url_for('static', filename='images/icons/favicon/apple/apple-icon-57x57.png')),
+        ("apple-touch-icon","","","60x60",url_for('static', filename='images/icons/favicon/apple/apple-icon-60x60.png')),
+        ("apple-touch-icon","","","72x72",url_for('static', filename='images/icons/favicon/apple/apple-icon-72x72.png')),
+        ("apple-touch-icon","","","76x76",url_for('static', filename='images/icons/favicon/apple/apple-icon-76x76.png')),
+        ("apple-touch-icon","","","114x114",url_for('static', filename='images/icons/favicon/apple/apple-icon-114x114.png')),
+        ("apple-touch-icon","","","120x120",url_for('static', filename='images/icons/favicon/apple/apple-icon-120x120.png')),
+        ("apple-touch-icon","","","144x144",url_for('static', filename='images/icons/favicon/apple/apple-icon-144x144.png')),
+        ("apple-touch-icon","","","152x152",url_for('static', filename='images/icons/favicon/apple/apple-icon-152x152.png')),
+        ("apple-touch-icon","","","180x180",url_for('static', filename='images/icons/favicon/apple/apple-icon-180x180.png'))
+        ]) }}#}
+        <!-- Load Web and Android favicons and mobile -->
+        {#{{ links.rel(value=[("shortcut icon","image/x-icon","","",url_for('static', filename='images/icons/favicon/favicon/favicon.ico')),
+        ("icon","image/x-icon","","",url_for('static', filename='images/icons/favicon/favicon/favicon.ico')),
+        ("icon","image/png","","16x16",url_for('static', filename='images/icons/favicon/favicon/favicon-16x16.png')),
+        ("icon","image/png","","32x32",url_for('static', filename='images/icons/favicon/favicon/favicon-32x32.png')),
+        ("icon","image/png","","96x96",url_for('static', filename='images/icons/favicon/favicon/favicon-96x96.png')),
+        ("icon","image/png","","192x192",url_for('static', filename='images/icons/favicon/android/android-icon-192x192.png'))
+        ]) }}#}
+        <!-- Load Manifest mobile -->
+        <!--<link rel="manifest" href="/manifest.json">-->
+        <!-- Source Load Scripts -->
+        {{ links.script(url=[ (url_for('static',filename='js/actions.js')), (url_for('static',filename='js/materialize.js')),
+        (url_for('static',filename='js/materialize.min.js')) ]) }}
+        <title>{% block title %}{% endblock %} - LinusGems</title>
+    </head>
+    <body id="ContentBody" class="grey-300 lds-hourglass">
+        <section class="grey lighten-1">
+            <header>
+                <nav class="nav-wrapper teal lighten-2">
+                    <a href="{{ url_for('public.index') }}" class="brand-logo">LinusGems - {% block dir %}{% endblock %}</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        {% if g.user %}
+                            <li><span>{{ g.user['username'] }}</span></li>
+                            <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesion</a></li>
+                        {% else %}
+                            <li class="active"><a href="{{ url_for('public.index') }}">Inicio</a></li>
+                            <li><a href="#">Noticias</a></li>
+                            <li><a href="#">Acerca de</a></li>
+                            <li><a href="{{ url_for('auth.login') }}">Inicia Sesion</a></li>
+                            <li><a href="{{ url_for('auth.register') }}">Registrarse</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+        </section>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, messages in messages %}
+                    {% for class, title in alerts %}
+                        {%- call links.modal(one=class, two=category, title=title) %}
+                            {{ messages }}
+                        {%- endcall %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {%- block body %}{%- endblock %}
+    </body>
+</html>

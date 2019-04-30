@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %} Iniciar Sesion {% endblock %}
+
+{% block dir %} Inicio de Sesion {% endblock %}
+
+{% block body %}
+<section class="container">
+    <div class="row">
+        <form method="post" class="col s12">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Enviar
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}

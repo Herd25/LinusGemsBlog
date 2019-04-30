@@ -1,0 +1,164 @@
+{# started macros #}
+
+{%- macro modal(one, two, title) %}
+    <div class="{{ one }}">
+        <h2>{{ title }}</h2>
+        <div class="{{ two }}">
+            {{ caller()|indent }}
+        </div>
+    </div>
+{%- endmacro %}
+
+{%- macro input(type, name, id, value, custom) %}
+    <input class="{{ custom }}" type="{{ type }}" name="{{ name }}" id="{{ id }}" value="{{ value }}" />
+{%- endmacro %}
+
+{%- macro button(value, icon, title, custom) %}
+    <input type="submit" class="fas fa {{ custom }}" value="{{ value }} {{ icon }}" title="{{ title }}">
+{%- endmacro %}
+
+{%- macro label(items) %}
+    {%- for for, title, value, icon, custom in items %}
+        <label for="{{ for }}" class="fas fa {{ custom }}" title="{{ title }}">{{ value }} {{ icon }}</label>
+    {%- endfor %}
+{%- endmacro %}
+
+{%- macro textarea(items) %}
+    {%- for name, id, cols, rows, value, custom in items %}
+        <textarea class="{{ custom }}" name="{{ name }}" id="{{ id }}" cols="{{ cols }}" rows="{{ rows }}">
+            {{ value|e }}
+        </textarea>
+    {%- endfor %}
+{%- endmacro %}
+
+{%- macro formulary(id, url, method, type, title, icon) %}
+    {#
+        #  enctype using fomats:
+          application/xwwwformurlencoded
+          multipart/formdata
+          text/plain
+    #}
+    <form id="{{ id }}" action="{{ url_for('{{ url }}') }}" method="{{ method }}" enctype="{{ type }}">
+        <div><i class="fas fawindowclose" title="cerrar" id="closesuscriber"></i></div>
+        <fieldset class="fieldset">
+            <legend class="fas fa">{{ title }} {{ icon }}</legend>
+            {{ caller()|e }}
+        </fieldset>
+    </form>
+{%- endmacro %}
+
+{%- macro search(id,url,method) %}
+    <form id="{{ id }}" action="{{ url_for(url) }}" method="{{ method }}">
+		<button id="btn-search"><i class="icon-search"></i></button>
+		<input type="search" name="search-result" id="search-result">
+		<section id="results">
+			<p id="container-result"></p>
+		</section>
+	</form>
+{%- endmacro %}
+
+{%- macro select(values, name, id, title) %}
+    <select name="{{ name }}" id="{{ id }}" title="{{ title }}">
+        {%- for key, item in values %}
+            <option value="{{ key }}">{{ item }}</option>
+        {%- endfor %}
+    </select>
+{%- endmacro %}
+
+{%- macro navbar(one, two) %}
+    <nav class="{{ one }}">
+		<ul class="{{ two }}">
+            {{ caller()|indent }}
+        </ul>
+    </nav>
+{%- endmacro %}
+
+{%- macro list(one, values) %}
+<ul class="{{ one }}">
+    {% for element in values %}
+      <li>{{ element | join(', ') | safe | replace(',','') }}</li>
+    {% endfor %}
+</ul>
+{%- endmacro %}
+
+{%- macro ord_list(one, values) %}
+<ol class="{{ one }}">
+    {% for element in values %}
+      <li>{{ element | join(', ') | safe | replace(',','') }}</li>
+    {% endfor %}
+</ol>
+{%- endmacro %}
+
+{%- macro list_call(values) %}
+    {% for element in values %}
+        <li>
+            {{ element | join(', ') | safe | replace(',','') }}
+        </li>
+    {% endfor %}
+{%- endmacro %}
+
+{%- macro itemlist(one, values) %}
+    {%- for href, caption, class in values %}
+        <li class="{{ one }}"><a href="{{ href|safe }}"><i class="{{ class }}"></i>{{ caption }}</a></li>
+    {%- endfor %}
+{%- endmacro %}
+
+{%- macro ul(one, items) %}
+    <ul class="{{ one }}">
+        {%- for href, caption, icon in items %}
+            <li><a href="{{ href|safe }}"><i class="{{ icon }}"></i>{{ caption }}</a></li>
+        {%- endfor %}
+    </ul>
+{%- endmacro %}
+
+{%- macro img(atributtes) %}
+    {%- for file, id, alt, title in atributtes %}
+        <img id="{{ id }}" src="{{ file|safe }}" alt="{{ alt }}" title="{{ title }}">
+    {%- endfor %}
+{%- endmacro %}
+
+{%- macro container(one, two) %}
+    <div class="{{ one }}">
+	    <div class="{{ two }}">
+            {{ caller()|indent }}
+        </div>
+    </div>
+{%- endmacro %}
+
+{%- macro contend(class, id) %}
+    <div class="{{ class }}" id="{{ id }}">
+        {{ caller()|indent }}
+    </div>
+{%- endmacro %}
+
+{%- macro main() %}
+    {{ caller()|indent }}
+    {%- block content %}
+	{%- endblock %}
+{%- endmacro %}
+
+{# Especial macros #}
+
+{%- macro styles(url) %}
+    {%- for ref in url %}
+        <link rel="stylesheet" type="text/css" href="{{ ref|safe }}">
+    {%- endfor %}
+{%- endmacro %}
+
+{%- macro mediastyles(url) %}
+    {%- for screen, ref in url %}
+        <link rel="stylesheet" media="({{ screen }})" type="text/css" href="{{ ref|safe }}">
+    {%- endfor %}
+{%- endmacro %}
+
+{%- macro script(url) %}
+    {%- for ref in url %}
+        <script type="text/javascript" src="{{ ref|safe }}"></script>
+    {%- endfor %}
+{%- endmacro %}
+
+{%- macro rel(value) %}
+    {%- for rel, type, media, sizes, href in value %}
+        <link rel="{{ rel }}" type="{{ type }}" media="({{ media }})" sizes="{{ sizes }}" href="{{ href|safe }}" />
+    {%- endfor %}
+{%- endmacro %}
