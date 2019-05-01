@@ -11,7 +11,8 @@
         {# macros links #}
         {% import "_macros.jinja" as links with context %}
         <!-- colors and libraries design -->
-        {{ links.styles(url=[ (url_for('static', filename='css/materialize.css')), (url_for('static', filename='css/materialize.min.css')) ]) }}
+        {{ links.styles(url=[ (url_for('static', filename='libs/gridsystem.css')), (url_for('static', filename='libs/flat-colors.css')), 
+        (url_for('static', filename='libs/material-design-colors.css')) ]) }}
         <!-- icons fonts -->
         {{ links.styles(url=[ ('https://use.fontawesome.com/releases/v5.7.1/css/solid.css'), ('https://use.fontawesome.com/releases/v5.7.1/css/regular.css'),
         ('https://use.fontawesome.com/releases/v5.7.1/css/brands.css'), ('https://use.fontawesome.com/releases/v5.7.1/css/fontawesome.css') ]) }}
@@ -45,19 +46,36 @@
         (url_for('static',filename='js/materialize.min.js')) ]) }}
         <title>{% block title %}{% endblock %} - LinusGems</title>
     </head>
-    <body id="ContentBody" class="grey-300 lds-hourglass">
-        <section class="grey lighten-1">
-            <header>
-                <nav class="nav-wrapper teal lighten-2">
-                    <a href="{{ url_for('public.index') }}" class="brand-logo">LinusGems - {% block dir %}{% endblock %}</a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <body id="ContentBody" class="white-100 lds-hourglass">
+        <section class="container grey-100">
+            <header class="row">
+                <nav class="i-lg-12 teal lighten-2 wrapper-nav">
+                    <div class="jumbotron grey-100">
+                        <h1>LinusGems - {% block dir %}{% endblock %}</a></h1>
+                        <p>Bienvenido</p>
+                    </div>
+                    <ul id="nav-mobile" class="navigation i-lg-9">
                         {% if g.user %}
                             <li><span>{{ g.user['username'] }}</span></li>
                             <li><a href="{{ url_for('public.create') }}">Crear un Post</a></li>
                             <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesion</a></li>
                         {% else %}
                             <li class="active"><a href="{{ url_for('public.index') }}">Inicio</a></li>
-                            <li><a href="#">Noticias</a></li>
+                            <li><a href="#">Subdivision</a>
+                                <ul class="sub-level teal">
+                                    <li><a href="#">sub items 1</a></li>
+                                    <li><a href="#">sub items 2</a></li>
+                                    <li><a href="#">sub items 3</a>
+                                        <ul class="acordeon">
+                                            <li><a href="#">other items 1</a></li>
+                                            <li><a href="#">other items 2</a></li>
+                                            <li><a href="#">other items 3</a></li>
+                                            <li><a href="#">other items 4</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">sub items 4</a></li>
+                                </ul>
+                            </li>
                             <li><a href="#">Acerca de</a></li>
                             <li><a href="{{ url_for('auth.login') }}">Inicia Sesion</a></li>
                             <li><a href="{{ url_for('auth.register') }}">Registrarse</a></li>
@@ -65,10 +83,10 @@
                     </ul>
                 </nav>
             </header>
-        </section>
         {% for messages in get_flashed_messages() %}
             <div class="teal-text"> {{ messages }} </div>
         {% endfor %}
         {%- block body %}{%- endblock %}
+        </section>
     </body>
 </html>

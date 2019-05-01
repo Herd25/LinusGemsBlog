@@ -1,0 +1,629 @@
+/*
+   Animation example, for spinners
+*/
+
+/* tooltip animations */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext- {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tooltip .tooltiptext-top::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip .tooltiptext-right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+.tooltip .tooltiptext-left::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* translate movement */
+.animate-left-move
+{
+  -moz-animation: left-position 2s  ease-in-out;
+  -o-animation: left-position 2s  ease-in-out;
+  -webkit-animation: left-position 2s  ease-in-out;
+  animation: left-position 2s ease-in-out;
+  display: inline-block;
+}
+
+.animate-right-move
+{
+  -moz-animation: right-position 2s  ease-in-out;
+  -o-animation: right-position 2s  ease-in-out;
+  -webkit-animation: right-position 2s  ease-in-out;
+  animation: right-position 2s ease-in-out;
+  display: inline-block;
+}
+
+.animate-top-move
+{
+  -moz-animation: top-position 2s  ease-in-out;
+  -o-animation: top-position 2s  ease-in-out;
+  -webkit-animation: top-position 2s  ease-in-out;
+  animation: top-position 2s ease-in-out;
+  display: inline-block;
+}
+
+.animate-bottom-move
+{
+  -moz-animation: bottom-position 2s  ease-in-out;
+  -o-animation: bottom-position 2s  ease-in-out;
+  -webkit-animation: bottom-position 2s  ease-in-out;
+  animation: bottom-position 2s ease-in-out;
+  display: inline-block;
+}
+
+/* spin class movements */
+.animate-spin
+{
+  -moz-animation: spin 2s infinite linear;
+  -o-animation: spin 2s infinite linear;
+  -webkit-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+  display: inline-block;
+}
+
+/* move and spin */
+.animate-spin-and-left-position
+{
+  -moz-animation: spin 2s linear, left-position 2s  ease-in-out;
+  -o-animation: spin 2s linear, left-position 2s  ease-in-out;
+  -webkit-animation: spin 2s linear, left-position 2s  ease-in-out;
+  animation: spin 2s linear, left-position 2s ease-in-out;
+  display: inline-block;
+}
+
+.animate-spin-and-right-position
+{
+  -moz-animation: spin 2s linear, right-position 2s  ease-in-out;
+  -o-animation: spin 2s linear, right-position 2s  ease-in-out;
+  -webkit-animation: spin 2s linear, right-position 2s  ease-in-out;
+  animation: spin 2s linear, right-position 2s ease-in-out;
+  display: inline-block;
+}
+
+.animate-spin-and-top-position
+{
+  -moz-animation: spin 2s linear, top-position 2s  ease-in-out;
+  -o-animation: spin 2s linear, top-position 2s  ease-in-out;
+  -webkit-animation: spin 2s linear, top-position 2s  ease-in-out;
+  animation: spin 2s linear, top-position 2s ease-in-out;
+  display: inline-block;
+}
+
+.animate-spin-and-bottom-position
+{
+  -moz-animation: spin 2s linear, bottom-position 2s  ease-in-out;
+  -o-animation: spin 2s linear, bottom-position 2s  ease-in-out;
+  -webkit-animation: spin 2s linear, bottom-position 2s  ease-in-out;
+  animation: spin 2s linear, bottom-position 2s ease-in-out;
+  display: inline-block;
+}
+
+/* keyframes */
+
+/* spin animations */
+@-moz-keyframes spin
+{
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@-webkit-keyframes spin
+{
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@-o-keyframes spin
+{
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@-ms-keyframes spin
+{
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes spin
+{
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+/* movements kayframens */
+@-moz-keyframes left-position
+{
+  0% { right: 100%; }
+
+  10% { left: 10%; }
+
+  20% { left: 20%; }
+
+  40% { left: 40%; }
+
+  60% { left: 60%; }
+
+  70% { left: 70%; }
+
+  90% { left: 90%; }
+
+  100% { left: 100%; }
+}
+
+@-webkit-keyframes left-position
+{
+  0% { right: 100%; }
+
+  10% { left: 10%; }
+
+  20% { left: 20%; }
+
+  40% { left: 40%; }
+
+  60% { left: 60%; }
+
+  70% { left: 70%; }
+
+  90% { left: 90%; }
+
+  100% { left: 100%; }
+}
+
+@-o-keyframes left-position
+{
+  0% { right: 100%; }
+
+  10% { left: 10%; }
+
+  20% { left: 20%; }
+
+  40% { left: 40%; }
+
+  60% { left: 60%; }
+
+  70% { left: 70%; }
+
+  90% { left: 90%; }
+
+  100% { left: 100%; }
+}
+
+@-ms-keyframes left-position
+{
+  0% { right: 100%; }
+
+  10% { left: 10%; }
+
+  20% { left: 20%; }
+
+  40% { left: 40%; }
+
+  60% { left: 60%; }
+
+  70% { left: 70%; }
+
+  90% { left: 90%; }
+
+  100% { left: 100%; }
+}
+
+@keyframes left-position
+{
+  0% { right: 100%; }
+
+  10% { left: 10%; }
+
+  20% { left: 20%; }
+
+  40% { left: 40%; }
+
+  60% { left: 60%; }
+
+  70% { left: 70%; }
+
+  90% { left: 90%; }
+
+  100% { left: 100%; }
+}
+
+/* right position */
+@-moz-keyframes right-position
+{
+  0% { left: 100%; }
+
+  10% { right: 10%; }
+
+  20% { right: 20%; }
+
+  40% { right: 40%; }
+
+  60% { right: 60%; }
+
+  70% { right: 70%; }
+
+  90% { right: 90%; }
+
+  100% { right: 100%; }
+}
+
+@-webkit-keyframes right-position
+{
+  0% { left: 100%; }
+
+  10% { right: 10%; }
+
+  20% { right: 20%; }
+
+  40% { right: 40%; }
+
+  60% { right: 60%; }
+
+  70% { right: 70%; }
+
+  90% { right: 90%; }
+
+  100% { right: 100%; }
+}
+
+@-o-keyframes right-position
+{
+  0% { left: 100%; }
+
+  10% { right: 10%; }
+
+  20% { right: 20%; }
+
+  40% { right: 40%; }
+
+  60% { right: 60%; }
+
+  70% { right: 70%; }
+
+  90% { right: 90%; }
+
+  100% { right: 100%; }
+}
+
+@-ms-keyframes right-position
+{
+  0% { left: 100%; }
+
+  10% { right: 10%; }
+
+  20% { right: 20%; }
+
+  40% { right: 40%; }
+
+  60% { right: 60%; }
+
+  70% { right: 70%; }
+
+  90% { right: 90%; }
+
+  100% { right: 100%; }
+}
+
+@keyframes right-position
+{
+  0% { left: 100%; }
+
+  10% { right: 10%; }
+
+  20% { right: 20%; }
+
+  40% { right: 40%; }
+
+  60% { right: 60%; }
+
+  70% { right: 70%; }
+
+  90% { right: 90%; }
+
+  100% { right: 100%; }
+}
+
+/* top position */
+@-moz-keyframes top-position
+{
+  0% { bottom: 100%; }
+
+  10% { top: 10%; }
+
+  20% { top: 20%; }
+
+  40% { top: 40%; }
+
+  60% { top: 60%; }
+
+  70% { top: 70%; }
+
+  90% { top: 90%; }
+
+  100% { top: 100%; }
+}
+
+@-webkit-keyframes top-position
+{
+  0% { bottom: 100%; }
+
+  10% { top: 10%; }
+
+  20% { top: 20%; }
+
+  40% { top: 40%; }
+
+  60% { top: 60%; }
+
+  70% { top: 70%; }
+
+  90% { top: 90%; }
+
+  100% { top: 100%; }
+}
+
+@-o-keyframes top-position
+{
+  0% { bottom: 100%; }
+
+  10% { top: 10%; }
+
+  20% { top: 20%; }
+
+  40% { top: 40%; }
+
+  60% { top: 60%; }
+
+  70% { top: 70%; }
+
+  90% { top: 90%; }
+
+  100% { top: 100%; }
+}
+
+@-ms-keyframes top-position
+{
+  0% { bottom: 100%; }
+
+  10% { top: 10%; }
+
+  20% { top: 20%; }
+
+  40% { top: 40%; }
+
+  60% { top: 60%; }
+
+  70% { top: 70%; }
+
+  90% { top: 90%; }
+
+  100% { top: 100%; }
+}
+
+@keyframes top-position
+{
+  0% { bottom: 100%; }
+
+  10% { top: 10%; }
+
+  20% { top: 20%; }
+
+  40% { top: 40%; }
+
+  60% { top: 60%; }
+
+  70% { top: 70%; }
+
+  90% { top: 90%; }
+
+  100% { top: 100%; }
+}
+
+/* bottom position */
+@-moz-keyframes bottom-position
+{
+  0% { top: 100%; }
+
+  10% { bottom: 10%; }
+
+  20% { bottom: 20%; }
+
+  40% { bottom: 40%; }
+
+  60% { bottom: 60%; }
+
+  70% { bottom: 70%; }
+
+  90% { bottom: 90%; }
+
+  100% { bottom: 100%; }
+}
+
+@-webkit-keyframes bottom-position
+{
+  0% { top: 100%; }
+
+  10% { bottom: 10%; }
+
+  20% { bottom: 20%; }
+
+  40% { bottom: 40%; }
+
+  60% { bottom: 60%; }
+
+  70% { bottom: 70%; }
+
+  90% { bottom: 90%; }
+
+  100% { bottom: 100%; }
+}
+
+@-o-keyframes bottom-position
+{
+  0% { top: 100%; }
+
+  10% { bottom: 10%; }
+
+  20% { bottom: 20%; }
+
+  40% { bottom: 40%; }
+
+  60% { bottom: 60%; }
+
+  70% { bottom: 70%; }
+
+  90% { bottom: 90%; }
+
+  100% { bottom: 100%; }
+}
+
+@-ms-keyframes bottom-position
+{
+  0% { top: 100%; }
+
+  10% { bottom: 10%; }
+
+  20% { bottom: 20%; }
+
+  40% { bottom: 40%; }
+
+  60% { bottom: 60%; }
+
+  70% { bottom: 70%; }
+
+  90% { bottom: 90%; }
+
+  100% { bottom: 100%; }
+}
+
+@keyframes bottom-position
+{
+  0% { top: 100%; }
+
+  10% { bottom: 10%; }
+
+  20% { bottom: 20%; }
+
+  40% { bottom: 40%; }
+
+  60% { bottom: 60%; }
+
+  70% { bottom: 70%; }
+
+  90% { bottom: 90%; }
+
+  100% { bottom: 100%; }
+}

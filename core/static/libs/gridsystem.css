@@ -1,0 +1,440 @@
+/*
+ ====================== IMPORTS STYLES ===================================
+*/
+
+/* import colors */
+
+
+/*
+ ====================== GLOBALS STYLES ===================================
+*/
+
+*
+{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+nav ul { list-style: none; }
+nav a { font-weight: 700; }
+
+.container, .row
+{
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.row { clear: both; display: table; }
+
+[class*="i-"] {
+  float: left;
+  padding: 15px;
+}
+
+/*
+ ====================== MEDIA STYLES ===================================
+*/
+
+.brand-logo
+{
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding: 1rem;
+  color: black;
+}
+
+.wrapper-nav { padding: 0; }
+
+.wrapper-nav a
+{
+  display: block;
+  padding: 0 2.5em;
+  color: black;
+}
+
+.navigation li li
+{
+  max-height: 0;
+  overflow: hidden;
+  transition: .6s;
+}
+
+.navigation li:hover
+{
+  background-color: rgba(0,0,0,.2);
+}
+
+.navigation li:hover > ul > li
+{
+  max-height: 1000px;
+  overflow: visible;
+}
+
+
+.navigation > li
+{
+  float: left;
+  line-height: 2.5rem;
+  transition: .6s;
+  position: relative;
+}
+
+.sub-level
+{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+  top: 100%;
+}
+
+.acordeon
+{
+  width: 100%;
+}
+
+.sub-items-right
+{
+  right: 100%;
+  top: 0;
+  width: 100%;
+}
+
+.center
+{
+  margin-left: 25%;
+  margin-top: 5%;
+}
+
+.jumbotron
+{
+  width: 100%;
+  height: 400px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+
+.jumbotron h1 { width: 100%; font-size: 2em; font-weight: bold; position: sticky; top: 0.15rem; }
+.jumbotron h2 { width: 100%; font-size: 2em; font-weight: bold; position: sticky; top: 0.15rem; }
+.jumbotron h3 { width: 100%; font-size: 2em; font-weight: bold; position: sticky; top: 0.15rem; }
+.jumbotron p { width: 100%; font-size: 25px; }
+
+/*
+ ====================== ADDONS STYLES ===================================
+*/
+
+/* =======================================================================
+                            LARGE SCREEN
+========================================================================== */
+
+@media(min-width: 1200px)
+{
+  .i-lg-1 {width: 8.33%;}
+  .i-lg-2 {width: 16.66%;}
+  .i-lg-3 {width: 25%;}
+  .i-lg-4 {width: 33.33%;}
+  .i-lg-5 {width: 41.66%;}
+  .i-lg-6 {width: 50%;}
+  .i-lg-7 {width: 58.33%;}
+  .i-lg-8 {width: 66.66%;}
+  .i-lg-9 {width: 75%;}
+  .i-lg-10 {width: 83.33%;}
+  .i-lg-11 {width: 91.66%;}
+  .i-lg-12 {width: 100%;}
+}
+
+/* =======================================================================
+                            DESKTOP AND LAPTOP SCREEN
+========================================================================== */
+
+@media(max-width: 1199px) and (min-width: 992px)
+{
+  .i-md-1 {width: 8.33%;}
+  .i-md-2 {width: 16.66%;}
+  .i-md-3 {width: 25%;}
+  .i-md-4 {width: 33.33%;}
+  .i-md-5 {width: 41.66%;}
+  .i-md-6 {width: 50%;}
+  .i-md-7 {width: 58.33%;}
+  .i-md-8 {width: 66.66%;}
+  .i-md-9 {width: 75%;}
+  .i-md-10 {width: 83.33%;}
+  .i-md-11 {width: 91.66%;}
+  .i-md-12 {width: 100%;}
+}
+
+/* =======================================================================
+                            TABLET IPAD SCREEN
+========================================================================== */
+
+@media(max-width: 991px) and (min-width: 768px)
+{
+  .i-sm-1 {width: 8.33%;}
+  .i-sm-2 {width: 16.66%;}
+  .i-sm-3 {width: 25%;}
+  .i-sm-4 {width: 33.33%;}
+  .i-sm-5 {width: 41.66%;}
+  .i-sm-6 {width: 50%;}
+  .i-sm-7 {width: 58.33%;}
+  .i-sm-8 {width: 66.66%;}
+  .i-sm-9 {width: 75%;}
+  .i-sm-10 {width: 83.33%;}
+  .i-sm-11 {width: 91.66%;}
+  .i-sm-12 {width: 100%;}
+}
+
+/* =======================================================================
+                            SMALL SCREEN
+========================================================================== */
+
+@media(max-width: 767px)
+{
+  .i-xs-1 {width: 8.33%;}
+  .i-xs-2 {width: 16.66%;}
+  .i-xs-3 {width: 25%;}
+  .i-xs-4 {width: 33.33%;}
+  .i-xs-5 {width: 41.66%;}
+  .i-xs-6 {width: 50%;}
+  .i-xs-7 {width: 58.33%;}
+  .i-xs-8 {width: 66.66%;}
+  .i-xs-9 {width: 75%;}
+  .i-xs-10 {width: 83.33%;}
+  .i-xs-11 {width: 91.66%;}
+  .i-xs-12 {width: 100%;}
+}
+
+/*
+ ====================== COMMONS STYLES ===================================
+*/
+
+/* buttons class */
+
+/* custom class btn */
+.btns
+{
+  padding: 12px 20px;
+  border: none;
+  border-radius: 2px;
+  font-family: Condensed;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-size: 15px;
+}
+
+.btns i
+{
+  font-size
+}
+
+.btns:hover
+{
+  cursor: pointer;
+  opacity: 1;
+  background: rgba(0,0,0,.1);
+}
+
+.rdn-btn
+{
+  border-radius: 5px;
+}
+
+.crc-btn
+{
+  border-radius: 28px;
+}
+
+.rad-btn
+{
+    border-radius: 50%;
+}
+
+/* size btns */
+
+.sm-btn
+{
+  padding: 6px 12px !important;
+}
+
+.md-btn
+{
+  padding: 16px 24px !important;
+}
+
+.lg-btn
+{
+  padding: 22px 32px !important;
+}
+
+/* custom inputs fields */
+
+.normal-input
+{
+  padding: 8px 20px;
+  text-align: left;
+}
+
+.material-input
+{
+  padding: 8px 20px;
+  text-align: left;
+  font-family: Roboto;
+  text-align: center;
+}
+
+.material-input > input
+{
+  width: 100%;
+  padding: .5rem;
+  background-color: transparent;
+  border: 0;
+  transition: .6s;
+  border-bottom: 1px solid #eee;
+  outline: none;
+}
+
+.material-input input:focus
+{
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid rgb(24, 24, 24);
+}
+
+.material-input label,
+.material-input i
+{
+  display: block;
+}
+
+
+.flat-input
+{
+  padding: 8px 20px;
+  text-align: left;
+  border: none;
+  border-bottom: 3px solid black;
+  font-family: Condensed;
+}
+
+/* sizes input */
+
+.sm-input
+{
+  width: 120px !important;
+}
+
+.md-input
+{
+  width: 350px !important;
+}
+
+.lg-input
+{
+  width: 500px !important;
+}
+
+/* custom text */
+
+.left-text
+{
+  text-align: left;
+}
+
+.center-text
+{
+  text-align: center;
+}
+
+.right-text
+{
+  text-align: right;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.bold-100
+{
+    font-weight: 100;
+}
+
+.bold-200
+{
+    font-weight: 200;
+}
+
+.bold-300
+{
+    font-weight: 300;
+}
+
+.bold-400
+{
+    font-weight: 400;
+}
+
+.bold-500
+{
+    font-weight: 500;
+}
+
+.bold-600
+{
+    font-weight: 600;
+}
+
+.bold-700
+{
+    font-weight: 700;
+}
+
+.bold-800
+{
+    font-weight: 800;
+}
+
+.bold-900
+{
+    font-weight: 900;
+}
+
+.inherit
+{
+    font-weight: inherit;
+}
+
+.txt-size-100
+{
+    font-size: 1rem;
+}
+
+.txt-size-200
+{
+    font-size: 2rem;
+}
+
+.txt-size-300
+{
+    font-size: 3rem;
+}
+
+.txt-size-400
+{
+    font-size: 4rem;
+}
+
+.txt-size-500
+{
+    font-size: 5rem;
+}

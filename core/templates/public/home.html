@@ -5,23 +5,23 @@
 {% block dir %} Inicio {% endblock %}
 
 {% block body %}
-<section class="container grey-tail">
-    {% for post in posts %}
-        <article class="post">
-          <header>
-            <div>
-              <h1>{{ post['title'] }}</h1>
-              <div class="about">por {{ post['username'] }} publicado {{ post['created'].strftime('%Y-%m-%d') }}</div>
-            </div>
-            {% if g.user['id'] == post['author_id'] %}
-              <a class="action" href="{{ url_for('public.update', id=post['id']) }}">Editar</a>
-            {% endif %}
-          </header>
-          <p class="body">{{ post['body'] }}</p>
-        </article>
-        {% if not loop.last %}
-          <hr> Nada
+<section class="row tail">
+  {% for post in posts %}
+    <article class="i-lg-6 green-500 center">
+      <header>
+        <div class="i-lg-12">
+          <h1>{{ post['title'] }}</h1>
+          <div class="about">por {{ post['username'] }} publicado {{ post['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == post['author_id'] %}
+          <a class="btns" href="{{ url_for('public.update', id=post['id']) }}">Editar</a>
         {% endif %}
-    {% endfor %}
+      </header>
+      <p class="body">{{ post['body'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
 </section>
 {% endblock %}
