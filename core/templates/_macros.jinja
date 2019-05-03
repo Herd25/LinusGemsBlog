@@ -1,20 +1,38 @@
 {# started macros #}
 
+{%- macro section(class) %}
+<section class="{{ class }}">
+    {{ caller()|indent }}
+</section>
+{%- endmacro %}
+
+{%- macro article(class) %}
+<article class="{{ class }}">
+    {{ caller()|indent }}
+</article>
+{%- endmacro %}
+
+{%- macro header(class) %}
+<header class="{{ class }}">
+    {{ caller()|indent }}
+</header>
+{%- endmacro %}
+
 {%- macro modal(one, two, title) %}
-    <div class="{{ one }}">
-        <h2>{{ title }}</h2>
-        <div class="{{ two }}">
-            {{ caller()|indent }}
-        </div>
+<div class="{{ one }}">
+    <h2>{{ title }}</h2>
+    <div class="{{ two }}">
+        {{ caller()|indent }}
     </div>
+</div>
 {%- endmacro %}
 
 {%- macro input(type, name, id, value, custom) %}
-    <input class="{{ custom }}" type="{{ type }}" name="{{ name }}" id="{{ id }}" value="{{ value }}" />
+<input class="{{ custom }}" type="{{ type }}" name="{{ name }}" id="{{ id }}" value="{{ value }}" />
 {%- endmacro %}
 
 {%- macro button(value, icon, title, custom) %}
-    <input type="submit" class="fas fa {{ custom }}" value="{{ value }} {{ icon }}" title="{{ title }}">
+<input type="submit" class="fas fa {{ custom }}" value="{{ value }} {{ icon }}" title="{{ title }}">
 {%- endmacro %}
 
 {%- macro label(items) %}
@@ -32,45 +50,45 @@
 {%- endmacro %}
 
 {%- macro formulary(id, url, method, type, title, icon) %}
-    {#
-        #  enctype using fomats:
-          application/xwwwformurlencoded
-          multipart/formdata
-          text/plain
-    #}
-    <form id="{{ id }}" action="{{ url_for('{{ url }}') }}" method="{{ method }}" enctype="{{ type }}">
-        <div><i class="fas fawindowclose" title="cerrar" id="closesuscriber"></i></div>
-        <fieldset class="fieldset">
-            <legend class="fas fa">{{ title }} {{ icon }}</legend>
-            {{ caller()|e }}
-        </fieldset>
-    </form>
+{#
+    #  enctype using fomats:
+      application/xwwwformurlencoded
+      multipart/formdata
+      text/plain
+#}
+<form id="{{ id }}" action="{{ url_for('{{ url }}') }}" method="{{ method }}" enctype="{{ type }}">
+    <div><i class="fas fawindowclose" title="cerrar" id="closesuscriber"></i></div>
+    <fieldset class="fieldset">
+        <legend class="fas fa">{{ title }} {{ icon }}</legend>
+        {{ caller()|e }}
+    </fieldset>
+</form>
 {%- endmacro %}
 
-{%- macro search(id,url,method) %}
-    <form id="{{ id }}" action="{{ url_for(url) }}" method="{{ method }}">
-		<button id="btn-search"><i class="icon-search"></i></button>
-		<input type="search" name="search-result" id="search-result">
-		<section id="results">
-			<p id="container-result"></p>
-		</section>
-	</form>
+{%- macro search(id,class,icon,url,method) %}
+<form id="{{ id }}" action="{{ url_for(url) }}" method="{{ method }}">
+	<button id="btn-search"><i class="{{ class }}">{{ icon }}</i></button>
+	<input type="search" name="search-result" id="search-result">
+	<section id="results">
+		<p id="container-result"></p>
+	</section>
+</form>
 {%- endmacro %}
 
 {%- macro select(values, name, id, title) %}
-    <select name="{{ name }}" id="{{ id }}" title="{{ title }}">
-        {%- for key, item in values %}
-            <option value="{{ key }}">{{ item }}</option>
-        {%- endfor %}
-    </select>
+<select name="{{ name }}" id="{{ id }}" title="{{ title }}">
+    {%- for key, item in values %}
+        <option value="{{ key }}">{{ item }}</option>
+    {%- endfor %}
+</select>
 {%- endmacro %}
 
 {%- macro navbar(one, two) %}
-    <nav class="{{ one }}">
-		<ul class="{{ two }}">
-            {{ caller()|indent }}
-        </ul>
-    </nav>
+<nav class="{{ one }}">
+	<ul class="{{ two }}">
+        {{ caller()|indent }}
+    </ul>
+</nav>
 {%- endmacro %}
 
 {%- macro list(one, values) %}
@@ -84,7 +102,9 @@
 {%- macro ord_list(one, values) %}
 <ol class="{{ one }}">
     {% for element in values %}
-      <li>{{ element | join(', ') | safe | replace(',','') }}</li>
+        <li>
+            {{ element | join(', ') | safe | replace(',','') | urlize(40, True) }}
+        </li>
     {% endfor %}
 </ol>
 {%- endmacro %}
@@ -97,18 +117,24 @@
     {% endfor %}
 {%- endmacro %}
 
-{%- macro itemlist(one, values) %}
-    {%- for href, caption, class in values %}
-        <li class="{{ one }}"><a href="{{ href|safe }}"><i class="{{ class }}"></i>{{ caption }}</a></li>
-    {%- endfor %}
+{%- macro itemlisticons(values) %}
+    {% for url, title, class, name, caption in values %}
+        <li><a href="{{ url|safe }}" title="{{ title }}"><i class="{{ class }}">{{ name }}</i>{{ caption }}</a></li>
+    {% endfor %}
 {%- endmacro %}
 
 {%- macro ul(one, items) %}
-    <ul class="{{ one }}">
-        {%- for href, caption, icon in items %}
-            <li><a href="{{ href|safe }}"><i class="{{ icon }}"></i>{{ caption }}</a></li>
-        {%- endfor %}
-    </ul>
+<ul class="{{ one }}">
+    {%- for href, caption, icon, name in items %}
+        <li><a href="{{ href|safe }}"><i class="{{ icon }}">{{ name }}</i>{{ caption }}</a></li>
+    {%- endfor %}
+</ul>
+{%- endmacro %}
+
+{%- macro callul(class) %}
+<ul class="{{ class }}">
+    {{ caller() }}
+</ul>
 {%- endmacro %}
 
 {%- macro img(atributtes) %}
@@ -118,17 +144,17 @@
 {%- endmacro %}
 
 {%- macro container(one, two) %}
-    <div class="{{ one }}">
-	    <div class="{{ two }}">
-            {{ caller()|indent }}
-        </div>
+<div class="{{ one }}">
+    <div class="{{ two }}">
+        {{ caller()|indent }}
     </div>
+</div>
 {%- endmacro %}
 
 {%- macro contend(class, id) %}
-    <div class="{{ class }}" id="{{ id }}">
-        {{ caller()|indent }}
-    </div>
+<div class="{{ class }}" id="{{ id }}">
+    {{ caller()|indent }}
+</div>
 {%- endmacro %}
 
 {%- macro main() %}

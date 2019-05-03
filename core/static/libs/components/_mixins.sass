@@ -1,0 +1,48 @@
+// custom mixins from values
+
+=queries($size)
+    @each $item, $value in $medias
+        @if $item == $size
+            @if map-get($value, breackpoint) != null
+                @media screen and #{map-get($value, breackpoint)}
+                    @content
+
+=blocks($float,$padding,$limit, $name, $sufix, $value)
+    .table-
+        float: $float
+        padding: $padding
+        &::after
+            content: ""
+            clear: both
+            display: table
+    @if $value != null and $sufix != null
+        @for $i from 1 through $limit
+            @include queries($value)
+                .-#{$name}-#{$sufix}-#{$i}
+                    width: columns($i,$limit)
+    @else
+        @for $i from 1 through $limit
+            .-#{$name}-#{$i}
+                width: columns($i,$limit)
+
+
+=radius($rad)
+    -webkit-border-radius: $rad
+    -moz-border-radius: $rad
+    -ms-border-radius: $rad
+    -o-border-radius: $rad
+    border-radius: $rad
+
+=button($colors...)
+    @if $buttons
+        .button
+            display: inline-block
+            margin: 1em
+            color: map-get($flat-colors,nth($colors,1))
+
+            a
+                text-decoration: none
+            @if length($colors) > 1
+                @for $i from 2 through length($colors)
+                    &.#{nth($colors,$i)}
+                        color: map-get($flat-colors,nth($colors,$i))
