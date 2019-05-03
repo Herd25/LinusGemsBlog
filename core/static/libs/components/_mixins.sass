@@ -11,6 +11,8 @@
     .table-
         float: $float
         padding: $padding
+        height: auto
+        width: 100%
         &::after
             content: ""
             clear: both
@@ -46,3 +48,22 @@
                 @for $i from 2 through length($colors)
                     &.#{nth($colors,$i)}
                         color: map-get($flat-colors,nth($colors,$i))
+
+=jumbotrom($size)
+    .jumbotrom-#{$size}
+        width: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        height: $size
+
+=titles($size, $grow, $family, $color)
+    font-size: $size
+    font-weight: $grow
+    font-family: $family
+    padding: 1rem
+    color: $color
+
+=height($size)
+    min-height: $size

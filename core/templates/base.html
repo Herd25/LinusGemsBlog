@@ -46,14 +46,14 @@
         (url_for('static',filename='js/materialize.min.js')) ]) }}
         <title>{% block title %}{% endblock %} - LinusGems</title>
     </head>
-    <body id="ContentBody" class="white-100 lds-hourglass">
+    <body id="ContentBody" class="white-100 lds-hourglass delete">
         {%- call links.section("container grey-100") %}
-            {%- call links.header("row") -%}
-                {%- call links.contend("jumbotronmedium grey-100") -%}
+            {%- call links.header("table") -%}
+                {%- call links.contend("jumbotrom-200px grey-100") -%}
                     <h1>LinusGems - {% block dir %}{% endblock %}</h1>
                     <p>Bienvenido</p>
                 {%- endcall -%}
-                {%- call links.navbar("i-lg-6 teal lighten-2 wrapper-nav", "navigation i-lg-9") -%}
+                {#{%- call links.navbar("", "navigation") -%}
                     {% if g.user %}
                         <li><span>{{ g.user['username'] }}</span></li>
                         <li><a href="{{ url_for('public.create') }}" title="Crear un Post"><i class="material-icons">create</i></a></li>
@@ -63,25 +63,32 @@
                         <li><a href="{{ url_for('auth.login') }}">Inicia Sesion</a></li>
                         <li><a href="{{ url_for('auth.register') }}">Registrarse</a></li>
                     {% endif %}
-                {%- endcall -%}
-                {%- call links.navbar("i-lg-6 teal lighten-2 wrapper-nav", "row yellow relative") -%}
-                    {%- call links.contend("i-lg-6 grey-100") -%}
-                        {{ links.search("","material-icons","search","public.index","get") }}
-                    {%- endcall -%}
+                {%- endcall -%}#}
+                {%- call links.navbar("-cell-xl-12 mx-height teal", "navigation") -%}
                     {% if g.user %}
-                        <li><span>{{ g.user['username'] }}</span></li>
-                        <li><a href="{{ url_for('public.create') }}" title="Crear un Post"><i class="material-icons">create</i></a></li>
-                        <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesion</a></li>
-                    {% else %}
-                        {{ links.list("i-lg-6 absolutebt white",values=[ ('<li><a href="#"><i class="material-icons">settings</i></a></li>',
+                        {{ links.itemlisticons(values=[ (url_for('public.index'), "Inicio", "material-icons", "home",""), (url_for('public.index'), "Noticias", "material-icons", "fiber_new",""),
+                        (url_for('public.index'), "Notas Interesantes", "material-icons", "new_releases","") ]) }}
+                        {{ links.list("userstatus teal",values=[ ('<li><a href="#" title="Hola {0}"><i class="material-icons">account_circle</i></a></li>'.format(g.user["username"]),
                         '<ul>
                             <li>
-                                <a href="/auth/login" "title="iniciar sesion"><i class="material-icons">account_circle</i>Sesion</a>
+                                <a href="{0}" title="Editar Perfil"><i class="material-icons">face</i></a>
                             </li>
                             <li>
-                                <a href="#" title="iniciar sesion"><i class="material-icons">account_circle</i>Sesion</a>
+                                <a href="{1}" title="Crear un Post"><i class="material-icons">create</i></a>
                             </li>
-                        </ul>') ]) }}
+                            <li>
+                                <a href="{2}" title="Cerrar la Sesion"><i class="material-icons">power_settings_new</i></a>
+                            </li>
+                        </ul>'.format(url_for('public.index'),url_for('public.create'),url_for('auth.logout')) ) ]) }}
+                    {% else %}
+                        {{ links.itemlisticons(values=[ (url_for('public.index'), "Inicio", "material-icons", "home",""), (url_for('public.index'), "Noticias", "material-icons", "fiber_new",""),
+                        (url_for('public.index'), "Notas Interesantes", "material-icons", "new_releases","") ]) }}
+                        {{ links.list("userstatus teal",values=[ ('<li><a href="#" title="Session de Usuario"><i class="material-icons">settings</i></a></li>',
+                        '<ul>
+                            <li>
+                                <a href="{0}" title="iniciar Sesion"><i class="material-icons">account_circle</i></a>
+                            </li>
+                        </ul>'.format(url_for('auth.login'))) ]) }}
                     {% endif %}
                 {%- endcall -%}
             {%- endcall -%}
@@ -89,21 +96,21 @@
                 <div class="teal-text"> {{ messages }} </div>
             {% endfor %}
             {%- block body %}{%- endblock %}
-            {%- call items.contend("jumbotron wetasphalt") -%}
-                {%- call items.contend("i-lg-5") -%}
-                     <h5 class="textclauds">Unete y no te pierdas de las novedades Semanalmente</h5>
-                    {%- call items.navbar("i-lg-12 lighten-2 wrapper-nav", "icons-nav") -%}
+            {%- call items.contend("jumbotrom-400px wetasphalt") -%}
+                {%- call items.contend("i-lg-5 center") -%}
+                     <h5 class="customtitletwo">Unete y no te pierdas de las novedades Semanalmente</h5>
+                    {%- call items.navbar("i-lg-6", "navigation") -%}
                         {{ links.itemlisticons(values=[ ("#", "Siguenos en Facebook", "fab fa", "&#xf09a;",""),
                         ("#", "Siguenos en Twitter", "fab fa", "&#xf099;",""), ("#", "Suscribete al Canal de Youtube", "fab fa", "&#xf167;","") ]) }}
                     {%- endcall -%}
-                    <h5 class="textclauds">Contenido y Secciones Recomendadas</h5>
-                    {%- call items.navbar("i-lg-12 lighten-2 wrapper-nav", "left-direction") -%}
+                    <h5 class="customtitletwo">Contenido y Secciones Recomendadas</h5>
+                    {%- call items.navbar("i-lg-6", "navigation") -%}
                         {{ links.itemlisticons(values=[ (url_for('public.index'), "Segmento de Noticias", "material-icons", "import_contacts","Noticias"),
                         (url_for('public.index'), "Segmento de Notas", "material-icons", "library_books","Notas Destacadas"), (url_for('public.index'), "Segmento de Tutoriales", "material-icons", "receipt","Tutoriales"), ]) }}
                     {%- endcall -%}
                 {%- endcall -%}
-                {%- call items.contend("i-lg-12 concrete-800 static-bt") -%}
-                    <h1 class="textclauds">© LinusGems - 2019</h1>
+                {%- call items.contend("jumbotrom-50px concrete-800 statictcopy customtitleone") -%}
+                    <h1>© LinusGems - 2019</h1>
                 {%- endcall -%}
             {%- endcall -%}
         {%- endcall %}

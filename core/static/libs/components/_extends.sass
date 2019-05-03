@@ -3,7 +3,6 @@
 %reset
     margin: 0
     padding: 0
-    overflow: hidden
 
 %auto
     width: 100%
@@ -26,3 +25,29 @@
 %bottommg
     position: relative
     bottom: 100%
+
+%navbars
+    list-style: none
+    li
+       display: inline-block
+    a
+        text-decoration: none
+        color: white
+        display: block
+        padding: 1.2em
+        &:hover
+            background-color: rgba(0,0,0,.3)
+
+%staticbt
+    position: absolute
+    bottom: 0
+
+%statictp
+    position: absolute
+    top: 0
+
+%remove
+    overflow-x: hidden
+
+%scrooll
+    overflow-y: scroll

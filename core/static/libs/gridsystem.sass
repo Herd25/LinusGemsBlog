@@ -8,3 +8,73 @@
 //+button(map-keys($flat-colors)...)
 
 //+blocks(left,12,12,cell,md,mobile)
+
+/* ------- GLOBAL ----------*/
+*
+    @extend %reset
+
+.container
+    @extend %auto
+
+/* define height */
+.mx-height
+    +height(20px)
+
+/* navigation */
+.navigation
+    @extend %navbars
+
+    .userstatus
+        float: right
+        text-align: center
+        &:hover
+            ul
+                height: auto
+                overflow: visible
+        li
+            display: inline
+            width: 30px
+        ul
+            height: 0
+            overflow: hidden
+            transition: height 6s
+
+/* jumbotrom header */
++jumbotrom(200px)
+
+/* jumbotrom footer */
++jumbotrom(400px)
+
+/* jumbotrom mini */
++jumbotrom(50px)
+
+/* statict bt */
+.statictcopy
+    @extend %staticbt
+
+.delete
+    @extend %remove
+
+.flex
+    display: flex
+    align-content: space-around
+
+/* custom titles */
+.customtitleone
+    +titles(1.25rem, 800, sans-serif, white)
+
+/* custom titles */
+.customtitletwo
+    +titles(1rem, 800, sans-serif, white)
+
+.center
+    text-align: center
+
+.blockcenter
+    margin: 0 auto
+
+/* large desktop */
++blocks(left,12,12,cell,xl,desktop)
+
+/* buttons */
++button(map-keys($flat-colors)...)
