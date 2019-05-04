@@ -35,8 +35,27 @@
         color: white
         display: block
         padding: 1.2em
+        text-align: center
         &:hover
             background-color: rgba(0,0,0,.3)
+        i
+            display: block
+            padding: 0 0.1em
+
+%inlinenavbars
+    float: right
+    text-align: center
+    &:hover
+        ul
+            height: auto
+            overflow: visible
+    li
+        display: inline
+        width: 30px
+    ul
+        height: 0
+        overflow: hidden
+        transition: height 6s
 
 %staticbt
     position: absolute

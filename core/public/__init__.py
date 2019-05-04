@@ -1,36 +1,32 @@
 #!/usr/bin/env python3
 
+import datetime
 from flask import (
     Blueprint, flash, g, redirect, request, session, url_for, render_template
 )
 from werkzeug.exceptions import abort
 
 from core.auth import required_login
-from core.functions import get_edit_query, get_exists_data, get_query, get_delete_query
+from core.functions import (
+    get_edit_query, get_exists_data, get_query, get_delete_query, get_new_query
+    )
 
 home = Blueprint('public', __name__, url_prefix = '/')
 
-#### Required Auth #####
-
-@home.before_request
-def load_logget_user():
-    user_id = session.get('user_id')
-
-    if user_id is None:
-        g.user = None
-    else:
-        g.user = get_exists_data('SELECT * FROM user WHERE id = ?',(user_id,))
 
 #### Building Routes #####
 
-@home.route('/')
+@home.route('/', methods = ('GET', 'POST'))
 def index():
+    update = request.args.get('update', None)
+    if not update:
+        update = None
     post = get_query(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
+        'p.id, title, body, created, author_id, username',
+        'post p JOIN user u ON p.author_id = u.id',
+        'DESC'
     )
-    return render_template('public/home.html', posts = post)
+    return render_template('public/home.html', posts = post, update = update)
 
 @home.route('/create', methods = ('GET', 'POST'))
 @required_login
@@ -39,6 +35,7 @@ def create():
         title = request.form['title']
         body = request.form['body']
         error = None
+        time = datetime.datetime.now()
 
         if not title:
             error = 'Titulo requerido'
@@ -46,10 +43,10 @@ def create():
         if error is not None:
             flash(error)
         else:
-            get_edit_query(
-                'INSERT INTO post (title, body, author_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
+            get_new_query(
+                'post (title, body, created, author_id)',
+                '(?, ?, ?, ?)',
+                (title, body, time, g.user['id'])
             )
             return redirect(url_for('public.index'))
     return render_template('public/create.html')
@@ -58,11 +55,9 @@ def create():
 @required_login
 def update(id):
     post = get_exists_data(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' WHERE p.id = ?',
-        (id,)
-    )
+        'p.id, title, body, created, author_id, username',
+        'post p JOIN user u ON p.author_id = u.id',
+        'p.id', (id,) )
 
     if post is None:
         abort(404, "Post id {0} no existe..".format(id))
@@ -73,6 +68,7 @@ def update(id):
         title = request.form['title']
         body = request.form['body']
         error = None
+        time = datetime.datetime.now()
 
         if not title:
             error = 'Titulo Requerido'
@@ -81,11 +77,11 @@ def update(id):
             flash(error)
         else:
             get_edit_query(
-                'UPDATE post SET title = ?, body = ?'
-                ' WHERE id = ?',
-                (title, body, id)
+                'post', 'title = ?, body = ?, created = ?',
+                'id',
+                (title, body, time, id)
             )
-            return redirect(url_for('public.index'))
+            return redirect(url_for('public.index', update="Si"))
 
     return render_template('public/update.html', post=post)
 
@@ -93,11 +89,10 @@ def update(id):
 @required_login
 def delete(id):
     get_exists_data(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' WHERE p.id = ?',
-        (id,)
-    )
-    get_delete_query('DELETE FROM post WHERE id = ?', (id,))
+        'p.id, title, body, created, author_id, username',
+        'post p JOIN user u ON p.author_id = u.id','p.id',
+    (id,) )
+
+    get_delete_query('post', (id,))
 
     return redirect(url_for('public.index'))

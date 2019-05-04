@@ -35,19 +35,40 @@
     -o-border-radius: $rad
     border-radius: $rad
 
-=button($colors...)
+=button($x,$y,$colors...)
     @if $buttons
         .button
             display: inline-block
             margin: 1em
+            padding: $x $y
+            text-align: center
+            text-decoration: none
             color: map-get($flat-colors,nth($colors,1))
-
+            &:hover
+                cursor: pointer
+                color: white
             a
                 text-decoration: none
+
             @if length($colors) > 1
                 @for $i from 2 through length($colors)
                     &.#{nth($colors,$i)}
                         color: map-get($flat-colors,nth($colors,$i))
+
+=colors($id,$tipe,$colors...)
+    @if $tipe
+        @for $i from 1 through length($colors)
+            &.#{$id}-#{nth($colors,$i)}
+                background-color: map-get($tipe,nth($colors,$i))
+                padding: .2rem
+
+=textcolors($id,$tipe,$colors...)
+    @if $tipe
+        @for $i from 1 through length($colors)
+            &.txt-#{$id}-#{nth($colors,$i)}
+                background-color: map-get($tipe,nth($colors,$i))
+                font-weight: 600
+                text-decoration: none
 
 =jumbotrom($size)
     .jumbotrom-#{$size}

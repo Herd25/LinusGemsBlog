@@ -20,24 +20,48 @@
 .mx-height
     +height(20px)
 
+/* define height */
+.bd-height
+    +height(220px)
+
 /* navigation */
 .navigation
     @extend %navbars
 
     .userstatus
-        float: right
+        @extend %inlinenavbars
+
+/* image conatiner */
+img
+    width: 100%
+    height: 100%
+
+/* sliders */
+.slider
+    display: flex
+    height: 300px
+    > div
+        position: relative
+        margin: 1em 5px
+        width: 300px
+        padding: .2rem
         text-align: center
-        &:hover
-            ul
-                height: auto
-                overflow: visible
-        li
-            display: inline
-            width: 30px
-        ul
-            height: 0
-            overflow: hidden
-            transition: height 6s
+        img
+            opacity: .7
+            &:hover
+                cursor: pointer
+                opacity: 1
+        p
+            position: absolute
+            top: 50%
+            left: 10%
+            color: white
+            font-size: 1.25rem
+            font-weight: bold
+        a
+            position: absolute
+            bottom: 0
+            right: 0
 
 /* jumbotrom header */
 +jumbotrom(200px)
@@ -55,10 +79,6 @@
 .delete
     @extend %remove
 
-.flex
-    display: flex
-    align-content: space-around
-
 /* custom titles */
 .customtitleone
     +titles(1.25rem, 800, sans-serif, white)
@@ -67,14 +87,42 @@
 .customtitletwo
     +titles(1rem, 800, sans-serif, white)
 
+/* paddings and center */
 .center
     text-align: center
 
 .blockcenter
     margin: 0 auto
 
+.margin-bottom
+    margin-bottom: 80px
+
 /* large desktop */
 +blocks(left,12,12,cell,xl,desktop)
 
 /* buttons */
-+button(map-keys($flat-colors)...)
++button(5px,1rem,map-keys($flat-colors)...)
+
+/* create colors */
++colors(flat,$flat-colors,map-keys($flat-colors)...)
++colors(socials,$socials-color,map-keys($socials-color)...)
++colors(material,$material-color,map-keys($material-color)...)
+
+/* radial probe */
+.text-shadow
+    text-shadow: explosion(10,100px)
+
+/* align left */
+.flx
+    display: flex
+    flex-wrap: wrap
+
+/* span title */
+.spantitle
+    display: flex
+    span
+        padding: 1em
+        text-align: center
+        font-weight: bold
+        p
+            font-weight: normal

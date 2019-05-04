@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import os
-from flask import Flask
+from flask import Flask, session, g
+from core.functions import get_exists_data
 
 def create_app(test_config=None):
 
@@ -20,6 +21,17 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    #### Building Globals Request ######
+
+    @app.before_request
+    def load_logget_user():
+        user_id = session.get('user_id')
+
+        if user_id is None:
+            g.user = None
+        else:
+            g.user = get_exists_data('*','user','id',(user_id,))
 
     @app.route('/hello')
     def hello():

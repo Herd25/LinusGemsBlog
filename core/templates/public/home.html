@@ -7,17 +7,30 @@
 
 {% block body %}
 {%- call items.section("table") -%}
-  {%- call items.contend("-cell-xl-10 white blockcenter") -%}
-    {%- call items.container("table", "-cell-xl-12 white") -%}
+  {%- call items.contend("-cell-xl-10 white blockcenter flx") -%}
+    {%- call items.contend("-cell-xl-12 slider grey-100") -%}
+      {%- call items.contend("-cell-xl-2 teal") -%}
+        {{ items.img(atributtes=[ ("http://lorempixel.com/400/200/","imagen","noticia","noticia destacada") ]) }}
+        <p>Titulo de la noticia</p>
+        <a href="#" class="button textsilver teal">Ver Mas</a>
+      {%- endcall -%}
+    {%- endcall -%}
+
+    {% call items.contend("-cell-xl-8") %}
+      {% call items.section("-cell-xl-12 spantitle") %}
+        <span><strong>Ultimas</strong>&nbsp;Notas</span><hr><span><p>Lo más destacado en Noticias</p></span>
+      {% endcall %}
       {% for post in posts %}
-        {%- call items.article("-cell-xl-6 white blockcenter") -%}
+        {%- call items.article("-cell-xl-12") -%}
           {%- call items.article("-cell-xl-12") -%}
             {%- call items.contend("-cell-xl-12") -%}
               <h1 class="customtitleone" style="color: black;">{{ post['title'] }}</h1>
-              {%- call items.contend("about") -%}publicado por {{ post['username'] }} el {{ post['created'].strftime('%Y-%m-%d') }}{%- endcall -%}
+              {%- call items.contend("about") -%}
+                publicado por {{ post['username'] }} el {{ post['created'].strftime('%Y-%m-%d') }} {% if update %} Actualizado el {{ post['created'].strftime('%Y-%m-%d') }} a las {{ post['created'].strftime('%H-%M-%S') }} {% endif %}
+              {%- endcall -%}
             {%- endcall -%}
             {% if g.user['id'] == post['author_id'] %}
-              <a class="button" href="{{ url_for('public.update', id=post['id']) }}">Editar</a>
+              <a class="button teal" href="{{ url_for('public.update', id=post['id']) }}">Editar</a>
             {% endif %}
           {%- endcall -%}
           {%- call items.contend("-cell-xl-12") -%}
@@ -28,6 +41,10 @@
           <hr>
         {% endif %}
       {% endfor %}
+    {%- endcall -%}
+
+    {% call items.contend("-cell-xl-4 teal") %}
+      aside
     {%- endcall -%}
   {%- endcall -%}
 {%- endcall -%}
