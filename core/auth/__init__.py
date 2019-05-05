@@ -49,34 +49,6 @@ def register():
 
     return render_template('auth/register.html')
 
-@auth.route('/profile', methods = ('GET','POST'))
-@required_login
-def profile():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        error = None
-
-        if not username:
-            error = 'Nombre de usuario requerido'
-        elif not password:
-            error = 'Contraseña requerida'
-        elif get_exists_data('*','user','username',(username,)) is not None:
-            error = 'El Usuario {} ya esta registrado.'.format(username)
-        elif get_exists_data('*','user','password',(check_password_hash(password),)) is not None:
-            error = 'La contraseña no es valida intenta nuevamente.'
-
-        if error is None:
-            get_edit_query(
-                'user', 'username = ?, password = ?',
-                'id',
-                (username, password, g.user['id'])
-            )
-            return redirect(url_for('auth.profile'))
-
-        flash(error)
-
-    return render_template('auth/profile.html')
 
 @auth.route('/login', methods = ('GET', 'POST'))
 def login():

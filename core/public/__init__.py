@@ -8,7 +8,7 @@ from werkzeug.exceptions import abort
 
 from core.auth import required_login
 from core.functions import (
-    get_edit_query, get_exists_data, get_query, get_delete_query, get_new_query
+    get_edit_query, get_exists_data, get_query, get_delete_query, get_new_query, create_plot
     )
 
 home = Blueprint('public', __name__, url_prefix = '/')
@@ -33,7 +33,7 @@ def index():
 def create():
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['body']
+        body = request.form['TextEditor']
         error = None
         time = datetime.datetime.now()
 
@@ -66,7 +66,7 @@ def update(id):
 
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['body']
+        body = request.form['TextEditor']
         error = None
         time = datetime.datetime.now()
 
@@ -96,3 +96,39 @@ def delete(id):
     get_delete_query('post', (id,))
 
     return redirect(url_for('public.index'))
+
+@home.route('/profile', methods = ('GET','POST'))
+@required_login
+def profile():
+    bar = create_plot()
+    post = get_query(
+        'p.id, title, body, created, author_id, username',
+        'post p JOIN user u ON p.author_id = u.id',
+        'DESC'
+    )
+
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        error = None
+
+        if not username:
+            error = 'Nombre de usuario requerido'
+        elif not password:
+            error = 'Contraseña requerida'
+        elif get_exists_data('*','user','username',(username,)) is not None:
+            error = 'El Usuario {} ya esta registrado.'.format(username)
+        elif get_exists_data('*','user','password',(check_password_hash(password),)) is not None:
+            error = 'La contraseña no es valida intenta nuevamente.'
+
+        if error is None:
+            get_edit_query(
+                'user', 'username = ?, password = ?',
+                'id',
+                (username, password, g.user['id'])
+            )
+            return redirect(url_for('auth.profile'))
+
+        flash(error)
+
+    return render_template('public/profile.html', plot=bar, myposts=post)

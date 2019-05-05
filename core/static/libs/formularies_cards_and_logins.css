@@ -90,3 +90,13 @@
   background: rgba(0,0,0,.2);
   cursor: pointer;
 }
+
+.actionsbtn
+{
+  display: flex;
+}
+
+.padding-3
+{
+  padding: 2rem;
+}

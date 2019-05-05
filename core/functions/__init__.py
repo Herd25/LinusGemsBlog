@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+import plotly
+import plotly.graph_objs as go
+import pandas as pd
+import numpy as np
+import json
 from core.database import get_db
 
 ### Make Functionalitys from queries ##
@@ -30,3 +35,22 @@ def get_exists_data(TIPE,TABLE,KEY,VAL):
     result = db.execute('SELECT {0} FROM {1} WHERE {2} = ?'.format(TIPE,TABLE,KEY),VAL).fetchone()
 
     return result
+
+### Create Data Analistyc ####
+
+def create_plot():
+    N = 40
+    x = np.linspace(0,1,N)
+    y = np.random.randn(N)
+    df = pd.DataFrame({ 'x' : x, 'y' : y })
+
+    data = [
+        go.Bar(
+            x = df['x'],
+            y = df['y']
+        )
+    ]
+
+    graphJsonData = json.dumps(data, cls = plotly.utils.PlotlyJSONEncoder)
+
+    return graphJsonData

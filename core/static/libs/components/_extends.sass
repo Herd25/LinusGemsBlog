@@ -70,3 +70,43 @@
 
 %scrooll
     overflow-y: scroll
+
+%table
+    width: 100%
+    padding: 1rem
+    border-collapse: collapse !important
+
+    th
+        td
+            padding: 1rem
+            margin: 0
+            border: 1px solid grey
+
+%materialtable
+    @extend %table
+    th
+        td
+            padding: 1rem
+            margin: 0
+            border: none !important
+            border-bottom: 1px solid grey !important
+
+%flattable
+    @extend %table
+    th
+        td
+            padding: 1rem
+            margin: 0
+            border: none !important
+
+%hoveritemstable
+    thead:hover
+        tr
+            background: transparent
+            cursor: text
+    tr
+        background: rgba(0,0,0,.2) !important
+        cursor: pointer !important
+
+%btnactionstable
+    display: flex

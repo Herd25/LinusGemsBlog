@@ -106,7 +106,7 @@ img
 /* create colors */
 +colors(flat,$flat-colors,map-keys($flat-colors)...)
 +colors(socials,$socials-color,map-keys($socials-color)...)
-+colors(material,$material-color,map-keys($material-color)...)
+//+colors(material,$material-color,map-keys($material-color)...)
 
 /* radial probe */
 .text-shadow
@@ -117,6 +117,10 @@ img
     display: flex
     flex-wrap: wrap
 
+/* minimal padding */
+.padding-3
+    padding: 2rem
+
 /* span title */
 .spantitle
     display: flex
@@ -126,3 +130,16 @@ img
         font-weight: bold
         p
             font-weight: normal
+
+/* add table stylesheet */
+.custom-table-l
+    @extend %table
+
+.custom-table-material-l
+    @extend %materialtable
+
+.custom-table-flat-l
+    @extend %flattable
+
+.actionsbtn
+    @extend %btnactionstable
