@@ -106,7 +106,12 @@ img
 /* create colors */
 +colors(flat,$flat-colors,map-keys($flat-colors)...)
 +colors(socials,$socials-color,map-keys($socials-color)...)
-//+colors(material,$material-color,map-keys($material-color)...)
++colors(material,$material-color,map-keys($material-color)...)
+
+/* create text colors */
++textcolors(flat,$flat-colors,map-keys($flat-colors)...)
++textcolors(socials,$socials-color,map-keys($socials-color)...)
++textcolors(material,$material-color,map-keys($material-color)...)
 
 /* radial probe */
 .text-shadow
@@ -132,14 +137,27 @@ img
             font-weight: normal
 
 /* add table stylesheet */
-.custom-table-l
+.custom-table
     @extend %table
 
-.custom-table-material-l
+.custom-table-material
     @extend %materialtable
 
-.custom-table-flat-l
+.custom-table-flat
     @extend %flattable
 
 .actionsbtn
     @extend %btnactionstable
+
+/* custom editor */
+.custom-editor
+    @extend %customeditorbase
+
+.TextContendEditor
+    @extend %framecontent
+
+.actionbuttons-editor
+   @extend %actionsbuttons
+
+.actionsTextButtonEditor
+    @extend %actionsformularytexteditor

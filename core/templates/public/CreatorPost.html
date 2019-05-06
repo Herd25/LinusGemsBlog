@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% import "_macros.jinja" as items with context %}
+
+{% block title %} Creador {% endblock %}
+
+{% block dir %} Crear un Post {% endblock %}
+
+{% block body %}
+{%- call items.container("table", "-cell-xl-10 material-white blockcenter flx") %}
+    {% if directory == 'CreatePost' %}
+        {%- call items.section("-cell-xl-12 custom-editor") %}
+            {{ items.titles("h2","padding-3","Creacion de Posts") }}
+                {%- call items.callerform("CreationPost","#","post","multipart/formdata") %}
+                    {%- call items.contend("-cell-xl-8 blockcenter") %}
+                        <center><i class="material-icons prefix">turned_in</i></center>
+                        {{ items.titles("h2","padding-3","Titulo") }}
+                        {{ items.input("text", "title", "TitleTextEditor", "{}".format(request.form['title']), "") }}
+                    {%- endcall %}
+
+                    {{ items.titles("h2","padding-3","Redactar Cuerpo") }}
+
+                    {%- call items.contend("-cell-xl-8 blockcenter actionbuttons-editor","ActionButtons") %}
+                        {{ items.buttonicon(values=[ ("Negrita","btn","button","material-icons","format_bold"),
+                        ("Italica","btn","button","material-icons","format_italic"), ("Subrayar","btn","button","material-icons","format_strikethrough"),
+                        ("Tachado","btn","button","material-icons","format_underlined"), ("Formato Subscript","btn","button","material-icons","format_textdirection_l_to_r"),
+                        ("Formato Descrip","btn","button","material-icons","format_textdirection_r_to_l"), ("Seleccionar Todo","btn","button","material-icons","select_all"),
+                        ("Copiar","btn","button","material-icons","file_copy"), ("Cortar","btn","button","material-icons","compare_arrows"),
+                        ("Pegar","btn","button","material-icons","insert_drive_file"), ("Alinear a la Derechar","btn","button","material-icons","format_align_left"),
+                        ("Justificar Parrafos","btn","button","material-icons","format_align_justify"), ("Alinear al Centro","btn","button","material-icons","format_align_center"),
+                        ("Alinear a la Izquierda","btn","button","material-icons","format_align_right"), ("Color de Fondo","btn","button","material-icons","format_color_fill"),
+                        ("Quitar Color","btn","button","material-icons","format_color_reset"), ("Color de Texto","btn","button","material-icons","format_color_text")
+                        ]) }}
+
+                        {{ items.input("color", "ColorPicker", "ColorPicker", "#fff00f", "") }}
+
+                        <label title="Tamaño de Letra" class="material-icons">format_size</label>
+                        {{ items.select("", "FontSize", "Tamaño de Letra", options=[ ("1", "1"), ("2", "2"),
+                        ("3", "3"), ("4", "4"), ("5", "5"), ("6", "6"), ("7", "7"), ("8", "8"),
+                        ("9", "9"), ("10", "10")
+                        ]) }}
+
+                        <label title="Tipo de Fuente" class="material-icons">font_download</label>
+                        {{ items.select("", "TypeFont", "Tipo de Fuente", options=[ ("Arial", "Arial"), ("Helvetica", "Helvetica"),
+                        ("Console", "Console"), ("Open Sans", "Open Sans"), ("Ubuntu", "Ubuntu")
+                        ]) }}
+
+                        <label title="Titulos" class="material-icons">title</label>
+                        {{ items.select("", "TitleSet", "Titulos", options=[ ("H1", "Title 1 &lt;h1&gt;"), ("H2", "Title 1 &lt;h1&gt;"),
+                        ("H3", "Title 1 &lt;h1&gt;"), ("H4", "Title 1 &lt;h1&gt;"), ("H5", "Title 1 &lt;h1&gt;"), ("H6", "Title 1 &lt;h1&gt;")
+                        ]) }}
+
+                        {{ items.buttonicon(values=[ ("Aumentar Sangria","btn","button","material-icons","format_indent_increase"),
+                        ("Disminuir Sangria","btn","button","material-icons","format_indent_decrease"), ("Aumentar Espaceado","btn","button","material-icons","format_line_spacing"),
+                        ("Listas","btn","button","material-icons","format_list_bulleted"), ("Lista Numerica","btn","button","material-icons","format_list_numbered"),
+                        ("Invertir Lista","btn","button","material-icons","format_list_numbered_rtl"), ("Añadir Comillas dobles","btn","button","material-icons","format_quote"),
+                        ("Lista Desordenada","btn","button","material-icons","list"), ("Invertir Lista Desordenada","btn","button","material-icons","toc"),
+                        ("Insertar Archivo Multimedia","btn","button","material-icons","perm_media"), ("Insertar una Imagen","btn","button","material-icons","insert_photo"),
+                        ("Insertar un Archivo","btn","button","material-icons","attach_file"), ("Colocar Direcion IP","btn","button","material-icons","http"),
+                        ("Añadir Vinculo","btn","button","material-icons","link"), ("Quitar Vinculo","btn","button","material-icons","link_off"),
+                        ("Deshacer Cambios","btn","button","material-icons","undo"), ("Rehacer Cambios","btn","button","material-icons","redo"),
+                        ("Ver HTML","btn","button","material-icons","code"), ("Activar o Desactivar Edicion","btn","button","material-icons","visibility")
+                        ]) }}
+                    {%- endcall %}
+
+                    {%- call items.contend("TextContendEditor -cell-xl-8 blockcenter","ActionSendButtons") %}
+                        {{ items.input("hidden", "TextContentEditor", "TextContentEditor", "{}".format(request.form['TextContentEditor']), "") }}
+                        <center><iframe id="MyEditorPost" name="TextEditor"></iframe></center>
+                    {%- endcall %}
+
+                    {%- call items.container("-cell-xl-8 blockcenter actionsTextButtonEditor", "-cell-xl-12 MyActionButtons") -%}
+                        {{ items.buttonicon(values=[ ("Guardar","btn","submit","material-icons","save"),
+                        ("Publicar","btn","submit","material-icons","send"), ("Cancelar","btn","submit","material-icons","cancel"),
+                        ("Obtener vista Previa","btn","button","material-icons","visibility") ]) }}
+                    {%- endcall %}
+                {%- endcall %}
+        {%- endcall %}
+    {% elif directory == 'UpdatePost' %}
+        <section class="container grey-tail">
+            <form method="post" class="col s12">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">turned_in</i>
+                    <label for="title">Titulo</label>
+                    <input name="title" id="title"
+                      value="{{ request.form['title'] or post['title'] }}" required>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">file</i>
+                    <label for="body">Cuerpo</label>
+                    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+                    <iframe id="ContentTextEditor" frameborder="0"></iframe>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit">Actualizar
+                    <i class="material-icons right">edit</i>
+                </button>
+            </form>
+            <hr>
+            <form action="{{ url_for('public.delete', id=post['id']) }}" method="post" class="col s12">
+                <button class="btn waves-effect waves-light" type="submit">Borrar
+                    <i class="material-icons right">clear</i>
+                </button>
+            </form>
+        </section>
+        <script>
+            window.onload = () => {
+                let dbdata = {{ post.body }};
+                let iframe = document.getElementById('#ContentTextEditor');
+                iframe.document.getElementsByTagName('body')[0].textContent = dbdata;
+                alert(dbdata)
+            }
+        </script>
+    {% endif %}
+{%- endcall %}
+{% endblock %}

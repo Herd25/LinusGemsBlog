@@ -27,8 +27,18 @@
 </div>
 {%- endmacro %}
 
+{%- macro titles(type,class,text) %}
+<center><{{ type }} class="{{ class }}" >{{ text }}</{{ type }}></center>
+{%- endmacro %}
+
+{%- macro buttonicon(values) %}
+    {% for title, class1, type, class2, iconname in values %}
+        <button title="{{ title }}" class="{{ class1 }}" type="{{ type }}"><i class="{{ class2 }}">{{ iconname }}</i></button>
+    {% endfor %}
+{%- endmacro %}
+
 {%- macro input(type, name, id, value, custom) %}
-<input class="{{ custom }}" type="{{ type }}" name="{{ name }}" id="{{ id }}" value="{{ value }}" />
+<input class="{{ custom }}" type="{{ type }}" name="{{ name }}" id="{{ id }}" value="{{ value }}" required/>
 {%- endmacro %}
 
 {%- macro button(value, icon, title, custom) %}
@@ -60,8 +70,14 @@
     <div><i class="fas fawindowclose" title="cerrar" id="closesuscriber"></i></div>
     <fieldset class="fieldset">
         <legend class="fas fa">{{ title }} {{ icon }}</legend>
-        {{ caller()|e }}
+        {{ caller()|indent }}
     </fieldset>
+</form>
+{%- endmacro %}
+
+{%- macro callerform(id,url,method,type) %}
+<form id="{{ id }}" action="{{ url }}" method="{{ method }}" enctype="{{ type }}">
+    {{ caller()|indent }}
 </form>
 {%- endmacro %}
 
@@ -75,10 +91,10 @@
 </form>
 {%- endmacro %}
 
-{%- macro select(values, name, id, title) %}
+{%- macro select(name, id, title, options) %}
 <select name="{{ name }}" id="{{ id }}" title="{{ title }}">
-    {%- for key, item in values %}
-        <option value="{{ key }}">{{ item }}</option>
+    {%- for option, value in options %}
+        <option value="{{ value }}">{{ option }}</option>
     {%- endfor %}
 </select>
 {%- endmacro %}
@@ -161,6 +177,17 @@
     {{ caller()|indent }}
     {%- block content %}
 	{%- endblock %}
+{%- endmacro %}
+
+{%- macro table(class, values) %}
+<table class="{{ class }}">
+    {% for items in values %}
+        <tr>
+            {{ items | join(', ') | safe | replace(',','') }}
+        </tr>
+    {% endfor %}
+    {{ caller() | indent }}
+</table>
 {%- endmacro %}
 
 {# Especial macros #}

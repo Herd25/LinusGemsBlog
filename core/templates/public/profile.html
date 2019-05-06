@@ -6,80 +6,61 @@
 {% block dir %} Perfil de {{ g.user['username'] }} {% endblock %}
 
 {% block body %}
-    {%- call items.section("table") -%}
-        {%- call items.contend("-cell-xl-10 white blockcenter flx") -%}
-            {%- call items.contend("-cell-xl-12") -%}
-                <center><h2 class="padding-3">Hola Bienvenido {{ g.user['username'] }}</h2></center>
+    {%- call items.container("table","-cell-xl-10 material-white blockcenter flx") -%}
+        {%- call items.contend("-cell-xl-12") -%}
+            {{ items.titles("h2","padding-3","Hola Bienvenido {0}".format(g.user['username'])) }}
+        {%- endcall -%}
+
+        {%- call items.contend("-cell-xl-12") -%}
+            {{ items.titles("h4","padding-3","Resumen del Perfil") }}
+
+            {%- call items.contend("-cell-xl-11","charbart") -%}
+                <script>
+                    var graphs = {{ plot | safe }};
+                    Plotly.plot('charbart',graphs,{});
+                </script>
             {%- endcall -%}
 
             {%- call items.contend("-cell-xl-12") -%}
-                <center><h4 class="padding-3">Resumen del Perfil</h4></center>
-                {%- call items.contend("-cell-xl-11 white","charbart") -%}
-                    <script>
-                        var graphs = {{ plot | safe }};
-                        Plotly.plot('charbart',graphs,{});
-                    </script>
+                {{ items.titles("h3","padding-3","Todos tus Post") }}
+
+                {%- call items.contend("-cell-xl-12") -%}
+                    {% call items.table("custom-table",values=[ ('<th>id</th>','<th>titulo</th>','<th>creado</th>', '<th>estado</th>', '<th>acciones</th>') ]) %}
+                        {% for item in myposts %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.title }}</td>
+                                <td>{{ item.created }}</td>
+                                <td>"activo"</td>
+                                <td class="actionsbtn">
+                                    <a class="button txt-material-white material-yellow" href="{{ url_for('public.update', id=item.id) }}">Modificar</a>
+                                    <a class="button txt-material-white material-teal" href="#">Publicar</a>
+                                    <a class="button txt-material-white material-red" href="{{ url_for('public.delete', id=item.id) }}">Eliminar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endcall %}
                 {%- endcall -%}
 
                 {%- call items.contend("-cell-xl-12") -%}
-                    <center><h3 class="padding-3">Todos tus Post</h3></center>
-                    {%- call items.contend("-cell-xl-12") -%}
-                        <table class="hover-items-table custom-table-material">
-                            <tr>
-                                <th>id</th>
-                                <th>titulo</th>
-                                <th>creado</th>
-                                <th>estado</th>
-                                <th>acciones</th>
-                            </tr>
-                            {% for data in myposts %}
-                                {% if g.user['id'] == data['author_id'] %}
-                                <tr>
-                                    <td>{{ data.id }}</td>
-                                    <td>{{ data.title }}</td>
-                                    <td>{{ data.created }}</td>
-                                    <td>"activo"</td>
-                                    <td class="actionsbtn">
-                                        <a class="button textsilver yellow" href="{{ url_for('public.update', id=data['id']) }}">Modificar</a>
-                                        <a class="button textsilver teal" href="#">Publicar</a>
-                                        <a class="button textsilver red" href="{{ url_for('public.delete', id=data['id']) }}">Eliminar</a>
-                                    </td>
-                                </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </table>
-                    {%- endcall -%}
-                {%- endcall -%}
+                    {{ items.titles("h3","padding-3","Comentarios Recibidos") }}
 
-                {%- call items.contend("-cell-xl-12") -%}
-                    <center><h3 class="padding-3">Comentarios Recibidos</h3></center>
-                    {%- call items.contend("-cell-xl-12") -%}
-                        <table class="custom-table hover-table">
+                    {% call items.table("custom-table",values=[ ('<th>#</th>','<th>usuario</th>','<th>comentario</th>', '<th>post</th>', '<th>acciones</th>') ]) %}
+                        {% for item in myposts %}
                             <tr>
-                                <th>#</th>
-                                <th>usuario</th>
-                                <th>mensaje</th>
-                                <th>post</th>
-                                <th>acciones</th>
+                                <td>{{ item.id }}</td>
+                                <td>{{ g.user['username'] }}</td>
+                                <td>{{ item.body }}</td>
+                                <td>{{ item.title }}</td>
+                                <td class="actionsbtn">
+                                    <a class="button txt-material-white material-yellow" href="{{ url_for('public.update', id=item.id) }}">Modificar</a>
+                                    <a class="button txt-material-white material-teal" href="#">Publicar</a>
+                                    <a class="button txt-material-white material-red" href="{{ url_for('public.delete', id=item.id) }}">Eliminar</a>
+                                </td>
                             </tr>
-                            {% for data in myposts %}
-                                {% if g.user['id'] == data['author_id'] %}
-                                <tr>
-                                    <td>{{ data.id }}</td>
-                                    <td>{{ g.user['username'] }}</td>
-                                    <td>{{ data.body }}</td>
-                                    <td>{{ data.title }}</td>
-                                    <td class="actionsbtn">
-                                        <a class="button textsilver yellow" href="{{ url_for('public.update', id=data['id']) }}">Aprobar</a>
-                                        <a class="button textsilver teal" href="#">Censurar</a>
-                                        <a class="button textsilver red" href="{{ url_for('public.delete', id=data['id']) }}">Eliminar</a>
-                                    </td>
-                                </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </table>
-                    {%- endcall -%}
-                {%- endcall -%}
+                        {% endfor %}
+                    {% endcall %}
+                {% endcall %}
             {%- endcall -%}
         {%- endcall -%}
     {%- endcall -%}

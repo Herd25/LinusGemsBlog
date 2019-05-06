@@ -33,7 +33,8 @@ def index():
 def create():
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['TextEditor']
+        body = request.form['TextContentEditor']
+        print(body)
         error = None
         time = datetime.datetime.now()
 
@@ -49,7 +50,7 @@ def create():
                 (title, body, time, g.user['id'])
             )
             return redirect(url_for('public.index'))
-    return render_template('public/create.html')
+    return render_template('public/CreatorPost.html', directory="CreatePost")
 
 @home.route('/<int:id>/update', methods = ('GET','POST'))
 @required_login
@@ -66,7 +67,7 @@ def update(id):
 
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['TextEditor']
+        body = request.form['body']
         error = None
         time = datetime.datetime.now()
 
@@ -83,7 +84,7 @@ def update(id):
             )
             return redirect(url_for('public.index', update="Si"))
 
-    return render_template('public/update.html', post=post)
+    return render_template('public/CreatorPost.html', directory="UpdatePost", post=post)
 
 @home.route('/<int:id>/delete', methods = ('GET', 'POST'))
 @required_login

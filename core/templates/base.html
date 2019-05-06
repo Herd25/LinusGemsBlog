@@ -11,8 +11,7 @@
         {# macros links #}
         {% import "_macros.jinja" as links with context %}
         <!-- colors and libraries design -->
-        {{ links.styles(url=[ (url_for('static', filename='css/gridsystem.css')), (url_for('static', filename='libs/flat-colors.css')),
-        (url_for('static', filename='libs/material-design-colors.css')), (url_for('static', filename='libs/formularies_cards_and_logins.css')) ]) }}
+        {{ links.styles(url=[ (url_for('static', filename='css/gridsystem.css')) ]) }}
         <!-- icons fonts -->
         {{ links.styles(url=[ ('https://use.fontawesome.com/releases/v5.7.1/css/solid.css'), ('https://use.fontawesome.com/releases/v5.7.1/css/regular.css'),
         ('https://use.fontawesome.com/releases/v5.7.1/css/brands.css'), ('https://use.fontawesome.com/releases/v5.7.1/css/fontawesome.css') ]) }}
@@ -42,24 +41,23 @@
         <!-- Load Manifest mobile -->
         <!--<link rel="manifest" href="/manifest.json">-->
         <!-- Source Load Scripts -->
-        {{ links.script(url=[ (url_for('static',filename='js/datamanager.js')), (url_for('static',filename='js/materialize.js')),
-        (url_for('static',filename='js/materialize.min.js')), ("https://cdn.plot.ly/plotly-latest.min.js"), 
+        {{ links.script(url=[ (url_for('static',filename='js/datamanager.js')), ("https://cdn.plot.ly/plotly-latest.min.js"),
         ("https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js") ]) }}
         <title>{% block title %}{% endblock %} - LinusGems</title>
     </head>
-    <body id="ContentBody" class="white-100 lds-hourglass delete">
-        {%- call links.section("container grey-100") %}
+    <body id="ContentBody" class="material-white-100 lds-hourglass delete">
+        {%- call links.section("container material-grey-100") %}
             {%- call links.header("table") -%}
-                {%- call links.contend("jumbotrom-200px grey-100") -%}
+                {%- call links.contend("jumbotrom-200px material-grey-100") -%}
                     <h1>LinusGems - {% block dir %}{% endblock %}</h1>
                     <p>Bienvenido</p>
                 {%- endcall -%}
 
-                {%- call links.navbar("-cell-xl-12 mx-height teal", "navigation") -%}
+                {%- call links.navbar("-cell-xl-12 mx-height material-teal", "navigation") -%}
                     {% if g.user %}
                         {{ links.itemlisticons(values=[ (url_for('public.index'), "Inicio", "material-icons", "home",""), (url_for('public.index'), "Noticias", "material-icons", "fiber_new",""),
                         (url_for('public.index'), "Notas Interesantes", "material-icons", "new_releases","") ]) }}
-                        {{ links.list("userstatus teal",values=[ ('<li><a href="#" title="Hola {0}"><i class="material-icons">account_circle</i></a></li>'.format(g.user["username"]),
+                        {{ links.list("userstatus material-teal",values=[ ('<li><a href="#" title="Hola {0}"><i class="material-icons">account_circle</i></a></li>'.format(g.user["username"]),
                         '<ul>
                             <li>
                                 <a href="{0}" title="Editar Perfil"><i class="material-icons">face</i></a>
@@ -74,7 +72,7 @@
                     {% else %}
                         {{ links.itemlisticons(values=[ (url_for('public.index'), "Inicio", "material-icons", "home",""), (url_for('public.index'), "Noticias", "material-icons", "fiber_new",""),
                         (url_for('public.index'), "Notas Interesantes", "material-icons", "new_releases","") ]) }}
-                        {{ links.list("userstatus teal",values=[ ('<li><a href="#" title="Session de Usuario"><i class="material-icons">settings</i></a></li>',
+                        {{ links.list("userstatus material-teal",values=[ ('<li><a href="#" title="Session de Usuario"><i class="material-icons">settings</i></a></li>',
                         '<ul>
                             <li>
                                 <a href="{0}" title="iniciar Sesion"><i class="material-icons">account_circle</i></a>
@@ -90,7 +88,7 @@
 
             {%- block body %}{%- endblock %}
 
-            {%- call items.contend("jumbotrom-400px wetasphalt") -%}
+            {%- call items.contend("jumbotrom-400px flat-wetasphalt") -%}
                 {%- call items.contend("i-lg-5 center margin-bottom") -%}
                      <h5 class="customtitletwo">Unete y no te pierdas de las novedades Semanalmente</h5>
                     {%- call items.navbar("i-lg-6", "navigation") -%}
@@ -103,7 +101,7 @@
                         (url_for('public.index'), "Segmento de Notas", "material-icons", "library_books","Notas Destacadas"), (url_for('public.index'), "Segmento de Tutoriales", "material-icons", "receipt","Tutoriales"), ]) }}
                     {%- endcall -%}
                 {%- endcall -%}
-                {%- call items.contend("jumbotrom-50px concrete-800 statictcopy customtitleone") -%}
+                {%- call items.contend("jumbotrom-50px material-concrete-800 statictcopy customtitleone") -%}
                     <h1>© LinusGems - 2019</h1>
                 {%- endcall -%}
             {%- endcall -%}

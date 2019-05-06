@@ -6,8 +6,7 @@
 {% block dir %} Inicio {% endblock %}
 
 {% block body %}
-{%- call items.section("table") -%}
-  {%- call items.contend("-cell-xl-10 white blockcenter flx") -%}
+  {%- call items.container("table","-cell-xl-10 material-white blockcenter flx") -%}
     {%- call items.contend("-cell-xl-12 slider grey-100") -%}
       {%- call items.contend("-cell-xl-2 teal") -%}
         {{ items.img(atributtes=[ ("http://lorempixel.com/400/200/","imagen","noticia","noticia destacada") ]) }}
@@ -15,12 +14,10 @@
         <a href="#" class="button textsilver teal">Ver Mas</a>
       {%- endcall -%}
     {%- endcall -%}
-
     {% call items.contend("-cell-xl-8") %}
       {% call items.section("-cell-xl-12 spantitle") %}
         <span><strong>Ultimas</strong>&nbsp;Notas</span><hr><span><p>Lo más destacado en Noticias</p></span>
       {% endcall %}
-
       {% for post in posts %}
         {%- call items.article("-cell-xl-12") -%}
           {%- call items.article("-cell-xl-12") -%}
@@ -35,7 +32,7 @@
             {% endif %}
           {%- endcall -%}
           {%- call items.contend("-cell-xl-12") -%}
-            <p class="body">{{ post['body'] }}</p>
+            <p class="body">{{ post['body']|safe }}</p>
           {%- endcall -%}
         {%- endcall -%}
         {% if not loop.last %}
@@ -43,10 +40,8 @@
         {% endif %}
       {% endfor %}
     {%- endcall -%}
-
     {% call items.contend("-cell-xl-4 teal") %}
       aside
     {%- endcall -%}
   {%- endcall -%}
-{%- endcall -%}
 {% endblock %}

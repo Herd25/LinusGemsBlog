@@ -3,6 +3,7 @@
 %reset
     margin: 0
     padding: 0
+    box-sizing: border-box
 
 %auto
     width: 100%
@@ -40,7 +41,7 @@
             background-color: rgba(0,0,0,.3)
         i
             display: block
-            padding: 0 0.1em
+            padding: 0 0.1rem
 
 %inlinenavbars
     float: right
@@ -83,7 +84,10 @@
             border: 1px solid grey
 
 %materialtable
-    @extend %table
+    width: 100%
+    padding: 1rem
+    border-collapse: collapse !important
+
     th
         td
             padding: 1rem
@@ -92,7 +96,10 @@
             border-bottom: 1px solid grey !important
 
 %flattable
-    @extend %table
+    width: 100%
+    padding: 1rem
+    border-collapse: collapse !important
+
     th
         td
             padding: 1rem
@@ -110,3 +117,56 @@
 
 %btnactionstable
     display: flex
+
+
+%customeditorbase
+    input[type="text"]
+        width: 100%
+        padding: 10px 0
+        border: none
+        outline: none
+        border-bottom: 1px solid teal
+        text-align: center
+        label
+            margin: 0 auto
+            font-size: 1rem
+
+%actionsbuttons
+    input
+        width: 20px
+        border: none
+        margin: 10px 0
+        background-color: transparent
+    select
+        width: 10px
+        border: none
+        margin: 10px 0
+        background-color: transparent
+    button
+        padding: 1px 2px
+        background: none
+        outline: none
+        border: none
+        &:hover
+            cursor: pointer
+            color: teal
+
+%framecontent
+    padding: 1rem 0
+    iframe
+        width: 100%
+        height: 500px
+        border: none
+        border: 1px solid teal
+
+%actionsformularytexteditor
+    padding: 1rem 0
+    padding-left: 2rem
+    button
+        padding: 1px 2px
+        background: none
+        outline: none
+        border: none
+        &:hover
+            cursor: pointer
+            color: teal
