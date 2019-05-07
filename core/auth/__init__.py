@@ -47,7 +47,7 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return redirect(url_for('public.index'))
 
 
 @auth.route('/login', methods = ('GET', 'POST'))
@@ -70,7 +70,7 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return redirect(url_for('public.index'))
 
 @auth.route('/logout')
 def logout():

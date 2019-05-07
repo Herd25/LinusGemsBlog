@@ -35,12 +35,22 @@
     -o-border-radius: $rad
     border-radius: $rad
 
-=button($x,$y,$colors...)
+=shadow($shad)
+    -webkit-box-shadow: $shad
+    -moz-box-shadow: $shad
+    -ms-box-shadow: $shad
+    -o-box-shadow: $shad
+    box-shadow: $shad
+
+=button($padd,$colors...)
     @if $buttons
         .button
-            display: inline-block
+            display: inline-block !important
             margin: 1em
-            padding: $x $y
+            padding: $padd !important
+            outline: none !important
+            border: none
+            background: none
             text-align: center
             text-decoration: none
             color: map-get($flat-colors,nth($colors,1))

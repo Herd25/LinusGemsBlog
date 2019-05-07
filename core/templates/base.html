@@ -50,7 +50,7 @@
             {%- call links.header("table") -%}
                 {%- call links.contend("jumbotrom-200px material-grey-100") -%}
                     <h1>LinusGems - {% block dir %}{% endblock %}</h1>
-                    <p>Bienvenido</p>
+                    <p>{% block subtitle %}{% endblock %}</p>
                 {%- endcall -%}
 
                 {%- call links.navbar("-cell-xl-12 mx-height material-teal", "navigation") -%}
@@ -75,9 +75,9 @@
                         {{ links.list("userstatus material-teal",values=[ ('<li><a href="#" title="Session de Usuario"><i class="material-icons">settings</i></a></li>',
                         '<ul>
                             <li>
-                                <a href="{0}" title="iniciar Sesion"><i class="material-icons">account_circle</i></a>
+                                <a href="#" data-target="#SessionUser" data-toggle="modal" title="iniciar Sesion"><i class="material-icons">account_circle</i></a>
                             </li>
-                        </ul>'.format(url_for('auth.login'))) ]) }}
+                        </ul>') ]) }}
                     {% endif %}
                 {%- endcall -%}
             {%- endcall -%}

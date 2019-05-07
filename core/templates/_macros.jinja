@@ -18,8 +18,8 @@
 </header>
 {%- endmacro %}
 
-{%- macro modal(one, two, title) %}
-<div class="{{ one }}">
+{%- macro modal(id, one, two, title) %}
+<div id="{{ id }}" class="{{ one }}">
     <h2>{{ title }}</h2>
     <div class="{{ two }}">
         {{ caller()|indent }}
@@ -37,11 +37,11 @@
     {% endfor %}
 {%- endmacro %}
 
-{%- macro input(type, name, id, value, custom) %}
-<input class="{{ custom }}" type="{{ type }}" name="{{ name }}" id="{{ id }}" value="{{ value }}" required/>
+{%- macro input(type, name, id, value, placetext ,custom) %}
+<input class="{{ custom }}" type="{{ type }}" name="{{ name }}" id="{{ id }}" value="{{ value }}" placeholder="{{ placetext }}" required/>
 {%- endmacro %}
 
-{%- macro button(value, icon, title, custom) %}
+{%- macro buttonsend(value, icon, title, custom) %}
 <input type="submit" class="fas fa {{ custom }}" value="{{ value }} {{ icon }}" title="{{ title }}">
 {%- endmacro %}
 
@@ -59,15 +59,14 @@
     {%- endfor %}
 {%- endmacro %}
 
-{%- macro formulary(id, url, method, type, title, icon) %}
+{%- macro formulary(id, url, method, type, title, icon, custom) %}
 {#
     #  enctype using fomats:
       application/xwwwformurlencoded
       multipart/formdata
       text/plain
 #}
-<form id="{{ id }}" action="{{ url_for('{{ url }}') }}" method="{{ method }}" enctype="{{ type }}">
-    <div><i class="fas fawindowclose" title="cerrar" id="closesuscriber"></i></div>
+<form class="{{ custom }}" id="{{ id }}" action="{{ url_for(url) }}" method="{{ method }}" enctype="{{ type }}">
     <fieldset class="fieldset">
         <legend class="fas fa">{{ title }} {{ icon }}</legend>
         {{ caller()|indent }}

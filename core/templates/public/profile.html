@@ -5,6 +5,8 @@
 
 {% block dir %} Perfil de {{ g.user['username'] }} {% endblock %}
 
+{% block subtitle %} Resumen de la Actividad {% endblock %}
+
 {% block body %}
     {%- call items.container("table","-cell-xl-10 material-white blockcenter flx") -%}
         {%- call items.contend("-cell-xl-12") -%}
@@ -25,7 +27,7 @@
                 {{ items.titles("h3","padding-3","Todos tus Post") }}
 
                 {%- call items.contend("-cell-xl-12") -%}
-                    {% call items.table("custom-table",values=[ ('<th>id</th>','<th>titulo</th>','<th>creado</th>', '<th>estado</th>', '<th>acciones</th>') ]) %}
+                    {% call items.table("custom-table-material",values=[ ('<th>id</th>','<th>titulo</th>','<th>creado</th>', '<th>estado</th>', '<th>acciones</th>') ]) %}
                         {% for item in myposts %}
                             <tr>
                                 <td>{{ item.id }}</td>
@@ -45,12 +47,12 @@
                 {%- call items.contend("-cell-xl-12") -%}
                     {{ items.titles("h3","padding-3","Comentarios Recibidos") }}
 
-                    {% call items.table("custom-table",values=[ ('<th>#</th>','<th>usuario</th>','<th>comentario</th>', '<th>post</th>', '<th>acciones</th>') ]) %}
+                    {% call items.table("custom-table-flat",values=[ ('<th>#</th>','<th>usuario</th>','<th>comentario</th>', '<th>post</th>', '<th>acciones</th>') ]) %}
                         {% for item in myposts %}
                             <tr>
                                 <td>{{ item.id }}</td>
                                 <td>{{ g.user['username'] }}</td>
-                                <td>{{ item.body }}</td>
+                                <td>{{ item.body|safe }}</td>
                                 <td>{{ item.title }}</td>
                                 <td class="actionsbtn">
                                     <a class="button txt-material-white material-yellow" href="{{ url_for('public.update', id=item.id) }}">Modificar</a>

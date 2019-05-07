@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 import datetime
+import time
 from flask import (
-    Blueprint, flash, g, redirect, request, session, url_for, render_template
+    Blueprint, flash, g, redirect, request, session, url_for, render_template, Response
 )
 from werkzeug.exceptions import abort
 
@@ -28,6 +29,25 @@ def index():
     )
     return render_template('public/home.html', posts = post, update = update)
 
+@home.route('/<int:id>/article', methods = ('GET', 'POST'))
+def articles(id):
+    post = get_exists_data(
+        'p.id, title, body, created, author_id, username',
+        'post p JOIN user u ON p.author_id = u.id',
+        'p.id', (id,) )
+    return render_template('public/article.html', article = post)
+
+### CONTROLLER TIME ####
+
+@home.route('/time_feed')
+def time_feed():
+    def generate():
+            yield datetime.datetime.now().strftime("%H:%M:%S")
+            time.sleep(1)
+    return Response(generate(), mimetype='text/plain')
+
+#### USER CREATOR ROUTES ####
+
 @home.route('/create', methods = ('GET', 'POST'))
 @required_login
 def create():
@@ -50,7 +70,7 @@ def create():
                 (title, body, time, g.user['id'])
             )
             return redirect(url_for('public.index'))
-    return render_template('public/CreatorPost.html', directory="CreatePost")
+    return render_template('public/creator.html', directory="CreatePost")
 
 @home.route('/<int:id>/update', methods = ('GET','POST'))
 @required_login
@@ -67,7 +87,7 @@ def update(id):
 
     if request.method == 'POST':
         title = request.form['title']
-        body = request.form['body']
+        body = request.form['TextUpdateContentEditor']
         error = None
         time = datetime.datetime.now()
 
@@ -84,7 +104,7 @@ def update(id):
             )
             return redirect(url_for('public.index', update="Si"))
 
-    return render_template('public/CreatorPost.html', directory="UpdatePost", post=post)
+    return render_template('public/creator.html', directory="UpdatePost", post=post)
 
 @home.route('/<int:id>/delete', methods = ('GET', 'POST'))
 @required_login
@@ -97,6 +117,8 @@ def delete(id):
     get_delete_query('post', (id,))
 
     return redirect(url_for('public.index'))
+
+#### USER DATA PAGE ####
 
 @home.route('/profile', methods = ('GET','POST'))
 @required_login

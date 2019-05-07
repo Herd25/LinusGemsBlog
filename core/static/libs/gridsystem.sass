@@ -101,7 +101,7 @@ img
 +blocks(left,12,12,cell,xl,desktop)
 
 /* buttons */
-+button(5px,1rem,map-keys($flat-colors)...)
++button(1rem ,map-keys($flat-colors)...)
 
 /* create colors */
 +colors(flat,$flat-colors,map-keys($flat-colors)...)
@@ -161,3 +161,272 @@ img
 
 .actionsTextButtonEditor
     @extend %actionsformularytexteditor
+
+/* modals stylesheet */
+.modal
+    @extend %modalcontainer
+
+/* custom formularies */
+.fieldset
+    border: none
+    border: 1px solid teal
+    border-radius: 3px
+    margin: 1rem
+    legend
+        text-align: center
+        background-color: teal
+        color: white
+        padding: 1rem
+        border-radius: 3px
+
+#FormularySession
+    height: 0
+    visibility: hidden
+    transition: .6s ease
+    &.collapse
+        height: auto
+        visibility: visible
+    &.deactive
+        height: 0
+        visibility: hidden
+
+#FormularyRegister
+    height: 0
+    visibility: hidden
+    transition: .6s ease
+    &.collapse
+        height: auto
+        visibility: visible
+    &.deactive
+        height: 0
+        visibility: hidden
+
+/* custom inputs */
+.input
+    @extend %input
+
+.material-input
+    @extend %materialinput
+
+/* scrollbar settings */
+::-webkit-scrollbar
+    width: 5px
+
+::-webkit-scrollbar-track
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3)
+    border-radius: 10px
+
+::-webkit-scrollbar-thumb
+    border-radius: 10px
+    -webkit-box-shadow: inset 0 0 6px teal
+    &:hover
+        background-color: rgba(0,0,0,.5)
+
+/* blog notices stylesheet */
+.NoticeSpan
+    display: flex
+    margin: 1rem
+    &a
+        display: inline-block
+        width: 320px
+        text-decoration: none
+        color: teal
+        padding: 0
+        img
+            width: 100%
+            &:hover
+
+.NoticeArticle
+    text-align: center
+    padding: 1rem
+    a
+        color: teal
+        font-weight: bold
+        text-decoration: none
+        &:hover
+            color: rgba(0,0,0,.3)
+    p
+        display: inline-block
+        padding: 1rem 0
+
+/* popular notices */
+.PopularWeek
+    width: 100%
+    padding: 1rem
+    li
+        list-style: none
+        text-decoration: none
+        color: teal
+        div
+            a
+                display: inline-block
+                width: 100%
+                text-decoration: none
+                color: black
+                text-align: center
+                padding: 1rem
+                img
+                    width: 100%
+                h4
+                    color: teal
+                    &:hover
+                        color: rgba(0,0,0,.4)
+
+/* data user Post */
+.DataUserPost
+    > li
+        padding: 1rem
+        list-style: none
+        display: flex
+        width: 100%
+        justify-content: flex-start
+        align-items: center
+        img
+            width: 50px
+            margin: 0 1rem
+
+/* comment box manager */
+.comment-list
+    &:after
+        content: ''
+        width: 2px
+        height: 100%
+        position: absolute
+        left: 32px
+        top: 0
+        background-clip: #ffffff
+    &:before
+        content: ''
+        width: 7px
+        height: 7px
+        position: absolute
+        left: 27px
+        top: 0
+        +radius(50%)
+        border: 3px solid #eee
+        background-clip: #ffffff
+
+.comment-list
+    margin-top: 30px
+    position: relative
+    li
+        list-style: none
+        margin-bottom: 15px
+        display: block
+        position: relative
+        &:after
+            content: ''
+            display: block
+            clear: both
+            height: 0
+            width: 0
+
+    .comment-main-level
+        overflow: hidden
+        &:after
+            content: ''
+            width: 0
+            height: 0
+            display: block
+            clear: both
+
+    .comment-avatar
+        width: 65px
+        height: 65px
+        position: relative
+        z-index: 90
+        float: left
+        border: 3px solid #eee52e
+        +radius(50px)
+        +shadow(0 1px 2px rgba(0,0,0,.2))
+        overflow: hidden
+        img
+            width: 100%
+            height: 100%
+
+    .comment-box
+        width: 720px
+        float: right
+        position: relative
+        +shadow(0 1px 1px rgba(0,0,0,.15))
+
+        &:after
+            content: ''
+            width: 0
+            height: 0
+            position: absolute
+            display: block
+            border-width: 10px 12px 10px 0
+            border-style: solid
+            border-color: transparent white
+            top: 8px
+            left: -11px
+
+        &:before
+            border-width: 11px 13px 11px 0
+            border-color: transparent rgba(0,0,0,.4)
+            left: -12px
+
+    .comment-header
+        background-color: #fcfcfc
+        padding: 10px 12px
+        border-bottom: 1px solid #e5e5e5
+        overflow: hidden
+        +radius(4px 4px 0 0)
+
+        span
+            float: left
+            color: #595959
+            font-size: 13px
+            position: relative
+            top: 1px
+
+        .comment-name
+            color: teal
+            font-size: 14px
+            font-weight: 700
+            float: left
+            margin-right: 10px
+
+        i
+            float: right
+            margin-left: 14px
+            position: relative
+            top: 2px
+            color: #a6a6a6
+            cursor: pointer
+            transition: .3s ease
+            &:hover
+                color: #c7c7c7
+
+    .comment-content
+        background-color: #ffffff
+        padding: 12px
+        +radius(0 0 4px 4px)
+        font-size: 15px
+        color: #595959
+        
+        &.by-author
+            color: cyan
+        &:after
+            content: 'author'
+            background-color: blue
+            color: white
+            font-size: 12px
+            font-weight: 700
+            padding: 3px 5px
+            +radius(3px)
+
+
+
+.reply-list
+    padding-left: 80px
+    clear: both
+    margin-top: 15px
+
+    .comment-avatar
+        width: 50px
+        height: 50px
+
+    .comment-box
+        width: 610px

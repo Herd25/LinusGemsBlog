@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% import "_macros.jinja" as items with context %}
+
+{% block title %} {{ article.title }} {% endblock %}
+
+{% block dir %} Articulo {% endblock %}
+
+{% block subtitle %} {{ article.title }} {% endblock %}
+
+{% block body %}
+    {% call items.container("table", "-cell-xl-10 material-white blockcenter") %}
+       {% call items.contend("-cell-xl-12 DataUserPost") %}
+        {{ items.list_call(values=[ ('<img src="{}">'.format(url_for('static', filename='avatar/anonimus_avatar.png')),'<p>Posteado por {}</p>'.format(article.username)
+        ,'<span>.<span>','<span>Creado el {}</span>'.format(article.created.strftime('%Y-%m-%d'))) ]) }}
+        {{ article.body|safe }}
+       {% endcall %}
+
+       {% call items.contend("-cell-xl-12 DataUserPost") %}
+            {% call items.navbar("-cell-xl-10 blockcenter material-grey-100","comment-list") %}
+                {{ items.list_call(values=[ ('
+                    <div class="comment-main-level">
+                        <div class="comment-avatar"><img src="{0}"></div>
+
+                        <div class="comment-box">
+                            <div class="comment-header">
+                                <h6 class="comment-name by-author">ZeinsX</h6>
+                                <span>hace 10 minutos</span>
+                                <i class="material-icons">favorite_border</i>
+                                <i class="material-icons">grade</i>
+                                <i class="material-icons">reply</i>
+                            </div>
+                            <div class="comment-content">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim error rerum ullam nisi, voluptatem eligendi? Quam voluptatibus tempora optio. Aspernatur?
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="comment-list reply-list">
+                        <li>
+                            <div class="comment-avatar"><img src="{1}"></div>
+
+                            <div class="comment-box">
+                                <div class="comment-header">
+                                    <h6 class="comment-name by-author">Samantha</h6>
+                                    <span>hace 10 minutos</span>
+                                    <i class="material-icons">favorite_border</i>
+                                    <i class="material-icons">grade</i>
+                                    <i class="material-icons">reply</i>
+                                </div>
+                                <div class="comment-content">
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim error rerum ullam nisi, voluptatem eligendi? Quam voluptatibus tempora optio. Aspernatur?
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                '.format(url_for('static', filename='avatar/anonimus_avatar.png'), url_for('static', filename='avatar/avatar_female.png')),
+                '
+                    <div class="comment-main-level">
+                        <div class="comment-avatar"><img src="{0}"></div>
+
+                        <div class="comment-box">
+                            <div class="comment-header">
+                                <h6 class="comment-name by-author">Mauren</h6>
+                                <span>hace 5 minutos</span>
+                                <i class="material-icons">favorite_border</i>
+                                <i class="material-icons">grade</i>
+                                <i class="material-icons">reply</i>
+                            </div>
+                            <div class="comment-content">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim error rerum ullam nisi, voluptatem eligendi? Quam voluptatibus tempora optio. Aspernatur?
+                            </div>
+                        </div>
+                    </div>
+                '.format(url_for('static', filename='avatar/avatar.png'))
+                ) ]) }}
+            {% endcall %}
+       {% endcall %}
+    {% endcall %}
+{% endblock %}
