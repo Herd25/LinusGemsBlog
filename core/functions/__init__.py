@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 
+import os
 import plotly
 import plotly.graph_objs as go
 import pandas as pd
 import numpy as np
 import json
+from flask import current_app, g, send_from_directory
+from werkzeug.utils import secure_filename
 from core.database import get_db
 
 ### Make Functionalitys from queries ##
 
 def get_query(TYPE,TABLE,ORDER):
     db = get_db()
-    rows = db.execute('SELECT {0} FROM {1} ORDER BY created {2}'.format(TYPE,TABLE,ORDER)).fetchall()
+    rows = db.execute('SELECT {0} FROM {1} ORDER BY {2}'.format(TYPE,TABLE,ORDER)).fetchall()
 
     return rows
 
@@ -54,3 +57,15 @@ def create_plot():
     graphJsonData = json.dumps(data, cls = plotly.utils.PlotlyJSONEncoder)
 
     return graphJsonData
+
+### Recibe Profiles Image Data ####
+
+def save_image(filename):
+    if filename and allowed_file(filename):
+        file = secure_filename(filename)
+        filename.save(os.path.join(current_app.config['UPLOAD_FOLDER'], file))
+        return 'File Save'
+
+def allowed_file(filename):
+    Extension = set(['png', 'jpg', 'gif'])
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in Extension

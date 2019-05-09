@@ -16,7 +16,22 @@
        {% endcall %}
 
        {% call items.contend("-cell-xl-12 DataUserPost") %}
-            {% call items.navbar("-cell-xl-10 blockcenter material-grey-100","comment-list") %}
+            {% call items.callerform("-cell-xl-8 blockcenter ComentarySession", "{}".format(url_for('public.comments')), "post", "multipart/formdata") %}
+                {{ items.titles("h3","padding-3","Añade un Comentario") }}
+                {{ items.input("hidden", "postid", "postvalue", "{}".format(article.id), "" , "") }}
+                {{ items.input("hidden", "username", "nameuser", "{}".format(g.user['id']), "Nombre" , "material-input") }}
+                <textarea class="material-input" name="comentary" placeholder="Añade el comentario"></textarea>
+                {{ items.input("submit", "", "sendmessage", "Enviar", "" , "button txt-material-white material-teal") }}
+                viendo comentarios en tiempo real
+                {% for comm in commentaries %}
+                    {{ comm.id }}
+                    {{ comm.comment }}
+                    {{ comm.username }}
+                {% endfor %}
+            {% endcall %}
+
+            {% call items.navbar("-cell-xl-10 blockcenter material-grey-100 padding-2","comment-list") %}
+                {{ items.titles("h3","padding-3","Comentarios") }}
                 {{ items.list_call(values=[ ('
                     <div class="comment-main-level">
                         <div class="comment-avatar"><img src="{0}"></div>

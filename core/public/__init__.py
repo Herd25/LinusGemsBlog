@@ -25,17 +25,45 @@ def index():
     post = get_query(
         'p.id, title, body, created, author_id, username',
         'post p JOIN user u ON p.author_id = u.id',
-        'DESC'
+        'created DESC'
     )
     return render_template('public/home.html', posts = post, update = update)
 
 @home.route('/<int:id>/article', methods = ('GET', 'POST'))
 def articles(id):
+    comments = get_query(
+        'c.id, comment, user_id, username',
+        'comments c JOIN user u ON c.user_id = u.id',
+        'c.id'
+    )
     post = get_exists_data(
         'p.id, title, body, created, author_id, username',
         'post p JOIN user u ON p.author_id = u.id',
         'p.id', (id,) )
-    return render_template('public/article.html', article = post)
+    return render_template('public/article.html', article = post, commentaries = comments)
+
+### USER COMMENTS ####
+@home.route('/comments', methods = ('GET', 'POST'))
+def comments():
+    if request.method == 'POST':
+        post = request.form['postid']
+        username = request.form['username']
+        comment = request.form['comentary']
+        error = None
+
+        if not comment:
+            error = 'No se ha escrito el coemntario'
+
+        if error is not None:
+            flash(error)
+        else:
+            get_new_query(
+                'comments (comment, user_id, post_id)',
+                '(?, ?, ?)',
+                (comment, username, post)
+            )
+
+    return redirect(url_for('public.articles', id=post))
 
 ### CONTROLLER TIME ####
 
@@ -54,7 +82,6 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['TextContentEditor']
-        print(body)
         error = None
         time = datetime.datetime.now()
 
@@ -127,7 +154,12 @@ def profile():
     post = get_query(
         'p.id, title, body, created, author_id, username',
         'post p JOIN user u ON p.author_id = u.id',
-        'DESC'
+        'created DESC'
+    )
+    comments = get_query(
+        'c.id, comment, user_id, username, post_id, title',
+        'comments c JOIN user u ON c.user_id = u.id JOIN post p ON c.post_id = p.id',
+        'c.id'
     )
 
     if request.method == 'POST':
@@ -154,4 +186,4 @@ def profile():
 
         flash(error)
 
-    return render_template('public/profile.html', plot=bar, myposts=post)
+    return render_template('public/profile.html', plot=bar, myposts=post, comments =  comments)

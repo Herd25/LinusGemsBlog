@@ -281,18 +281,61 @@
             })
         }
 
-        /* calculate colapse items */
-        let collapse = $('a[data-toggle=collapse], button[data-toggle=collapse]');
-        let compare = $('form');
+        // create collapse formularie
+        let toggle = $('a[data-toggle=collapse], button[data-toggle=collapse]')
+        let itemcoll = $('#SessionUser')
 
-        if (collapse) {
-            collapse.addEventListener('click', (e) => {
-                e.preventDefault();
-                console.log(compare.length);
-                let collapseitem = collapse.dataset.target;
-                $(`${collapseitem}`).classList.remove('collapse')
-                $(`${collapseitem}`).classList.add('collapse')
+        if (itemcoll) {
+            console.log(`El item en su atributo es : ${$('form').getAttribute('id')}`)
+            let olditem = $('form').getAttribute('id')
+            itemcoll.addEventListener('click', (e) => {
+               if ( e.target.dataset.target == toggle.dataset.target) {
+                   let collapsible = $(`${toggle.dataset.target}`)
+                    console.log('si son iguales')
+
+                    if ( collapsible.className === '' ) {
+                        console.log('si esta vacia y no tine la clase active')
+                        $(`#${olditem}`).style.display = 'none'
+                        collapsible.className = 'active'
+                    } else {
+                        console.log('no esta vacia y si tiene la clase activa')
+                        collapsible.className = ''
+                        $(`#${olditem}`).style.display = 'block'
+                    }
+               } else {
+                   console.log('no son iguales')
+               }
+                console.log(`Los target del evento son : ${e.target.dataset.target}`)
+                console.log(`Los target del evento son : ${toggle.dataset.target}`)
             })
+        }
+
+        // LiveImagePreview
+        let event = $('#FileIcon');
+        let file = $('#fileicon');
+
+        event.addEventListener('click', (e) => {
+            file.click();
+            file.onchange = (e) => {
+                PreviewImage(file, '#FileIcon')
+            }
+        })
+
+        function PreviewImage(input, tag) {
+            if ( input.files && input.files[0] ) {
+                let reader = new FileReader();
+
+                reader.onload = (e) => {
+                    let node = `<img src="${e.target.result}" />`
+                    //let value = `<input type="file" name="avatar" value="${e.target.result}" hidden></input>`
+                    $(tag).innerHTML += node
+                   input.value = e.target.result
+                }
+
+                reader.readAsDataURL(input.files[0])
+            } else {
+                console.log('hubo un errro')
+            }
         }
 
         /* published current time */
@@ -302,9 +345,9 @@
                 fetch("/time_feed")
                 .then(resp => {
                     resp.text().then(t => time.innerHTML = t)
-                })
-            },1000)
+                });
+            },1000);
         }
     }
 
-})()
+})();

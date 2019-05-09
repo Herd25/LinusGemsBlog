@@ -18,33 +18,43 @@
     {%- endcall -%}
     {% call items.contend("-cell-xl-8") %}
       {% call items.modal("SessionUser","-cell-xl-5 modal material-teal","-cell-xl-12 material-white","Sesion de Usuario") %}
-        {% call items.formulary("FormularySession", "auth.login", "post", "multipart/formdata", "Iniciar Session", "&#xf007;", "collapse") %}
+        {% call items.formulary("FormularySession", "auth.login", "post", "multipart/formdata", "Iniciar Session", "&#xf007;", "") %}
           {% call items.contend("-cell-xl-12 padding-3") %}
             <label for="username"><i class="material-icons prefix">account_circle</i></label>
             {{ items.input("text", "username", "username", "", "Usuario", "material-input") }}
           {% endcall %}
 
           {% call items.contend("-cell-xl-12 padding-3") %}
-            <label for="password"><i class="material-icons prefix">mode_edit</i></label>
+            <label for="password"><i class="material-icons prefix">vpn_key</i></label>
             {{ items.input("password", "password", "password", "", "Contraseña", "material-input") }}
           {% endcall %}
 
-          <span><p>No eres Usuario aun entonces Registrate <a href="#" data-target="#FormularyRegister" data-toggle="collapse">Aqui</a></p></span>
+          <span><p>No eres Usuario aun entonces <a href="#" data-target="#FormularyRegister" data-toggle="collapse">Registrate</a></p></span>
           {{ items.buttonsend("Enviar", "&#xf1d8;", "Iniciar Sesion", "button txt-material-white material-teal") }}
         {% endcall %}
 
-        {% call items.formulary("FormularyRegister", "auth.register", "post", "multipart/formdata", "Registrarse", "&#xf007;", "") %}
-          {% call items.contend("-cell-xl-12 padding-3") %}
+        {% call items.formulary("FormularyRegister", "auth.register", "post", "multipart/form-data", "Registrarse", "&#xf007;", "") %}
+          {% call items.contend("-cell-xl-3 padding-3 CustomPreview", "FileIcon") %}
+            {{ items.input("file", "FileIcon", "fileicon", "", "Avatar", "CustomInputFile txt-material-white material-teal") }}
+            {{ items.buttonicon(values=[ ("Añade un Avatar", "CustomChooser", "button", "material-icons", "insert_photo") ]) }}
+          {% endcall %}
+
+          {% call items.contend("-cell-xl-7 padding-3") %}
             <label for="username"><i class="material-icons prefix">account_circle</i></label>
             {{ items.input("text", "username", "username", "", "Usuario", "material-input") }}
           {% endcall %}
 
           {% call items.contend("-cell-xl-12 padding-3") %}
-            <label for="password"><i class="material-icons prefix">mode_edit</i></label>
+            <label for="email"><i class="material-icons prefix">email</i></label>
+            {{ items.input("email", "email", "email", "", "Correo", "material-input") }}
+          {% endcall %}
+
+          {% call items.contend("-cell-xl-12 padding-3") %}
+            <label for="password"><i class="material-icons prefix">vpn_key</i></label>
             {{ items.input("password", "password", "password", "", "Tu contraseña", "material-input") }}
           {% endcall %}
 
-          <span><p>Si ya eres parte solo inicia Session <a href="#" data-target="#FormularySession" data-toggle="collapse">Aqui</a></p></span>
+          <span><p>Si ya eres parte solo <a href="#" data-target="#FormularyRegister" data-toggle="collapse">Inicia Session</a></p></span>
           {{ items.buttonsend("Enviar", "&#xf1d8;", "Registarse", "button txt-material-white material-teal") }}
         {% endcall %}
       {% endcall %}

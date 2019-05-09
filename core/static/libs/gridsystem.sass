@@ -126,6 +126,9 @@ img
 .padding-3
     padding: 2rem
 
+.padding-2
+    padding: 1rem
+
 /* span title */
 .spantitle
     display: flex
@@ -180,26 +183,54 @@ img
         border-radius: 3px
 
 #FormularySession
-    height: 0
-    visibility: hidden
+    height: auto
+    display: block
+    opacity: 1
     transition: .6s ease
-    &.collapse
-        height: auto
-        visibility: visible
-    &.deactive
-        height: 0
-        visibility: hidden
+    a
+        color: teal
 
 #FormularyRegister
-    height: 0
-    visibility: hidden
+    height: auto
+    display: none
+    opacity: 1
     transition: .6s ease
-    &.collapse
-        height: auto
-        visibility: visible
-    &.deactive
-        height: 0
-        visibility: hidden
+    &.active
+        display: block
+    a
+        color: teal
+
+.CustomPreview
+    *float: right
+    height: 150px
+    border: 1px solid teal
+    border-style: dashed
+    margin: 0 auto
+    margin-top: 10px
+    right: 15%
+    position: absolute
+    img
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%,-50%)
+    &:hover
+        border: 2px solid teal
+        border-style: dashed
+        color: rgba(0,0,0,.4)
+
+.CustomInputFile
+    opacity: 0
+
+.CustomChooser
+    margin: auto
+    background: none
+    outline: none
+    border: none
+    font-size: 1.2rem
+    color: teal
+    &:hover
+        color: rgba(0,0,0,.4)
 
 /* custom inputs */
 .input
@@ -226,7 +257,7 @@ img
 .NoticeSpan
     display: flex
     margin: 1rem
-    &a
+    a
         display: inline-block
         width: 320px
         text-decoration: none
@@ -345,7 +376,7 @@ img
             height: 100%
 
     .comment-box
-        width: 720px
+        width: 750px
         float: right
         position: relative
         +shadow(0 1px 1px rgba(0,0,0,.15))
@@ -387,6 +418,18 @@ img
             font-weight: 700
             float: left
             margin-right: 10px
+            
+            &.by-author
+            color: cyan
+
+            &:first-child:after
+                content: 'author'
+                background-color: blue
+                color: white
+                font-size: 12px
+                font-weight: 700
+                padding: 3px 5px
+                +radius(3px)
 
         i
             float: right
@@ -405,17 +448,6 @@ img
         +radius(0 0 4px 4px)
         font-size: 15px
         color: #595959
-        
-        &.by-author
-            color: cyan
-        &:after
-            content: 'author'
-            background-color: blue
-            color: white
-            font-size: 12px
-            font-weight: 700
-            padding: 3px 5px
-            +radius(3px)
 
 
 

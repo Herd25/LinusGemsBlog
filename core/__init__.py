@@ -2,6 +2,7 @@
 
 import os
 from flask import Flask, session, g
+from flask_mail import Mail, Message
 from core.functions import get_exists_data
 
 def create_app(test_config=None):
@@ -10,6 +11,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY = 'dev',
         DATABASE = os.path.join(app.instance_path,'db.sqlite'),
+        UPLOAD_FOLDER = os.path.dirname(os.path.join(os.path.abspath(__file__), 'core', 'static', 'avatar'))
     )
 
     if test_config is None:
@@ -33,6 +35,18 @@ def create_app(test_config=None):
         else:
             g.user = get_exists_data('*','user','id',(user_id,))
 
+    @app.route('/send-mail')
+    def send_mail():
+        try:
+            msg = Message("Enviando un Mensaje por Gmail",
+                sender="admin@linusgems.com",
+                recipients=["ruxexofoxi@simpleemail.info"])
+            msg.body = 'Mi mensaje de bienvenida'
+            mail.send(msg)
+            return 'Correo Enviado!'
+        except Exception as E:
+            return str(E)
+
     @app.route('/hello')
     def hello():
         return 'Hello World'
@@ -42,6 +56,7 @@ def create_app(test_config=None):
     from .public import home
 
     init_app(app)
+    mail = Mail(app)
     app.register_blueprint(auth)
     app.register_blueprint(home)
 
