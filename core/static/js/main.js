@@ -29,8 +29,8 @@ import { ManagerEdit } from "./profile.js"
         ActivePreview(event, file, '#FileIcon');
 
         /* published current time */
-        let time = $('#Timer')
-        timer(time,"/time_feed");
+        //let time = $('#Timer')
+        //timer(time,"/time_feed");
 
         /* edit profile functions */
         let about = $('#EditAbout');

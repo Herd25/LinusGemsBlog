@@ -52,10 +52,13 @@ def create_app(test_config=None):
         except Exception as E:
             return str(E)
 
-    @app.route('/js/<path:file>')
-    def send_js(file):
-        root_dir = os.path.dirname(os.getcwd())
-        return send_from_directory(os.path.join(root_dir, 'static', 'js'), file)
+    @app.route('/offiline.html')
+    def offiline():
+        return app.send_static_file('service/offiline.html')
+
+    @app.route('/sw.js')
+    def sw():
+        return app.send_static_file('service/sw.js')
 
     from .database import init_app
     from .auth import auth

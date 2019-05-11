@@ -1,0 +1,22 @@
+{
+    "name" : "LinusGemsBLog",
+    "short_name" : "LinusGems",
+    "Scope" : "/",
+    "start_url" : "/",
+    "display" : "standalone",
+    "orientation" : "portrait",
+    "background_color" : "#fff",
+    "description" : "Blog de LinusGems dedicado a temas linux",
+    "icons" : [
+        {
+            "src" : "../icon/android/android-icon-192x192.png",
+            "sizes" : "192x192",
+            "type" : "image/png"
+        },
+        {
+            "src" : "../icon/apple/apple-icon-180x180.png",
+            "sizes" : "180x180",
+            "type" : "image/png"
+        }
+    ]
+}

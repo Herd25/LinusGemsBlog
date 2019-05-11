@@ -8,7 +8,7 @@ class Init(object):
     TESTING = False
     APP_ROOT = os.path.dirname(os.path.abspath(__file__))
     UPLOAD_FOLDER = os.path.dirname(os.path.join(APP_ROOT, 'core', 'static', 'avatar'))
-    DATABASE = os.path.join(APP_ROOT, 'core', 'data', 'db.sqlite')
+    DATABASE = os.path.join(APP_ROOT, 'core', 'data', 'db.sqlite3')
     SECRET_KEY = os.urandom(16)
     #MAIL_SERVER = 'smtp.gmail.com'
     #MAIL_PORT = 465

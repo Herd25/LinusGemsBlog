@@ -20,33 +20,35 @@
         <!-- GoogleFonts -->
         {{ links.styles(url=[ ("https://fonts.googleapis.com/css?family=Roboto+Slab|Staatliches"), ("https://fonts.googleapis.com/icon?family=Material+Icons") ]) }}
         <!-- Load Apple favicons and mobile -->
-        {{ links.rel(value=[("apple-touch-icon","","","57x57",url_for('static', filename='favicon/apple/apple-icon-57x57.png')),
-        ("apple-touch-icon","","","60x60",url_for('static', filename='favicon/apple/apple-icon-60x60.png')),
-        ("apple-touch-icon","","","72x72",url_for('static', filename='favicon/apple/apple-icon-72x72.png')),
-        ("apple-touch-icon","","","76x76",url_for('static', filename='favicon/apple/apple-icon-76x76.png')),
-        ("apple-touch-icon","","","114x114",url_for('static', filename='favicon/apple/apple-icon-114x114.png')),
-        ("apple-touch-icon","","","120x120",url_for('static', filename='favicon/apple/apple-icon-120x120.png')),
-        ("apple-touch-icon","","","144x144",url_for('static', filename='favicon/apple/apple-icon-144x144.png')),
-        ("apple-touch-icon","","","152x152",url_for('static', filename='favicon/apple/apple-icon-152x152.png')),
-        ("apple-touch-icon","","","180x180",url_for('static', filename='favicon/apple/apple-icon-180x180.png'))
+        {{ links.rel(value=[("apple-touch-icon","","","57x57",url_for('static', filename='icon/apple/apple-icon-57x57.png')),
+        ("apple-touch-icon","","","60x60",url_for('static', filename='icon/apple/apple-icon-60x60.png')),
+        ("apple-touch-icon","","","72x72",url_for('static', filename='icon/apple/apple-icon-72x72.png')),
+        ("apple-touch-icon","","","76x76",url_for('static', filename='icon/apple/apple-icon-76x76.png')),
+        ("apple-touch-icon","","","114x114",url_for('static', filename='icon/apple/apple-icon-114x114.png')),
+        ("apple-touch-icon","","","120x120",url_for('static', filename='icon/apple/apple-icon-120x120.png')),
+        ("apple-touch-icon","","","144x144",url_for('static', filename='icon/apple/apple-icon-144x144.png')),
+        ("apple-touch-icon","","","152x152",url_for('static', filename='icon/apple/apple-icon-152x152.png')),
+        ("apple-touch-icon","","","180x180",url_for('static', filename='icon/apple/apple-icon-180x180.png'))
         ]) }}
         <!-- Load Web and Android favicons and mobile -->
-        {{ links.rel(value=[("shortcut icon","image/x-icon","","",url_for('static', filename='favicon/favicon/favicon.ico')),
-        ("icon","image/x-icon","","",url_for('static', filename='favicon/favicon/favicon.ico')),
-        ("icon","image/png","","16x16",url_for('static', filename='favicon/favicon/favicon-16x16.png')),
-        ("icon","image/png","","32x32",url_for('static', filename='favicon/favicon/favicon-32x32.png')),
-        ("icon","image/png","","96x96",url_for('static', filename='favicon/favicon/favicon-96x96.png')),
-        ("icon","image/png","","192x192",url_for('static', filename='favicon/android/android-icon-192x192.png'))
+        {{ links.rel(value=[("shortcut icon","image/x-icon","","",url_for('static', filename='icon/favicon/favicon.ico')),
+        ("icon","image/x-icon","","",url_for('static', filename='icon/favicon/favicon.ico')),
+        ("icon","image/png","","16x16",url_for('static', filename='icon/favicon/favicon-16x16.png')),
+        ("icon","image/png","","32x32",url_for('static', filename='icon/favicon/favicon-32x32.png')),
+        ("icon","image/png","","96x96",url_for('static', filename='icon/favicon/favicon-96x96.png')),
+        ("icon","image/png","","192x192",url_for('static', filename='icon/android/android-icon-192x192.png'))
         ]) }}
         <!-- Load Manifest mobile -->
-        <link rel="manifest" href="/manifest.json">
+        {{ links.rel(value=[ ("manifest", "", "", "", url_for('static', filename='service/manifest.webmanifest')) ]) }}
         <!-- Source Load Scripts -->
         {{ links.script(url=[ ("module", url_for('static',filename='js/main.js')),
+        ("text/javascript", url_for('static',filename='service/app.js')),
         ("text/javascript", "https://cdn.plot.ly/plotly-latest.min.js"),
         ("text/javascript", "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js") ]) }}
         <title>{% block title %}{% endblock %} - LinusGems</title>
     </head>
     <body id="ContentBody" class="material-white-100 lds-hourglass delete">
+        <div class="offline-notification">Se ha desconectado. Verifica tu conexion!</div>
         {%- call links.section("container material-grey-100") %}
             {%- call links.header("table") -%}
                 {%- call links.contend("jumbotrom-200px material-grey-100") -%}
@@ -87,17 +89,22 @@
                 <div class="teal-text"> {{ messages }} </div>
             {% endfor %}
 
+            <div class="-cell-xl-10 blockcenter flat-wetasphalt txt-material-white">
+                <center><h1 class="customtitletwo">Modo Movil</h1></center>
+                <center><p class="padding-2">Quieres probar el modo movil!</p></center>
+                <center><button class="add-button">Añadir al inicio de pantalla</button></center>
+            </div>
             {%- block body %}{%- endblock %}
 
             {%- call items.contend("jumbotrom-400px flat-wetasphalt") -%}
-                {%- call items.contend("i-lg-5 center margin-bottom") -%}
+                {%- call items.contend("-cell-xl-5 blockcenter margin-bottom") -%}
                      <h5 class="customtitletwo">Unete y no te pierdas de las novedades Semanalmente</h5>
-                    {%- call items.navbar("i-lg-6", "navigation") -%}
+                    {%- call items.navbar("-cell-xl-12", "navigation") -%}
                         {{ links.itemlisticons(values=[ ("#", "Siguenos en Facebook", "fab fa", "&#xf09a;",""),
                         ("#", "Siguenos en Twitter", "fab fa", "&#xf099;",""), ("#", "Suscribete al Canal de Youtube", "fab fa", "&#xf167;","") ]) }}
                     {%- endcall -%}
                     <h5 class="customtitletwo">Contenido y Secciones Recomendadas</h5>
-                    {%- call items.navbar("i-lg-6", "navigation") -%}
+                    {%- call items.navbar("-cell-xl-12", "navigation") -%}
                         {{ links.itemlisticons(values=[ (url_for('public.index'), "Segmento de Noticias", "material-icons", "import_contacts","Noticias"),
                         (url_for('public.index'), "Segmento de Notas", "material-icons", "library_books","Notas Destacadas"), (url_for('public.index'), "Segmento de Tutoriales", "material-icons", "receipt","Tutoriales"), ]) }}
                     {%- endcall -%}
