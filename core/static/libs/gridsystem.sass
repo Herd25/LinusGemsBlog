@@ -200,6 +200,9 @@ img
     a
         color: teal
 
+#UpdateProfile
+    z-index: 1000
+
 .CustomPreview
     *float: right
     height: 150px
@@ -462,3 +465,46 @@ img
 
     .comment-box
         width: 610px
+
+
+/* profile card */
+.ProfileCard
+    margin: 0 auto
+    figure
+        width: 96px
+        height: 96px
+        margin: 0 auto
+        margin-top: 10px
+        position: relative
+        img
+            border: 6px solid teal
+            border-radius: 50%
+        &:hover
+            &:after
+                content: '\f2bd'
+                font-family: "Font Awesome 5 Free"
+                color: black
+                position: absolute
+                top: 50%
+                left: 50%
+                transform: translate(-50%, -50%)
+                color: grey
+                font-size: 1rem
+            img
+                opacity: .5
+                cursor: pointer
+
+        figcaption
+            font-size: 12px
+
+    dl dt
+        padding: 1rem
+        i
+            font-size: 12px
+            &:hover
+                color: teal
+                font-size: 13px
+                cursor: pointer
+
+#SocialFeedForm
+    display: none

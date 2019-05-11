@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from flask import Flask, session, g
+from flask import Flask, session, g, send_from_directory
 from flask_mail import Mail, Message
 from core.functions import get_exists_data
 
@@ -11,11 +11,16 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY = 'dev',
         DATABASE = os.path.join(app.instance_path,'db.sqlite'),
-        UPLOAD_FOLDER = os.path.dirname(os.path.join(os.path.abspath(__file__), 'core', 'static', 'avatar'))
+        UPLOAD_FOLDER = os.path.dirname(os.path.join(os.path.dirname(__file__), 'static', 'avatar'))
     )
 
     if test_config is None:
-        app.config.from_pyfile('config.py', silent = True)
+        if app.config["ENV"] == 'production':
+            app.config.from_object('config.PRODUCTION')
+        elif app.config["ENV"] == 'testing':
+            app.config.from_object('config.TESTING')
+        else:
+            app.config.from_object('config.DEVELOP')
     else:
         app.config.from_mapping(test_config)
 
@@ -47,9 +52,10 @@ def create_app(test_config=None):
         except Exception as E:
             return str(E)
 
-    @app.route('/hello')
-    def hello():
-        return 'Hello World'
+    @app.route('/js/<path:file>')
+    def send_js(file):
+        root_dir = os.path.dirname(os.getcwd())
+        return send_from_directory(os.path.join(root_dir, 'static', 'js'), file)
 
     from .database import init_app
     from .auth import auth

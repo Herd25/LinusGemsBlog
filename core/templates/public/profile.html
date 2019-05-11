@@ -10,8 +10,54 @@
 {% block body %}
     {%- call items.container("table","-cell-xl-10 material-white blockcenter flx") -%}
         {%- call items.contend("-cell-xl-12") -%}
-            {{ items.titles("h2","padding-3","Hola Bienvenido {0}".format(g.user['username'])) }}
+            {{ items.titles("h2","padding-3",'Hola Bienvenido <a href="#" data-target="#Profile" data-toggle="modal" title="Actualizar Perfil">{0}</a>'.format(g.user['username'])) }}
         {%- endcall -%}
+
+        {% call items.modal("Profile","-cell-xl-5 modal material-teal","-cell-xl-12 material-white","Perfil de {}".format(g.user['username'])) %}
+            {% call items.contend("-cell-xl-5 ProfileCard") %}
+                <figure>
+                    <form action="#" id="UpdateAvatar">
+                        <input type="file" name="avatar" id="Avatar" hidden>
+                    </form>
+                    <div id="PreviewAvatar">
+                        <img id="Photo" src="{{ url_for('static', filename='avatar/Default/avatar.png') }}" alt="Avatar de {{ g.user.username }}">
+                    </div>
+                    <figcaption>
+                        <span>@{{ g.user.username }}</span>
+                    </figcaption>
+                </figure>
+                {% call items.contend("-cell-xl-12") %}
+                    {{ items.titles("h4", "padding-3", "AlexLeon") }}
+                    {% call items.navbar("-cell-xl-12", "navigation") %}
+                        {{ items.itemlisticons(values=[ ("#", "Correo", "material-icons txt-flat-midnightblue", "email", "")
+                        ,("#", "Contraseña", "material-icons txt-flat-midnightblue", "vpn_key", "") ]) }}
+                    {% endcall %}
+                {% endcall %}
+                <dl class="-cell-xl-12">
+                    <dt><strong>Acerca de Mi <i id="EditAbout" class="material-icons">edit</i></strong></dt>
+                    <dd id="EditAbout">
+                        <form id="AboutForm" style="display: none;">
+                            <textarea id="AboutText" class="material-input" type="text" placeholder="Añade la nueva Descripcion" ></textarea>
+                            <button id="ChangesAbout" class="button txt-material-white material-teal" type="submit">Guarda<i class="material-icons">save</i></button>
+                        </form>
+                        <p id="Description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque provident modi laudantium deleniti debitis exercitationem aut non molestiae tempore molestias.</p>
+                    </dd>
+                    <dt><strong>Redes Sociales <i id="EditSocialFeed" class="material-icons">edit</i></strong></dt>
+                    <dd id="EditFeed">
+                        <form id="SocialFeedForm" style="display: none;">
+                            <input class="material-input" type="text" placeholder="Añade la url de tu sitio" ><button class="button txt-material-white material-teal" type="submit"><i class="material-icons">add_box</i></button>
+                        </form>
+                        {% call items.navbar("-cell-xl-12", "navigation") %}
+                            {{ items.itemlisticons(values=[ ("#","MyFacebook", "txt-flat-midnightblue fab fa", "&#xf09a;", ""),
+                            ("#","MyTwitter", "txt-flat-midnightblue fab fa", "&#xf099;", ""),
+                            ("#","MyTwitch", "txt-flat-midnightblue fab fa", "&#xf1e8;", ""),
+                            ("#","MyYoutube", "txt-flat-midnightblue fab fa", "&#xf167;", ""),
+                             ]) }}
+                        {% endcall %}
+                    </dd>
+                </dl>
+            {% endcall %}
+        {% endcall %}
 
         {%- call items.contend("-cell-xl-12") -%}
             {{ items.titles("h4","padding-3","Resumen del Perfil") }}

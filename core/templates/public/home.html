@@ -18,7 +18,7 @@
     {%- endcall -%}
     {% call items.contend("-cell-xl-8") %}
       {% call items.modal("SessionUser","-cell-xl-5 modal material-teal","-cell-xl-12 material-white","Sesion de Usuario") %}
-        {% call items.formulary("FormularySession", "auth.login", "post", "multipart/formdata", "Iniciar Session", "&#xf007;", "") %}
+        {% call items.formulary("FormularySession", "auth.login", "post", "multipart/form-data", "Iniciar Session", "&#xf007;", "") %}
           {% call items.contend("-cell-xl-12 padding-3") %}
             <label for="username"><i class="material-icons prefix">account_circle</i></label>
             {{ items.input("text", "username", "username", "", "Usuario", "material-input") }}
@@ -35,7 +35,7 @@
 
         {% call items.formulary("FormularyRegister", "auth.register", "post", "multipart/form-data", "Registrarse", "&#xf007;", "") %}
           {% call items.contend("-cell-xl-3 padding-3 CustomPreview", "FileIcon") %}
-            {{ items.input("file", "FileIcon", "fileicon", "", "Avatar", "CustomInputFile txt-material-white material-teal") }}
+            {{ items.input("file", "avatar", "fileicon", "", "Avatar", "CustomInputFile txt-material-white material-teal") }}
             {{ items.buttonicon(values=[ ("Añade un Avatar", "CustomChooser", "button", "material-icons", "insert_photo") ]) }}
           {% endcall %}
 

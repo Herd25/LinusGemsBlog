@@ -1,0 +1,32 @@
+upstream dashmedia {
+    server unix:/var/dashmedia/dashmedia.sock;
+}
+
+server {
+    listen *:80;
+    server_name 192.168.56.101; //example server_name
+
+    root /var/dashmedia/core/;
+
+    client_max_body_size 5M;
+
+    access_log /var/dashmedia/logs/nginx/access.log;
+    error_log /var/dashmedia/logs/nginx/error.log;
+
+    location /favicon.ico { access_log off; log_not_found off; }
+
+    location ~* ^.+. (jpg|jpeg|gif|css|png|js|ico|html|xml|txt)$ { expires max; }
+
+    location /static { alias /var/dashmedia/core/static/; }
+
+    location / {
+        include proxy_params;
+        uwsgi_pass unix:$document_root/dashmedia.sock;
+        proxy_pass http://unix:/var/dashmedia/dashmedia.sock;
+        proxy_redirect off;
+        proxy_connect_timeout 60;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+     }
+}

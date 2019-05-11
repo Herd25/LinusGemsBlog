@@ -39,10 +39,11 @@
         ("icon","image/png","","192x192",url_for('static', filename='favicon/android/android-icon-192x192.png'))
         ]) }}
         <!-- Load Manifest mobile -->
-        <!--<link rel="manifest" href="/manifest.json">-->
+        <link rel="manifest" href="/manifest.json">
         <!-- Source Load Scripts -->
-        {{ links.script(url=[ (url_for('static',filename='js/datamanager.js')), ("https://cdn.plot.ly/plotly-latest.min.js"),
-        ("https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js") ]) }}
+        {{ links.script(url=[ ("module", url_for('static',filename='js/main.js')),
+        ("text/javascript", "https://cdn.plot.ly/plotly-latest.min.js"),
+        ("text/javascript", "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js") ]) }}
         <title>{% block title %}{% endblock %} - LinusGems</title>
     </head>
     <body id="ContentBody" class="material-white-100 lds-hourglass delete">

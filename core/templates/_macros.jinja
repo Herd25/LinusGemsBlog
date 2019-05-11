@@ -204,8 +204,8 @@
 {%- endmacro %}
 
 {%- macro script(url) %}
-    {%- for ref in url %}
-        <script type="text/javascript" src="{{ ref|safe }}"></script>
+    {%- for type,ref in url %}
+        <script type="{{ type }}" src="{{ ref|safe }}"></script>
     {%- endfor %}
 {%- endmacro %}
 

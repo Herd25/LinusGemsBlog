@@ -61,9 +61,9 @@ def create_plot():
 ### Recibe Profiles Image Data ####
 
 def save_image(filename):
-    if filename and allowed_file(filename):
-        file = secure_filename(filename)
-        filename.save(os.path.join(current_app.config['UPLOAD_FOLDER'], file))
+    if filename and allowed_file(filename.filename):
+        file = secure_filename(filename.filename)
+        filename.save(os.path.join(current_app.config['UPLOAD_FOLDER'], 'avatar', file))
         return 'File Save'
 
 def allowed_file(filename):
