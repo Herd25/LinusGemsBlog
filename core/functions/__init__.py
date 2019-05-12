@@ -63,7 +63,8 @@ def create_plot():
 def save_image(filename):
     if filename and allowed_file(filename.filename):
         file = secure_filename(filename.filename)
-        filename.save(os.path.join(current_app.config['UPLOAD_FOLDER'], 'avatar', 'users', file))
+        directory = os.path.join(current_app.config['UPLOAD_FOLDER'], 'avatar', file)
+        filename.save(directory)
         return 'File Save'
 
 def allowed_file(filename):

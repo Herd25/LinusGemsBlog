@@ -24,6 +24,7 @@ def required_login(view):
 
 #### Building Routes #####
 
+## new user ##
 @auth.route('/register', methods = ('GET','POST'))
 def register():
     if request.method == 'POST':
@@ -37,14 +38,19 @@ def register():
 
         if not avatar.filename:
             error = 'No has seleccionado una imagen del avatar se asignara por defecto'
+            category = 'material-blue'
         elif not username:
             error = 'Nombre de usuario requerido'
+            category = 'material-yellow'
         elif not email:
             error = 'Correo Electronico requerido'
+            category = 'material-yellow'
         elif not password:
             error = 'Contraseña requerida'
+            category = 'material-red'
         elif get_exists_data('id','user','username',(username,)) is not None:
             error = 'El Usuario {} ya esta registrado.'.format(username)
+            category = 'material-yellow'
 
         if error is None:
             save_image(avatar)
@@ -62,15 +68,11 @@ def register():
             flash('Usuario Registrado con exito')
             return redirect(url_for('auth.login'))
 
-        flash(error)
+        flash(error, category)
 
     return redirect(url_for('public.index'))
 
-@auth.route('/update', methods = ('GET','POST'))
-@required_login
-def update():
-    pass
-
+## Login ##
 @auth.route('/login', methods = ('GET', 'POST'))
 def login():
     if request.method == 'POST':
@@ -81,19 +83,23 @@ def login():
 
         if user is None:
             error = 'Usuario incorrecto.'
+            category = 'material-red'
         elif not check_password_hash(user['password'], password):
             error = 'Contraseña incorrecta.'
+            category = 'material-yellow'
 
         if error is None:
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('public.index'))
 
-        flash(error)
+        flash(error, category)
 
     return redirect(url_for('public.index'))
 
+## Logout #3
 @auth.route('/logout')
 def logout():
     session.clear()
+    flash('se ha cerrado la session', 'material-blue')
     return redirect(url_for('public.index'))

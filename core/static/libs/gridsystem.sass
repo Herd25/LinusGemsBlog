@@ -3,6 +3,7 @@
                     adding colors
 /*-----------------------------------------------------*/
 @import 'components/variables', 'components/mixins', 'components/functions', 'components/extends'
+@import 'components/icons', 'components/animations'
 
 /* create custom buttons */
 //+button(map-keys($flat-colors)...)
@@ -30,6 +31,18 @@
 
     .userstatus
         @extend %inlinenavbars
+    
+    .center
+        display: flex
+        justify-content: space-around
+
+/* loader animation */
+.lds-hourglass
+    @extend %hourglass
+
+/* animations */
+.tooltip
+    @extend %tooltip
 
 /* image conatiner */
 img
@@ -93,6 +106,12 @@ img
 
 .blockcenter
     margin: 0 auto
+
+.blockright
+    float: right !important
+
+.blockleft
+    float: left !important
 
 .margin-bottom
     margin-bottom: 80px
@@ -168,6 +187,41 @@ img
 /* modals stylesheet */
 .modal
     @extend %modalcontainer
+
+/* show and hide alerts */
+.hidde
+    height: 0 !important
+    opacity: 0 !important
+
+.show
+    height: auto !important
+    opacity: 1 !important
+
+/* close modals and alerts */
+.iconclose
+    background: none
+    outline: none
+    border: none
+    margin-left: 50px
+    transform: rotate(45deg)
+    transition: .4s ease
+    &:hover
+        color: white
+        cursor: pointer
+        transform: scale(.8) rotate(45deg)
+
+.closemodal
+    background: none
+    outline: none
+    border: none
+    position: relative
+    left: 90px
+    transform: rotate(45deg)
+    transition: .4s ease
+    &:hover
+        color: white
+        cursor: pointer
+        transform: scale(.8) rotate(45deg)
 
 /* custom formularies */
 .fieldset
@@ -470,6 +524,12 @@ img
 /* profile card */
 .ProfileCard
     margin: 0 auto
+    i
+        font-size: 12px
+        &:hover
+            color: teal
+            font-size: 13px
+            cursor: pointer
     figure
         width: 96px
         height: 96px
@@ -499,12 +559,6 @@ img
 
     dl dt
         padding: 1rem
-        i
-            font-size: 12px
-            &:hover
-                color: teal
-                font-size: 13px
-                cursor: pointer
 
 #SocialFeedForm
     display: none
@@ -526,3 +580,19 @@ img
         background-color: red
         color: white
         display: block
+
+/* light shadows */
+.sh-right
+    +shadow(-5px 0 5px -5px #333)
+
+.sh-left
+    +shadow(5px 0 5px -5px #333)
+
+.sh-top
+    +shadow(0 -5px 5px -5px #333)
+
+.sh-bottom
+    +shadow(0 5px 5px -5px #333)
+
+.sh-prof
+    +shadow(0 0 5px #333)

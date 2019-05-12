@@ -1,0 +1,70 @@
+//manager animations class
+
+%tooltip
+    position: relative
+    display: inline-block
+    border-bottom: 1px dotted black
+    &:hover
+        .tooltiptext
+            opacity: 1
+    .tooltiptext
+        opacity: 0
+        width: 120px
+        background-color: #ffffff
+        color: teal
+        text-align: center
+        border-radius: 6px
+        padding: 5px 0px
+        transition: opacity 1s
+        &.right-tooltip
+            position: absolute
+            z-index: 100
+            top: -5px
+            left: 105%
+        &.left-tooltip
+            position: absolute
+            z-index: 100
+            top: -5px
+            right: 105%
+        &.top-tooltip
+            bottom: 100%
+            left: 50%
+            margin-left: -60px
+        &.bottom-tooltip
+            top: 100%
+            left: 50%
+            margin-left: -60px
+
+// loaders
+%hourglass
+    &::before
+        display: inline-block
+        position: relative
+        width: 64px
+        height: 64px
+    &::after
+        content: ''
+        display: block
+        border-radius: 50%
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%,-50%)
+        width: 0
+        height: 0
+        margin: 6px
+        box-sizing: border-box
+        border: 20px solid teal
+        border-color: teal transparent teal transparent
+        animation: hourglass 1.2s infinite
+
+// KEYFRAMES
+@keyframes hourglass
+    0%
+        transform: rotate(0)
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19)
+    50%
+        transform: rotate(900deg)
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1)
+    100%
+        transform: rotate(1800deg)

@@ -3,7 +3,11 @@
 'use strict'
 
 // module for current time
-
+/**
+ * function timer for post
+ * @param {*} tag
+ * @param {*} url
+ */
 export function timer(tag, url) {
     /* published current time */
     if (tag) {

@@ -26,6 +26,7 @@ CREATE TABLE socialfeed (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER NOT NULL,
   feed TEXT NOT NULL,
+  url TEXT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user (id)
 );
 

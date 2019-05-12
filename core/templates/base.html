@@ -48,7 +48,30 @@
         <title>{% block title %}{% endblock %} - LinusGems</title>
     </head>
     <body id="ContentBody" class="material-white-100 lds-hourglass delete">
-        <div class="offline-notification">Se ha desconectado. Verifica tu conexion!</div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {%- call items.contend("-cell-xl-12 blockcenter {} txt-material-white".format(category), "AlertsMessage") -%}
+                        <center><p class="padding-2 customtitletwo">{{ message }}</p></center>
+                    {%- endcall -%}
+                {% endfor %}
+            {% else %}
+                {% call items.contend("table flx", "AlertWelcome") %}
+                    {%- call items.contend("-cell-xl-6 flat-wetasphalt flx txt-material-white") -%}
+                        <div class="offline-notification">Se ha desconectado. Verifica tu conexion!</div>
+                        {{ items.titles("h4", "customtitletwo", "Modo Movil") }}
+                        <center><p class="padding-2">Quieres probar el modo movil!</p></center>
+                        {{ items.buttonicon(values=[ ("Modo Movil", "add-button", "button", "", "Añadir al inicio de pantalla") ]) }}
+                    {%- endcall -%}
+                    {%- call items.contend("-cell-xl-6 flat-wetasphalt flx txt-material-white") -%}
+                        {{ items.titles("h4", "customtitletwo", "Este sitio trabaja con cookies para mejorar la experiencia") }}
+                        {{ items.buttonicon(values=[ ("Politica de Privacidad", "add-button", "button", "", "Privacidad") ]) }}
+                        {{ items.buttonicon(values=[ ("Cerrar Alerta", "iconclose", "button", "material-icons", "add_circle") ]) }}
+                    {%- endcall -%}
+                {% endcall %}
+            {% endif %}
+        {% endwith %}
+
         {%- call links.section("container material-grey-100") %}
             {%- call links.header("table") -%}
                 {%- call links.contend("jumbotrom-200px material-grey-100") -%}
@@ -85,32 +108,23 @@
                 {%- endcall -%}
             {%- endcall -%}
 
-            {% for messages in get_flashed_messages() %}
-                <div class="teal-text"> {{ messages }} </div>
-            {% endfor %}
-
-            <div class="-cell-xl-10 blockcenter flat-wetasphalt txt-material-white">
-                <center><h1 class="customtitletwo">Modo Movil</h1></center>
-                <center><p class="padding-2">Quieres probar el modo movil!</p></center>
-                <center><button class="add-button">Añadir al inicio de pantalla</button></center>
-            </div>
             {%- block body %}{%- endblock %}
 
             {%- call items.contend("jumbotrom-400px flat-wetasphalt") -%}
                 {%- call items.contend("-cell-xl-5 blockcenter margin-bottom") -%}
-                     <h5 class="customtitletwo">Unete y no te pierdas de las novedades Semanalmente</h5>
-                    {%- call items.navbar("-cell-xl-12", "navigation") -%}
+                    {{ items.titles("h4", "customtitletwo padding-3", "Unete y no te pierdas de las novedades Semanalmente") }}
+                    {%- call items.navbar("-cell-xl-12 blockcenter", "navigation center") -%}
                         {{ links.itemlisticons(values=[ ("#", "Siguenos en Facebook", "fab fa", "&#xf09a;",""),
                         ("#", "Siguenos en Twitter", "fab fa", "&#xf099;",""), ("#", "Suscribete al Canal de Youtube", "fab fa", "&#xf167;","") ]) }}
                     {%- endcall -%}
-                    <h5 class="customtitletwo">Contenido y Secciones Recomendadas</h5>
-                    {%- call items.navbar("-cell-xl-12", "navigation") -%}
-                        {{ links.itemlisticons(values=[ (url_for('public.index'), "Segmento de Noticias", "material-icons", "import_contacts","Noticias"),
-                        (url_for('public.index'), "Segmento de Notas", "material-icons", "library_books","Notas Destacadas"), (url_for('public.index'), "Segmento de Tutoriales", "material-icons", "receipt","Tutoriales"), ]) }}
+                    {{ items.titles("h4", "customtitletwo padding-3", "Contenido y Secciones Recomendadas") }}
+                    {%- call items.navbar("-cell-xl-12 blockcenter", "navigation center") -%}
+                        {{ links.itemlisticons(values=[ (url_for('public.index'), "Segmento de Noticias", "material-icons", "import_contacts","&nbsp;Noticias"),
+                        (url_for('public.index'), "Segmento de Notas", "material-icons", "library_books","&nbsp;Notas Destacadas"), (url_for('public.index'), "Segmento de Tutoriales", "material-icons", "receipt","&nbsp;Tutoriales"), ]) }}
                     {%- endcall -%}
                 {%- endcall -%}
                 {%- call items.contend("jumbotrom-50px material-concrete-800 statictcopy customtitleone") -%}
-                    <h1>© LinusGems - 2019</h1>
+                    {{ items.titles("h1", "", "© LinusGems - 2019") }}
                 {%- endcall -%}
             {%- endcall -%}
         {%- endcall %}

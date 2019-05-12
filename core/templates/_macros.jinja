@@ -154,7 +154,7 @@
 
 {%- macro img(atributtes) %}
     {%- for file, id, alt, title in atributtes %}
-        <img id="{{ id }}" src="{{ file|safe }}" alt="{{ alt }}" title="{{ title }}">
+        <img id="{{ id }}" src="{{ file|safe|replace('%20','_') }}" alt="{{ alt }}" title="{{ title }}">
     {%- endfor %}
 {%- endmacro %}
 

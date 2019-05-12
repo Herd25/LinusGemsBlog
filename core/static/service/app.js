@@ -1,6 +1,9 @@
 // Adding javascript application
 
 /* Registre Service Worker */
+/**
+ * @method
+ */
 (() => {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -19,9 +22,12 @@
 
 /* adding homescreen button */
 let deferredPrompt;
+let $ = document.querySelector.bind(document);
 
-const addBtn = document.querySelector('.add-button');
-addBtn.style.display = 'none';
+const addBtn = $('.add-button');
+if (addBtn) {
+    addBtn.style.display = 'none';
+}
 
 // A2HS prompt
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -48,25 +54,37 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 window.addEventListener('online', (e) => {
     console.log('You are online')
-    showOffilineWarning();
+    showOfflineWarning();
 }, false)
 
 // Show Offiline Mensaje
 window.addEventListener('offline', (e) => {
     console.log('You are offline')
-    hideOffilineWarning();
+    hideOfflineWarning();
 }, false)
 
 if (navigator.onLine) {
-    hideOffilineWarning();
+    hideOfflineWarning();
 } else {
-    showOffilineWarning();
+    showOfflineWarning();
 }
 
-function showOffilineWarning() {
-    document.querySelector('.offiline-notification').classList.add('show');
+/**
+ * @method
+ */
+function showOfflineWarning() {
+    let status = $('.offline-notification');
+    if (status) {
+        status.classList.add('show');
+    }
 }
 
-function hideOffilineWarning() {
-    document.querySelector('.offiline-notification').classList.remove('show');
+/**
+ * @method
+ */
+function hideOfflineWarning() {
+    let status = $('.offline-notification');
+    if (status) {
+        status.classList.remove('show');
+    }
 }

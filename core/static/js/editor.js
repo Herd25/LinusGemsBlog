@@ -1,8 +1,24 @@
 // Manejador del Editor de Texto para el Blog
 'use strict';
 
-export function editor(idEditor, NameEditor, tiggers, SaveData, colordata, data, value, datainput, updateinput, UpdateData, formulary, updateformulary) {
+/**
+ * Manager Editor
+ * @param {*} idEditor
+ * @param {*} NameEditor
+ * @param {*} tiggers
+ * @param {*} SaveData
+ * @param {*} colordata
+ * @param {*} data
+ * @param {*} value
+ * @param {*} datainput
+ * @param {*} updateinput
+ * @param {*} UpdateData
+ * @param {*} formulary
+ * @param {*} updateformulary
+ */
+export function editor(idEditor, tiggers, SaveData, colordata, data, value, datainput, updateinput, UpdateData, formulary, updateformulary) {
     // Define Node Actions
+    //let TextEditor = TextEditor
     let nodetypes = {
         'format_bold' : 'bold',
         'format_italic' : 'italic',
@@ -47,7 +63,7 @@ export function editor(idEditor, NameEditor, tiggers, SaveData, colordata, data,
 
     // Function for creator
     if ( idEditor ) {
-        NameEditor.document.designMode = 'On';
+        TextEditor.document.designMode = 'On';
 
         // Target Events
         tiggers.addEventListener('click', (e) => {
@@ -106,14 +122,14 @@ export function editor(idEditor, NameEditor, tiggers, SaveData, colordata, data,
             if (nodename == 'I') {
                 let nodevalue = e.target.textContent;
                 if (nodevalue == 'save' || nodevalue == 'send') {
-                    let data = NameEditor.document.getElementsByTagName('body')[0].innerHTML;
+                    let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                     datainput.value = data;
                     formulary.submit();
                 } else if (nodevalue == 'cancel') {
                     formulary.reset();
                 } else if (nodevalue == 'visibility') {
                     let dataframe = $('.actionsTextButtonEditor');
-                    let data = NameEditor.document.getElementsByTagName('body')[0].innerHTML;
+                    let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                 }
             }
         })
@@ -123,8 +139,8 @@ export function editor(idEditor, NameEditor, tiggers, SaveData, colordata, data,
 
     // Function for update post
     if ( data ) {
-        NameEditor.document.designMode = 'On';
-        NameEditor.document.getElementsByTagName('body')[0].innerHTML = value.value;
+        TextEditor.document.designMode = 'On';
+        TextEditor.document.getElementsByTagName('body')[0].innerHTML = value.value;
 
         tiggers.addEventListener('click', (e) => {
             const nodename = e.target.nodeName;
@@ -182,14 +198,14 @@ export function editor(idEditor, NameEditor, tiggers, SaveData, colordata, data,
             if (nodename == 'I') {
                 let nodevalue = e.target.textContent;
                 if (nodevalue == 'save' || nodevalue == 'send') {
-                    let data = NameEditor.document.getElementsByTagName('body')[0].innerHTML;
+                    let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                     updateinput.value = data;
                     updateformulary.submit();
                 } else if (nodevalue == 'cancel') {
                     updateformulary.reset();
                 } else if (nodevalue == 'visibility') {
                     let dataframe = $('.actionsTextButtonEditor');
-                    let data = NameEditor.document.getElementsByTagName('body')[0].innerHTML;
+                    let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                 }
             }
         })
@@ -202,30 +218,45 @@ export function editor(idEditor, NameEditor, tiggers, SaveData, colordata, data,
     let showEditMode = true
 
     // Manager Handlers Actions
+    /**
+     * Execute command
+     * @param {*} command
+     */
     function execCmd(command) {
-        NameEditor.document.execCommand(command, false, null);
+        TextEditor.document.execCommand(command, false, null);
     }
 
+    /**
+     * Function execute commands and arguments
+     * @param {*} command
+     * @param {*} arg
+     */
     function execCommandWidthArg(command, arg) {
-        NameEditor.document.execCommand(command, false, arg);
+        TextEditor.document.execCommand(command, false, arg);
     }
 
+    /**
+     * @method
+     */
     function toogleSource() {
         if (showSourceCode) {
-            NameEditor.document.getElementsByTagName('body')[0].innerHTML = NameEditor.document.getElementsByTagName('body')[0].textContent;
+            TextEditor.document.getElementsByTagName('body')[0].innerHTML = TextEditor.document.getElementsByTagName('body')[0].textContent;
             showSourceCode = false
         } else {
-            NameEditor.document.getElementsByTagName('body')[0].textContent = NameEditor.document.getElementsByTagName('body')[0].innerHTML;
+            TextEditor.document.getElementsByTagName('body')[0].textContent = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
             showSourceCode = true
         }
     }
 
+    /**
+     * @method
+     */
     function toogleEdit() {
         if (showEditMode) {
-            NameEditor.document.designMode = 'Off';
+            TextEditor.document.designMode = 'Off';
             showEditMode = false
         } else {
-            NameEditor.document.designMode = 'On';
+            TextEditor.document.designMode = 'On';
             showEditMode = true
         }
     }

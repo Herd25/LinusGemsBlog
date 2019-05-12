@@ -3,6 +3,13 @@
 let $ = document.querySelector.bind(document);
 
 // Previews Modules
+
+/**
+ * Active Previews submited file
+ * @param {*} event
+ * @param {*} file
+ * @param {*} tag
+ */
 function ActivePreview(event, file, tag) {
     if (event) {
         event.addEventListener('click', (e) => {
@@ -14,24 +21,33 @@ function ActivePreview(event, file, tag) {
     }
 }
 
+/**
+ * Preview Changes Image
+ * @param {*} input
+ * @param {*} tag
+ */
 function PreviewImage(input, tag) {
     if ( input.files && input.files[0] ) {
         let reader = new FileReader();
 
         reader.onload = (e) => {
             let node = `<img src="${e.target.result}" />`
-            $(tag).innerHTML = node
-            $(tag).appendChild(input)
+            tag.innerHTML = node
+            tag.appendChild(input)
         }
 
         reader.readAsDataURL(input.files[0])
     } else {
-        console.log('hubo un error')
+        alert('hubo un error inesperado')
     }
 }
 
 // Animations Modules
-
+/**
+ * Activate Modals
+ * @param {*} tigger
+ * @param {*} event
+ */
 function Modal(tigger, event) {
     if (tigger) {
         tigger.addEventListener('click' ,(e) => {
@@ -42,32 +58,59 @@ function Modal(tigger, event) {
     }
 }
 
-
+/**
+ * Manager Collapse Formulary
+ * @param {*} item
+ * @param {*} toggle
+ * @param {*} olditems
+ */
 function Collapse(item, toggle, olditems) {
     if (item) {
-        console.log(`El item en su atributo es : ${olditems.getAttribute('id')}`)
+        //console.log(`El item en su atributo es : ${olditems.getAttribute('id')}`)
         let olditem = olditems.getAttribute('id')
         item.addEventListener('click', (e) => {
            if ( e.target.dataset.target == toggle.dataset.target) {
                let collapsible = $(`${toggle.dataset.target}`)
-                console.log('si son iguales')
+                //console.log('si son iguales')
 
                 if ( collapsible.className === '' ) {
-                    console.log('si esta vacia y no tine la clase active')
+                    //console.log('si esta vacia y no tine la clase active')
                     $(`#${olditem}`).style.display = 'none'
                     collapsible.className = 'active'
                 } else {
-                    console.log('no esta vacia y si tiene la clase activa')
+                    //console.log('no esta vacia y si tiene la clase activa')
                     collapsible.className = ''
                     $(`#${olditem}`).style.display = 'block'
                 }
            } else {
-               console.log('no son iguales')
+               //console.log('no son iguales')
            }
-            console.log(`Los target del evento son : ${e.target.dataset.target}`)
-            console.log(`Los target del evento son : ${toggle.dataset.target}`)
+            //console.log(`Los target del evento son : ${e.target.dataset.target}`)
+            //console.log(`Los target del evento son : ${toggle.dataset.target}`)
         })
     }
 }
 
-export { Modal, Collapse, ActivePreview, PreviewImage };
+/**
+ * Function add class for event click
+ * @param {*} id
+ * @param {*} tag
+ * @param {*} action
+ */
+function addeventclass(id, tag, action) {
+    if ( tag ) {
+        tag.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (id.classList != action) {
+                id.classList.add(action)
+            } else {
+                id.classList.remove(action)
+            }
+        })
+    }
+}
+
+/**
+ * Exporting Functions
+ */
+export { Modal, Collapse, ActivePreview, PreviewImage, addeventclass };

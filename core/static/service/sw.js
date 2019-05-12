@@ -1,15 +1,18 @@
-// add start service workers
+/* add start service workers */
 
 const cacheName = "LinusGems";
 const filestoCache = [
     '/',
-    '/static/js/main.js',
     '/static/service/app.js',
     '/static/css/gridsystem.css',
-    '/offline.html'
+    '/offline.html',
+    '/static/js/main.js'
 ];
 
 // Add install worker
+/**
+ * @method
+ */
 self.addEventListener('install', (e) => {
     console.log('[Service Worker] install')
     e.waitUntil(
@@ -22,6 +25,9 @@ self.addEventListener('install', (e) => {
 })
 
 // Activate worker
+/**
+ * @method
+ */
 self.addEventListener('activate', (e) => {
     console.log('[Service Worker] Activate')
     e.waitUntil(
@@ -40,7 +46,9 @@ self.addEventListener('activate', (e) => {
 })
 
 // fecthing data
-
+/**
+ * @method
+ */
 self.addEventListener('fetch', (e) => {
     console.log('[Service Worker] fetch', e.request.url)
     e.respondWith(

@@ -16,8 +16,8 @@
         <a href="#" class="button txt-material-white material-teal">Ver Mas</a>
       {%- endcall -%}
     {%- endcall -%}
-    {% call items.contend("-cell-xl-8") %}
-      {% call items.modal("SessionUser","-cell-xl-5 modal material-teal","-cell-xl-12 material-white","Sesion de Usuario") %}
+    {% call items.contend("-cell-xl-8", "ModalSession") %}
+      {% call items.modal("SessionUser","-cell-xl-5 modal material-teal","-cell-xl-12 material-white","Sesion de Usuario <button title='cerrar ventana' class='closemodal' type='button'><i class='material-icons'>add_circle</i></button>") %}
         {% call items.formulary("FormularySession", "auth.login", "post", "multipart/form-data", "Iniciar Session", "&#xf007;", "") %}
           {% call items.contend("-cell-xl-12 padding-3") %}
             <label for="username"><i class="material-icons prefix">account_circle</i></label>
@@ -40,8 +40,8 @@
           {% endcall %}
 
           {% call items.contend("-cell-xl-7 padding-3") %}
-            <label for="username"><i class="material-icons prefix">account_circle</i></label>
-            {{ items.input("text", "username", "username", "", "Usuario", "material-input") }}
+            <label for="usernamerg"><i class="material-icons prefix">account_circle</i></label>
+            {{ items.input("text", "username", "usernamerg", "", "Usuario", "material-input") }}
           {% endcall %}
 
           {% call items.contend("-cell-xl-12 padding-3") %}
@@ -50,8 +50,8 @@
           {% endcall %}
 
           {% call items.contend("-cell-xl-12 padding-3") %}
-            <label for="password"><i class="material-icons prefix">vpn_key</i></label>
-            {{ items.input("password", "password", "password", "", "Tu contraseña", "material-input") }}
+            <label for="passwordrg"><i class="material-icons prefix">vpn_key</i></label>
+            {{ items.input("password", "password", "passwordrg", "", "Tu contraseña", "material-input") }}
           {% endcall %}
 
           <span><p>Si ya eres parte solo <a href="#" data-target="#FormularyRegister" data-toggle="collapse">Inicia Session</a></p></span>

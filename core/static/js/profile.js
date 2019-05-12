@@ -2,10 +2,22 @@
 
 import { PreviewImage } from "./previews.js"
 
-let $ = document.querySelector.bind(document);
-
 // Profiles User Settings and Functions
 
+/**
+ * Manager Edit Profile Options
+ * @param {*} social
+ * @param {*} about
+ * @param {*} photo
+ * @param {*} editabout
+ * @param {*} description
+ * @param {*} editfeed
+ * @param {*} avatar
+ * @param {*} text
+ * @param {*} changes
+ * @param {*} tag1
+ * @param {*} tag2
+ */
 function ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, tag1, tag2) {
     if (social && about) {
         about.onclick = (e) => {
@@ -41,9 +53,14 @@ function ManagerEdit(social, about, photo, editabout, description, editfeed, ava
 }
 
 /* Preview Changes */
+/**
+ * Preview About Changes
+ * @param {*} input
+ * @param {*} tag
+ */
 function PreviewAbout(input, tag) {
     if ( input.value != '' ) {
-        $(tag).innerText = input.value
+        tag.innerText = input.value
     } else {
         alert('No se han guardado los cambios')
     }
