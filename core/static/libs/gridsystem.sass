@@ -25,6 +25,10 @@
 .bd-height
     +height(220px)
 
+/* define height */
+.lg-height
+    +height(500px)
+
 /* navigation */
 .navigation
     @extend %navbars
@@ -596,3 +600,50 @@ img
 
 .sh-prof
     +shadow(0 0 5px #333)
+
+/* tabs styles */
+.tabs
+    &__links,
+    &__contents
+        width: 80%
+        margin: auto
+    &__links
+        display: table
+        position: relative
+        top: 1px
+        a
+            display: block
+            float: left
+            line-height: 3
+            background-color: #ddd
+            text-decoration: none
+            padding: 0 1em
+            margin-right: 1px
+            border-radius: 5px 5px 0 0
+            border: 1px solid #cccccc
+            border-bottom: none
+            color: rgba(0,0,0,.4)
+            &.active
+                position: relative
+                z-index: 100
+                font-weight: 700
+                border-radius: 5px 5px 0 0
+                border: 1px solid teal
+                border-bottom: none
+                color: teal
+                background-color: #fff
+
+    &__contents
+        position: relative
+        &__items
+            background-color: #eeeeee
+            padding: 1em
+            border: 1px solid #cccccc
+            position: absolute
+            top: 0
+            left: 0
+            display: none
+            &.active
+                display: block
+                background-color: #fff
+                border: 1px solid teal

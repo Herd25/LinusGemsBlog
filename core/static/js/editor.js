@@ -66,7 +66,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
         TextEditor.document.designMode = 'On';
 
         // Target Events
-        tiggers.addEventListener('click', (e) => {
+        tiggers.on('click', (e) => {
             const nodename = e.target.nodeName;
 
             if(nodename === 'I')
@@ -82,7 +82,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                             break
                         } else if (name == 'format_color_fill' || name == 'format_color_text') {
                             colordata.click();
-                            colordata.addEventListener('change', (e) => {
+                            colordata.on('change', (e) => {
                                 const color = e.target.value;
                                 execCommandWidthArg(nodetypes[name],color)
                             })
@@ -115,7 +115,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
             }
         })
 
-        SaveData.addEventListener('click', (e) => {
+        SaveData.on('click', (e) => {
             e.preventDefault();
             let nodename = e.target.nodeName;
 
@@ -142,7 +142,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
         TextEditor.document.designMode = 'On';
         TextEditor.document.getElementsByTagName('body')[0].innerHTML = value.value;
 
-        tiggers.addEventListener('click', (e) => {
+        tiggers.on('click', (e) => {
             const nodename = e.target.nodeName;
 
             if(nodename === 'I')
@@ -191,7 +191,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
             }
         })
 
-        UpdateData.addEventListener('click', (e) => {
+        UpdateData.on('click', (e) => {
             e.preventDefault();
             let nodename = e.target.nodeName;
 

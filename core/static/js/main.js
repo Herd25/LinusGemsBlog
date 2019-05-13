@@ -3,83 +3,102 @@
 // require modules
 import { timer } from "./time.js";
 import { editor } from "./editor.js";
-import { Modal, Collapse, ActivePreview, addeventclass } from "./previews.js"
+import { Modal, Collapse, ActivePreview } from "./previews.js"
 import { ManagerEdit } from "./profile.js"
+import { sel } from "./config.js"
 
 /**
  * @method
  */
 ((e) => {
-    let $ = document.querySelector.bind(document);
+    //let sel = document.querySelector.bind(document);
+    let probe = sel('div').attr('id');
+
+    console.log(probe)
+    console.log(sel())
 
     window.onload = () => {
 
         /* remove loader */
-        $('#ContentBody').classList.remove('lds-hourglass')
+        sel('#ContentBody').removeClass('lds-hourglass');
 
         /* calculate modals window */
-        let tiggers = $('a[data-toggle=modal], button[data-toggle=modal]');
-        let close = $('.iconclose');
-        let closemodl = $('.iconclose');
-        let alertwelcome = $('#AlertWelcome');
-        let alerts = $('#AlertsMessage');
-        let modlsession = $('#ModalSession');
+        let tiggers = sel('a[data-toggle=modal], button[data-toggle=modal]');
+        let close = sel('.iconclose');
+        let closemodl = sel('.iconclose');
+        let alertwelcome = sel('#AlertWelcome');
+        let alerts = sel('#AlertsMessage');
+        let modlsession = sel('#ModalSession');
 
         Modal(tiggers, 'active')
 
         // close alters
-        addeventclass(alertwelcome, close, 'hidde');
+        close.on('click', e => {
+            e.preventDefault();
+            alertwelcome.addClass('hidde');
+        });
 
-        //close modal
-        addeventclass(modlsession, closemodl, 'hidde');
+        // close Modal
+        closemodl.on('click', e => {
+            e.preventDefault();
+            modlsession.addClass('hidde');
+        });
 
         // create collapse formularie
-        let toggle = $('a[data-toggle=collapse], button[data-toggle=collapse]');
-        let itemcoll = $('#SessionUser');
-        let form = $('form');
+        let toggle = sel('a[data-toggle=collapse], button[data-toggle=collapse]');
+        let itemcoll = sel('#SessionUser');
+        let form = sel('form');
 
         Collapse(itemcoll, toggle, form);
 
         // LiveImagePreview
-        let event = $('#FileIcon');
-        let file = $('#fileicon');
+        let event = sel('#FileIcon');
+        let file = sel('#fileicon');
 
-        ActivePreview(event, file, event);
+        //ActivePreview(event, file, event);
 
         /* published current time */
-        //let time = $('#Timer')
+        //let time = sel('#Timer')
         //timer(time,"/time_feed");
 
         /* edit profile functions */
-        let about = $('#EditAbout');
-        let social = $('#EditSocialFeed');
-        let photo = $('#Photo');
-        let avatar = $('#Avatar');
-        let avatarlive = $('#PreviewAvatar');
-        let editfeed = $('#SocialFeedForm');
-        let editabout = $('#AboutForm');
-        let description = $('#Description');
-        let changes = $('#ChangesAbout');
-        let text = $('#AboutText');
-        let previewtext = $('#Description')
+        let about = sel('#EditAbout');
+        let social = sel('#EditSocialFeed');
+        let photo = sel('#Photo');
+        let avatar = sel('#Avatar');
+        let avatarlive = sel('#PreviewAvatar');
+        let editfeed = sel('#SocialFeedForm');
+        let editabout = sel('#AboutForm');
+        let description = sel('#Description');
+        let changes = sel('#ChangesAbout');
+        let text = sel('#AboutText');
+        let previewtext = sel('#Description')
 
-        ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, avatarlive, previewtext);
+        //ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, avatarlive, previewtext);
 
         /* Editor Instance  */
-        let Editor = $('#MyEditorPost');
-        let Update = $('#MyEditorPostUpdate');
-        let Actions = $('#ActionButtons');
-        let inputColor = $('#ColorPicker');
-        let formulary = $('#CreationPost');
-        let formulary2 = $('#UpdatePost');
-        let datainput = $('#TextContentEditor');
-        let updateinput = $('#TextUpdateContentEditor');
-        let ActionSendData = $('.MyActionButtons');
-        let ActionUpdateData = $('.MyActionButtonsUpdate');
-        let value = $('#TextUpdateContentEditor');
+        let Editor = sel('#MyEditorPost');
+        let Update = sel('#MyEditorPostUpdate');
+        let Actions = sel('#ActionButtons');
+        let inputColor = sel('#ColorPicker');
+        let formulary = sel('#CreationPost');
+        let formulary2 = sel('#UpdatePost');
+        let datainput = sel('#TextContentEditor');
+        let updateinput = sel('#TextUpdateContentEditor');
+        let ActionSendData = sel('.MyActionButtons');
+        let ActionUpdateData = sel('.MyActionButtonsUpdate');
+        let value = sel('#TextUpdateContentEditor');
 
-        editor(Editor, Actions, ActionSendData, inputColor, Update, value, datainput, updateinput, ActionUpdateData, formulary, formulary2);
+        //editor(Editor, Actions, ActionSendData, inputColor, Update, value, datainput, updateinput, ActionUpdateData, formulary, formulary2);
 
+        /* tabs Manager */
+        let lkparent = sel('.tabs__links');
+        //let lks = lkparent.find('A');
+        let item = sel('.tabs__contents');
+        //console.log(lks)
+        //lks.addClass('active');
+        console.log(item)
+        //item.classList += 'active';
     }
 
 })();

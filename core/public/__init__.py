@@ -30,7 +30,7 @@ def index():
     return render_template('public/home.html', posts = post, update = update)
 
 @home.route('/<int:id>/article', methods = ('GET', 'POST'))
-def articles(id):
+def articles(id : int):
     comments = get_query(
         'c.id, comment, user_id, username',
         'comments c JOIN user u ON c.user_id = u.id',
@@ -101,7 +101,7 @@ def create():
 
 @home.route('/<int:id>/update', methods = ('GET','POST'))
 @required_login
-def update(id):
+def update(id : int):
     post = get_exists_data(
         'p.id, title, body, created, author_id, username',
         'post p JOIN user u ON p.author_id = u.id',
@@ -135,7 +135,7 @@ def update(id):
 
 @home.route('/<int:id>/delete', methods = ('GET', 'POST'))
 @required_login
-def delete(id):
+def delete(id : int):
     get_exists_data(
         'p.id, title, body, created, author_id, username',
         'post p JOIN user u ON p.author_id = u.id','p.id',

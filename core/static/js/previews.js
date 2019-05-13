@@ -1,6 +1,6 @@
 // Vista Previa de Imagenes y Animaciones
 
-let $ = document.querySelector.bind(document);
+import { sel } from "./config.js"
 
 // Previews Modules
 
@@ -12,12 +12,12 @@ let $ = document.querySelector.bind(document);
  */
 function ActivePreview(event, file, tag) {
     if (event) {
-        event.addEventListener('click', (e) => {
+        event.on('click', (e) => {
             file.click();
-            file.onchange = (e) => {
+            file.on('change', (e) => {
                 PreviewImage(file, tag)
-            }
-        })
+            });
+        });
     }
 }
 
@@ -31,9 +31,9 @@ function PreviewImage(input, tag) {
         let reader = new FileReader();
 
         reader.onload = (e) => {
-            let node = `<img src="${e.target.result}" />`
-            tag.innerHTML = node
-            tag.appendChild(input)
+            let node = `<img src="sel{e.target.result}" />`
+            tag.html(node);
+            tag.append(input);
         }
 
         reader.readAsDataURL(input.files[0])
@@ -50,10 +50,10 @@ function PreviewImage(input, tag) {
  */
 function Modal(tigger, event) {
     if (tigger) {
-        tigger.addEventListener('click' ,(e) => {
+        tigger.on('click' ,(e) => {
             e.preventDefault();
-            let div = tigger.dataset.target;
-            $(`${div}`).classList.toggle(event)
+            let div = tigger.attr();
+            sel(`${div}`).toggle(event);
         })
     }
 }
@@ -66,51 +66,61 @@ function Modal(tigger, event) {
  */
 function Collapse(item, toggle, olditems) {
     if (item) {
-        //console.log(`El item en su atributo es : ${olditems.getAttribute('id')}`)
-        let olditem = olditems.getAttribute('id')
-        item.addEventListener('click', (e) => {
-           if ( e.target.dataset.target == toggle.dataset.target) {
-               let collapsible = $(`${toggle.dataset.target}`)
-                //console.log('si son iguales')
+        console.log(`El item en su atributo es : ${olditems.attr('id')} y el toggle ${toggle.attr()} y el antiguo ${olditems.attr('id')}`)
+        let olditem = sel(`${olditems.attr('id')}`)
+        //let parent = toggle.attr();
+        //console.log(parent)
+        item.on('click', (e) => {
+            console.log(e.target.dataset.target)
+            if ( e.target.dataset.target == toggle.attr()) {
+                console.log('si son iguales')
+                let collapsible = sel(`${toggle.attr()}`)
 
                 if ( collapsible.className === '' ) {
-                    //console.log('si esta vacia y no tine la clase active')
-                    $(`#${olditem}`).style.display = 'none'
+                    console.log('si esta vacia y no tine la clase active')
+                    olditem.style.display = '';
                     collapsible.className = 'active'
                 } else {
-                    //console.log('no esta vacia y si tiene la clase activa')
-                    collapsible.className = ''
-                    $(`#${olditem}`).style.display = 'block'
+                    console.log('no esta vacia y si tiene la clase activa')
+                    collapsible.remove('active');
+                    olditem.style.display = '';
                 }
-           } else {
-               //console.log('no son iguales')
-           }
-            //console.log(`Los target del evento son : ${e.target.dataset.target}`)
-            //console.log(`Los target del evento son : ${toggle.dataset.target}`)
+            } else {
+                console.log('no son iguales')
+            }
+            console.log(`Los target del evento son : ${e.target.dataset.target}`)
+            console.log(`Los target del evento son : ${toggle.attr()}`)
         })
     }
 }
 
 /**
- * Function add class for event click
- * @param {*} id
- * @param {*} tag
- * @param {*} action
+ * Show Tab Panels
+ * @param {*} panelIndex
+ * @param {*} color
+ * @param {*} buttons
+ * @param {*} panels
  */
-function addeventclass(id, tag, action) {
-    if ( tag ) {
-        tag.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (id.classList != action) {
-                id.classList.add(action)
-            } else {
-                id.classList.remove(action)
-            }
-        })
-    }
+function showPanel(panelIndex, color, buttonP, panels) {
+    Array.prototype.forEach.call(buttonP.children, node => {
+        console.log(`node name is ${node.style}`)
+        node.style.backgroundColor = '';
+        node.style.color = '';
+    });
+
+    buttonP.children[panelIndex].style.backgroundColor = color;
+    buttonP.children[panelIndex].style.color = "white";
+
+    Array.prototype.forEach.call( panels ,node => {
+        node.style.display = 'none';
+    });
+
+    panels[panelIndex].style.display = 'block';
+    panels[panelIndex].style.backgroundColor = color;
 }
+
 
 /**
  * Exporting Functions
  */
-export { Modal, Collapse, ActivePreview, PreviewImage, addeventclass };
+export { Modal, Collapse, ActivePreview, PreviewImage, showPanel };
