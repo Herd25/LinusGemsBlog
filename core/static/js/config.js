@@ -2,119 +2,332 @@
  * Define Global Selector and Methods
  */
 
-let sel = (() => {
-    'use strict';
+function init(selector) {
+    let self = {};
 
-    /**
-     * Class Constructor
-     * @param {Object} args
-     * Recibe all Objects DOM
-     */
-    let Constructor = function(args) {
+    self.selector = selector;
 
-        let self = {};
+    if(!self.selector) return;
 
-        self.selector = args;
-
+    if(self.selector === 'document') {
+        self.element = [document];
+    } else if (self.selector === 'window') {
+        self.element = [window];
+    } else {
         self.element = document.querySelector(self.selector);
+    }
 
-        self.each = function(callback) {
-            Array.prototype.forEach.call(self, callback);
-            return self;
+    self.each = function(callback) {
+        let children = document.querySelector(selector).children;
+        if(!callback || typeof callback !== 'function') return;
+        for (let index = 0; index < children.length; index++) {
+            const element = children[index];
+            callback(element, index);
         }
+    }
 
-        self.html = function(value) {
-            if(!value) return self.element.innerHtml;
-            self.element.innerHtml = value;
-            return self;
+    self.find = function(name) {
+        if(!name) return;
+        let children = document.querySelector(selector).children;
+        for(let index = 0; index < children.length; index++) {
+            const element = children[index];
+            if(element.nodeName === name.toUpperCase()) {
+                console.log('si afirmativo');
+                return init(element.nodeName);
+            }
         }
-
-        self.text = function(value) {
-            if(!value) return self.element.textContent;
-            self.element.innerText = value;
-            return self;
-        }
-
-        self.append = function(element) {
-            self.element.insertAdjacentHTML('beforeend',element);
-            return self;
-        }
-
-        self.prepend = function(element) {
-            self.element.insertAdjacentHTML('afterbegin',element);
-            return self;
-        }
-
-        self.after = function(element) {
-            self.element.insertAdjacentHTML('afterend',element);
-            return self;
-        }
-
-        self.before = function(element) {
-            self.element.insertAdjacentHTML('beforebegin',element);
-            return self;
-        }
-
-        self.attr = function(name, value) {
-            if(!name) return self.element.dataset.target;
-            if(!value) return self.element.getAttribute(name);
-            self.element.setAttribute(name, value);
-            return self;
-        }
-
-        self.removeAttr = function(name) {
-            self.element.removeAttribute(name);
-            return self;
-        }
-
-        self.on = function(type, callback) {
-            self.element['on' + type] = callback;
-            return self;
-        }
-
-        self.toggle = function(name) {
-            self.element.classList.toggle(name);
-            return self;
-        }
-
-        self.addClass = function(name) {
-            self.element.classList.add(name);
-            return self;
-        }
-
-        self.removeClass = function(name) {
-            self.element.classList.remove(name);
-            return self;
-        }
-
-        self.show = function() {
-            self.element.style.display = 'block';
-            return self;
-        }
-
-        self.hidden = function() {
-            self.element.style.display = 'none';
-            return self;
-        }
-
         return self;
     }
 
+    self.html = {
+        children: function() {
+            return self.element.children;
+        },
 
-    /**
-     * Instance Constructor
-     * @param {String} Selector
-     * Obtains Object form DOM
-     */
-    let instance = function (Selector) {
-        return new Constructor(Selector);
+        insert: function(node) {
+            self.element.innerHTML = node;
+        },
+
+        after: function(node) {
+            self.element.insertAdjacentHTML('afterend',node);
+        },
+
+        before: function(node) {
+            self.element.insertAdjacentHTML('beforebegin',node);
+        },
+
+        prepend: function(node) {
+            self.element.insertAdjacentHTML('afterbegin',node);
+        },
+
+        append: function(node) {
+            self.element.insertAdjacentHTML('beforeend',node);
+        },
+
+        new: function(node) {
+            self.element.appendChild(node);
+        },
+
+        super: function(node) {
+            self.element.insertBefore(node);
+        },
+
+        remove: function() {
+            self.element.parentNode.removeChild(document.querySelector(selector));
+        }
     }
 
-    /**
-     * Inicialize class
-     */
-    return instance;
+    self.css = {
+        get: function(name) {
+            if(self.element.className === name) {
+                console.log('verdadero')
+                return true;
+            } else {
+                console.log('falso')
+                return false;
+            }
+        },
 
-})();
+        add: function(name) {
+            self.element.classList.add(name);
+            return self;
+        },
 
-export { sel };
+        rm: function(name) {
+            self.element.classList.remove(name);
+            return self;
+        },
+
+        toggle: function(name) {
+            self.element.classList.toggle(name);
+            return self;
+        },
+
+        set: function(styles) {
+            if(typeof styles === 'object') {
+                    let array = [],
+                        stylesLength = 0;
+
+                    for (const key in styles) {
+                        if (styles.hasOwnProperty(key)) {
+                            array.push(key);
+                        }
+                    }
+
+                    stylesLength = array.length;
+
+                    for (let index = 0; index < stylesLength; index++) {
+                        self.element.style[array[index]] = styles[array[index]];
+                    }
+
+            } else if (typeof styles === 'string') {
+                    styles = styles.replace(/\s/g,"");
+                    let separator = styles.indexOf(",") ? "," : ":",
+                        multiple = styles.indexOf(";");
+
+                    if (multiple >= 0) return;
+
+                    if (separator == ',' || separator == ':') {
+                        styles = styles.split(separator);
+
+                        if (self.element.style[styles[0]] != undefined) {
+                            self.element.style[styles[0]] = styles[1];
+                        } else if (self.element.style[styles[1]] != undefined) {
+                            self.element.style[styles[1]] = styles[0];
+                        }
+                    }
+            }
+
+            return self;
+        },
+
+        hidden: function() {
+            self.element.style.display = 'none';
+        },
+
+        block: function() {
+            self.element.style.display = 'block';
+        }
+    }
+
+    self.txt = {
+        get: function() {
+            return document.querySelector(selector).textContent;
+        },
+
+        set: function(value) {
+            document.querySelector(selector).textContent = value;
+            document.querySelector(selector).innerText = value;
+        }
+    }
+
+    self.attr = {
+        get: function(name) {
+            if(!name) return self.element.dataset.target;
+            return self.element.getAttribute(name);
+        },
+
+        set: function(name, type) {
+            self.element.setAttribute(name, type);
+        },
+
+        rm: function(name) {
+            self.element.removeAttribute(name);
+        },
+    }
+
+    self.files = {
+        get: function() {
+            return self.element.files;
+        },
+
+        files: function() {
+            return self.element.files;
+        },
+
+        data: function() {
+            return self.element.files[0];
+        }
+    }
+
+    self.event = {
+        on: function(name, callback) {
+            self.element.addEventListener(name, callback, false);
+            return self;
+        },
+
+        off: function(name, callback) {
+            self.element.removeEventListener(name, callback, false);
+            return self;
+        },
+
+        click: function(callback) {
+            if(!callback || typeof callback !== 'function') self.element.click();
+
+            self.element.onclick = callback;
+        },
+
+        dbclick: function(callback) {
+            if(!callback || typeof callback !== 'function') self.element.dblclick();
+
+            self.element.ondblclick = callback;
+        },
+
+        change: function(callback) {
+            if(!callback || typeof callback !== 'function') self.element.change();
+
+            self.element.onchange = callback;
+        },
+
+        focus: function(callback) {
+            if(!callback || typeof callback !== 'function') self.element.focus();
+
+            self.element.onfocus = callback;
+        },
+
+        input: function(callback) {
+            if(!callback || typeof callback !== 'function') self.element.click();
+
+            self.element.oninput = callback;
+        },
+
+        keydown: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onkeydown = callback;
+        },
+
+        keyup: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onkeyup = callback;
+        },
+
+        load: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onload = callback;
+        },
+
+        loadInit: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onloadstart = callback;
+        },
+
+        loadEnd: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onloadend = callback;
+        },
+
+        down: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onmousedown = callback;
+        },
+
+        over: function(callback) {
+            if(!callback || typeof callback !== 'function') self.element.over();
+
+            self.element.onmouseover = callback;
+        },
+
+        out: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onmouseout = callback;
+        },
+
+        up: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onmouseup = callback;
+        },
+
+        move: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onmousemove = callback;
+        },
+
+        reset: function(callback) {
+            if(!callback || typeof callback !== 'function') self.element.reset();
+
+            self.element.onreset = callback;
+        },
+
+        resize: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onresize = callback;
+        },
+
+        select: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onselect = callback;
+        },
+
+        scroll: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onscroll = callback;
+        },
+
+        submit: function(callback) {
+            if(!callback || typeof callback !== 'function') return;
+
+            self.element.onsubmit = callback;
+        },
+    }
+
+    return self;
+}
+
+let S = function(selector) {
+    return new init(selector);
+}
+
+
+export { S };

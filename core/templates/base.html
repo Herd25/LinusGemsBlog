@@ -42,7 +42,7 @@
         {{ links.rel(value=[ ("manifest", "", "", "", url_for('static', filename='service/manifest.webmanifest')) ]) }}
         <!-- Source Load Scripts -->
         {{ links.script(url=[ ("module", url_for('static',filename='js/main.js')),
-        ("text/javascript", url_for('static',filename='service/app.js')),
+        ("text/javascript", url_for('static',filename='/service/app.js')),
         ("text/javascript", "https://cdn.plot.ly/plotly-latest.min.js"),
         ("text/javascript", "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js") ]) }}
         <title>{% block title %}{% endblock %} - LinusGems</title>

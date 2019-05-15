@@ -1,3 +1,5 @@
+import { S } from "./config.js"
+
 // Manejador del Editor de Texto para el Blog
 'use strict';
 
@@ -66,12 +68,13 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
         TextEditor.document.designMode = 'On';
 
         // Target Events
-        tiggers.on('click', (e) => {
+        tiggers.event.on('click', (e) => {
             const nodename = e.target.nodeName;
-
+            console.log(nodename)
             if(nodename === 'I')
             {
                 const nodevalue = e.target.textContent;
+                console.log(nodevalue)
                 for(name in nodetypes) {
                     if (name == nodevalue) {
                         if (name == 'http' || name == 'link') {
@@ -81,8 +84,8 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                             execCommandWidthArg(nodetypes[name],prompt('Añade la Ruta del Elemento Multimedia','./'))
                             break
                         } else if (name == 'format_color_fill' || name == 'format_color_text') {
-                            colordata.click();
-                            colordata.on('change', (e) => {
+                            colordata.event.click();
+                            colordata.event.on('change', (e) => {
                                 const color = e.target.value;
                                 execCommandWidthArg(nodetypes[name],color)
                             })
@@ -115,20 +118,23 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
             }
         })
 
-        SaveData.on('click', (e) => {
+        SaveData.event.on('click', (e) => {
             e.preventDefault();
             let nodename = e.target.nodeName;
+            console.log(nodename)
 
             if (nodename == 'I') {
                 let nodevalue = e.target.textContent;
+                console.log(nodevalue)
                 if (nodevalue == 'save' || nodevalue == 'send') {
                     let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
+                    console.log(data)
                     datainput.value = data;
-                    formulary.submit();
+                    formulary.event.submit();
                 } else if (nodevalue == 'cancel') {
-                    formulary.reset();
+                    formulary.event.reset();
                 } else if (nodevalue == 'visibility') {
-                    let dataframe = $('.actionsTextButtonEditor');
+                    let dataframe = S('.actionsTextButtonEditor');
                     let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                 }
             }
@@ -142,7 +148,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
         TextEditor.document.designMode = 'On';
         TextEditor.document.getElementsByTagName('body')[0].innerHTML = value.value;
 
-        tiggers.on('click', (e) => {
+        tiggers.event.on('click', (e) => {
             const nodename = e.target.nodeName;
 
             if(nodename === 'I')
@@ -157,8 +163,8 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                             execCommandWidthArg(nodetypes[name],prompt('Añade la Ruta del Elemento Multimedia','./'))
                             break
                         } else if (name == 'format_color_fill' || name == 'format_color_text') {
-                            colordata.click();
-                            colordata.addEventListener('change', (e) => {
+                            colordata.event.click();
+                            colordata.event.on('change', (e) => {
                                 const color = e.target.value;
                                 execCommandWidthArg(nodetypes[name],color)
                             })
@@ -191,7 +197,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
             }
         })
 
-        UpdateData.on('click', (e) => {
+        UpdateData.event.click = (e) => {
             e.preventDefault();
             let nodename = e.target.nodeName;
 
@@ -200,15 +206,15 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                 if (nodevalue == 'save' || nodevalue == 'send') {
                     let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                     updateinput.value = data;
-                    updateformulary.submit();
+                    updateformulary.event.submit();
                 } else if (nodevalue == 'cancel') {
-                    updateformulary.reset();
+                    updateformulary.event.reset();
                 } else if (nodevalue == 'visibility') {
-                    let dataframe = $('.actionsTextButtonEditor');
+                    let dataframe = S('.actionsTextButtonEditor');
                     let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                 }
             }
-        })
+        }
 
         console.log(UpdateData)
     }

@@ -18,7 +18,7 @@
     {%- endcall -%}
     {% call items.contend("-cell-xl-8", "ModalSession") %}
       {% call items.modal("SessionUser","-cell-xl-5 modal material-teal","-cell-xl-12 material-white","Sesion de Usuario <button title='cerrar ventana' class='closemodal' type='button'><i class='material-icons'>add_circle</i></button>") %}
-        {% call items.formulary("FormularySession", "auth.login", "post", "multipart/form-data", "Iniciar Session", "&#xf007;", "") %}
+        {% call items.formulary("FormularySession", "auth.login", "post", "multipart/form-data", "Iniciar Session", "&#xf007;", "active") %}
           {% call items.contend("-cell-xl-12 padding-3") %}
             <label for="username"><i class="material-icons prefix">account_circle</i></label>
             {{ items.input("text", "username", "username", "", "Usuario", "material-input") }}

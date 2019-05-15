@@ -20,7 +20,7 @@ import { PreviewImage } from "./previews.js"
  */
 function ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, tag1, tag2) {
     if (social && about) {
-        about.onclick = (e) => {
+        about.event.click = (e) => {
             if ( editabout.style.display != 'none' ) {
                 editabout.style.display = 'none';
                 description.style.display = 'block';
@@ -30,7 +30,7 @@ function ManagerEdit(social, about, photo, editabout, description, editfeed, ava
             }
         }
 
-        social.onclick = (e) => {
+        social.event.click = (e) => {
             if ( editfeed.style.display != 'none' ) {
                 editfeed.style.display = 'none';
             } else {
@@ -38,14 +38,14 @@ function ManagerEdit(social, about, photo, editabout, description, editfeed, ava
             }
         }
 
-        photo.onclick = (e) => {
-            avatar.click();
-            avatar.onchange = (e) => {
+        photo.event.click = (e) => {
+            avatar.event.click();
+            avatar.event.change = (e) => {
                 PreviewImage(avatar, tag1)
             }
         }
 
-        changes.onclick = (e) => {
+        changes.event.click = (e) => {
             e.preventDefault();
             PreviewAbout(text, tag2)
         }

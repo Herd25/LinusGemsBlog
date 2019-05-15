@@ -1,6 +1,6 @@
 // Vista Previa de Imagenes y Animaciones
 
-import { sel } from "./config.js"
+import { S } from "./config.js"
 
 // Previews Modules
 
@@ -12,9 +12,9 @@ import { sel } from "./config.js"
  */
 function ActivePreview(event, file, tag) {
     if (event) {
-        event.on('click', (e) => {
-            file.click();
-            file.on('change', (e) => {
+        event.event.on('click' ,(e) => {
+            file.event.click();
+            file.event.on('change' ,(e) => {
                 PreviewImage(file, tag)
             });
         });
@@ -27,16 +27,15 @@ function ActivePreview(event, file, tag) {
  * @param {*} tag
  */
 function PreviewImage(input, tag) {
-    if ( input.files && input.files[0] ) {
+    if ( input.files.files() && input.files.data() ) {
         let reader = new FileReader();
 
         reader.onload = (e) => {
-            let node = `<img src="sel{e.target.result}" />`
-            tag.html(node);
-            tag.append(input);
+            let node = `<img src="${e.target.result}" />`
+            S(tag).html.prepend(node);
         }
 
-        reader.readAsDataURL(input.files[0])
+        reader.readAsDataURL(input.files.data())
     } else {
         alert('hubo un error inesperado')
     }
@@ -49,11 +48,12 @@ function PreviewImage(input, tag) {
  * @param {*} event
  */
 function Modal(tigger, event) {
-    if (tigger) {
-        tigger.on('click' ,(e) => {
+    if (tigger && event) {
+        tigger.event.on('click' ,(e) => {
             e.preventDefault();
-            let div = tigger.attr();
-            sel(`${div}`).toggle(event);
+            let div = tigger.attr.get();
+            console.log(div)
+            S(`${div}`).css.toggle(event);
         })
     }
 }
@@ -65,31 +65,26 @@ function Modal(tigger, event) {
  * @param {*} olditems
  */
 function Collapse(item, toggle, olditems) {
-    if (item) {
-        console.log(`El item en su atributo es : ${olditems.attr('id')} y el toggle ${toggle.attr()} y el antiguo ${olditems.attr('id')}`)
-        let olditem = sel(`${olditems.attr('id')}`)
-        //let parent = toggle.attr();
-        //console.log(parent)
-        item.on('click', (e) => {
-            console.log(e.target.dataset.target)
-            if ( e.target.dataset.target == toggle.attr()) {
-                console.log('si son iguales')
-                let collapsible = sel(`${toggle.attr()}`)
+    if (item && toggle && olditems) {
+        //console.log(`El item en su atributo es : ${olditems.attr.get('id')} y el toggle ${toggle.attr.get()} y el antiguo ${olditems.attr.get('id')}`)
+        let olditem = S(`#${olditems.attr.get('id')}`)
 
-                if ( collapsible.className === '' ) {
-                    console.log('si esta vacia y no tine la clase active')
-                    olditem.style.display = '';
-                    collapsible.className = 'active'
+        item.event.on('click', (e) => {
+            if ( e.target.dataset.target == toggle.attr.get()) {
+                let collapsible = S(`${toggle.attr.get()}`)
+
+                if ( collapsible.css.get('active') ) {
+                    collapsible.css.rm('active');
+                    olditem.css.add('active');
                 } else {
-                    console.log('no esta vacia y si tiene la clase activa')
-                    collapsible.remove('active');
-                    olditem.style.display = '';
+                    collapsible.css.add('active');
+                    olditem.css.rm('active');
                 }
             } else {
                 console.log('no son iguales')
             }
-            console.log(`Los target del evento son : ${e.target.dataset.target}`)
-            console.log(`Los target del evento son : ${toggle.attr()}`)
+            //console.log(`Los target del evento son : ${e.target.dataset.target}`)
+            //console.log(`Los target del evento son : ${toggle.attr.get()}`)
         })
     }
 }
@@ -123,4 +118,4 @@ function showPanel(panelIndex, color, buttonP, panels) {
 /**
  * Exporting Functions
  */
-export { Modal, Collapse, ActivePreview, PreviewImage, showPanel };
+export { Modal, Collapse, ActivePreview, PreviewImage };
