@@ -2,6 +2,10 @@
  * Define Global Selector and Methods
  */
 
+ /**
+  * Initi Class
+  * @param {Object} selector
+  */
 function init(selector) {
     let self = {};
 
@@ -17,6 +21,9 @@ function init(selector) {
         self.element = document.querySelector(self.selector);
     }
 
+    /**
+     * Each Method
+     */
     self.each = function(callback) {
         let children = document.querySelector(selector).children;
         if(!callback || typeof callback !== 'function') return;
@@ -26,6 +33,9 @@ function init(selector) {
         }
     }
 
+    /**
+     * Find Method
+     */
     self.find = function(name) {
         if(!name) return;
         let children = document.querySelector(selector).children;
@@ -39,6 +49,9 @@ function init(selector) {
         return self;
     }
 
+    /**
+     * Html Methods
+     */
     self.html = {
         children: function() {
             return self.element.children;
@@ -77,6 +90,9 @@ function init(selector) {
         }
     }
 
+    /**
+     * Stylesheet Method
+     */
     self.css = {
         get: function(name) {
             if(self.element.className === name) {
@@ -150,6 +166,9 @@ function init(selector) {
         }
     }
 
+    /**
+     * Txt Method
+     */
     self.txt = {
         get: function() {
             return document.querySelector(selector).textContent;
@@ -161,6 +180,9 @@ function init(selector) {
         }
     }
 
+    /**
+     * Attributes Method
+     */
     self.attr = {
         get: function(name) {
             if(!name) return self.element.dataset.target;
@@ -176,6 +198,9 @@ function init(selector) {
         },
     }
 
+    /**
+     * Files Method
+     */
     self.files = {
         get: function() {
             return self.element.files;
@@ -190,6 +215,26 @@ function init(selector) {
         }
     }
 
+    /**
+     * Input Methods
+     */
+    self.input = {
+        get: function() {
+            return self.element.innerHTML;
+        },
+
+        set: function(value) {
+            self.element.value = value;
+        },
+
+        data: function() {
+            return self.element.value;
+        }
+    }
+
+    /**
+     * Event Methods
+     */
     self.event = {
         on: function(name, callback) {
             self.element.addEventListener(name, callback, false);
@@ -316,7 +361,7 @@ function init(selector) {
         },
 
         submit: function(callback) {
-            if(!callback || typeof callback !== 'function') return;
+            if(!callback || typeof callback !== 'function') self.element.submit();
 
             self.element.onsubmit = callback;
         },

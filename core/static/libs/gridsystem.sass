@@ -605,6 +605,10 @@ img
 
 /* tabs styles */
 .tabs
+    &__container
+        width: 100%
+        padding: 1em 0
+        position: relative
     &__links,
     &__contents
         width: 80%
@@ -612,19 +616,21 @@ img
     &__links
         display: table
         position: relative
-        top: 1px
-        a
-            display: block
+        top: 2px
+        &__button
             float: left
-            line-height: 3
+            line-height: 3px
             background-color: #ddd
             text-decoration: none
-            padding: 0 1em
+            padding: 1em 3em
             margin-right: 1px
             border-radius: 5px 5px 0 0
             border: 1px solid #cccccc
             border-bottom: none
             color: rgba(0,0,0,.4)
+            cursor: pointer
+            &:hover
+                color: teal
             &.active
                 position: relative
                 z-index: 100
@@ -646,6 +652,7 @@ img
             left: 0
             display: none
             &.active
+                position: relative
                 display: block
                 background-color: #fff
                 border: 1px solid teal

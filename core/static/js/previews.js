@@ -91,31 +91,30 @@ function Collapse(item, toggle, olditems) {
 
 /**
  * Show Tab Panels
- * @param {*} panelIndex
- * @param {*} color
- * @param {*} buttons
- * @param {*} panels
+ * @param {Object} tab
+ * @param {Selector} container
+ * @param {Object} panels
+ * @param {String} clas
  */
-function showPanel(panelIndex, color, buttonP, panels) {
-    Array.prototype.forEach.call(buttonP.children, node => {
-        console.log(`node name is ${node.style}`)
-        node.style.backgroundColor = '';
-        node.style.color = '';
+function TabPanel(tab, container, panels, clas, search) {
+    let Tab = Array.prototype.slice.apply(tab)
+    let Panels = Array.prototype.slice.apply(panels)
+
+    container.event.on('click', e => {
+        if(e.target.classList.contains(search)) {
+            let index = Tab.indexOf(e.target);
+            Tab.map(tab => tab.classList.remove(clas));
+            Tab[index].classList.add(clas);
+            Panels.map(panel => panel.classList.remove(clas));
+            Panels[index].classList.add(clas);
+        } else {
+            console.log(`no existe las clase ${search}`)
+        }
     });
-
-    buttonP.children[panelIndex].style.backgroundColor = color;
-    buttonP.children[panelIndex].style.color = "white";
-
-    Array.prototype.forEach.call( panels ,node => {
-        node.style.display = 'none';
-    });
-
-    panels[panelIndex].style.display = 'block';
-    panels[panelIndex].style.backgroundColor = color;
 }
 
 
 /**
  * Exporting Functions
  */
-export { Modal, Collapse, ActivePreview, PreviewImage };
+export { Modal, Collapse, ActivePreview, PreviewImage, TabPanel };

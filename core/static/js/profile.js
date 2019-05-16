@@ -22,11 +22,11 @@ function ManagerEdit(social, about, photo, editabout, description, editfeed, ava
     if (social && about) {
         about.event.click = (e) => {
             if ( editabout.style.display != 'none' ) {
-                editabout.style.display = 'none';
-                description.style.display = 'block';
+                editabout.css.hidden();
+                description.css.block();
             } else {
-                editabout.style.display = 'block';
-                description.style.display = 'none';
+                editabout.css.block();
+                description.css.hidden();
             }
         }
 

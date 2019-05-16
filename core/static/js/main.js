@@ -3,7 +3,7 @@
 // require modules
 //import { timer } from "./time.js";
 import { editor } from "./editor.js";
-//import { Modal, Collapse, ActivePreview } from "./previews.js"
+import { Modal, Collapse, ActivePreview, TabPanel } from "./previews.js"
 import { ManagerEdit } from "./profile.js"
 import { S } from "./config.js"
 
@@ -28,17 +28,17 @@ import { S } from "./config.js"
         /**
          * Manager Modals
          */
-        if(tiggers) {
+        //if(tiggers) {
             //Modal(tiggers, 'active');
-        }
+        //}
 
         // close alters
-        if(close) {
-            close.event.on('click', e => {
-                e.preventDefault();
-                alertwelcome.css.add('hidde');
-            });
-        }
+        //if(close) {
+            //close.event.on('click', e => {
+                //e.preventDefault();
+                //alertwelcome.css.add('hidde');
+            //});
+        //}
 
         // create collapse formularie
         let toggle = S('a[data-toggle=collapse], button[data-toggle=collapse]');
@@ -48,17 +48,17 @@ import { S } from "./config.js"
         /**
          * Manager collapse formulary
          */
-        if(toggle) {
+        //if(toggle) {
             //Collapse(itemcoll, toggle, form);
-        }
+        //}
 
         // close Modal
-        if(closemodl) {
+        //if(closemodl) {
             //closemodl.event.on('click', e => {
-            //    e.preventDefault();
-            //    itemcoll.css.rm('active');
+                //e.preventDefault();
+                //itemcoll.css.rm('active');
             //});
-        }
+        //}
 
         // LiveImagePreview
         let event = S('#FileIcon');
@@ -83,10 +83,9 @@ import { S } from "./config.js"
         let text = S('#AboutText');
         let previewtext = S('#Description')
 
-        ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, avatarlive, previewtext);
+        //ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, avatarlive, previewtext);
 
         /* Editor Instance  */
-        let Editor = S('#MyEditorPost');
         let Update = S('#MyEditorPostUpdate');
         let Actions = S('#ActionButtons');
         let inputColor = S('#ColorPicker');
@@ -98,16 +97,14 @@ import { S } from "./config.js"
         let ActionUpdateData = S('.MyActionButtonsUpdate');
         let value = S('#TextUpdateContentEditor');
 
-        editor(Editor, Actions, ActionSendData, inputColor, Update, value, datainput, updateinput, ActionUpdateData, formulary, formulary2);
+        //editor(Actions, ActionSendData, inputColor, Update, value, datainput, updateinput, ActionUpdateData, formulary, formulary2);
 
         /* tabs Manager */
-        //let lkparent = sel('.tabs__links');
-        //let lks = lkparent.find('a');
-        //let item = sel('.tabs__contents');
-        //console.log(`el item es : ${lkparent.addClass('ndie')} y su hijo es : ${lks.nodeName}`)
-        //lks.addClass('active');
-        //console.log(lks)
-        //item.classList += 'active';
+        let containertabs = S('.tabs__links');
+        let childrenlist = document.querySelectorAll('.tabs__links__button');
+        let panels = document.querySelectorAll('.tabs__contents__items');
+
+        TabPanel(childrenlist, containertabs, panels, 'active', 'tabs__links__button');
     }
 
 })();

@@ -131,8 +131,8 @@
                     {%- endcall %}
 
                     {%- call items.contend("TextContendEditor -cell-xl-8 blockcenter","ActionSendButtons") %}
-                        {{ items.input("hidden", "TextUpdateContentEditor", "TextUpdateContentEditor", "{}".format(request.form['TextContentEditor'] or post['body']), "") }}
-                        <center><iframe id="MyEditorPostUpdate" name="TextEditor"></iframe></center>
+                        {{ items.input("hidden", "TextUpdateContentEditor", "TextUpdateContentEditor", "{}".format(post['body']), "", "") }}
+                        <center><iframe id="MyEditorPostUpdate" name="TextEditorUpdate"></iframe></center>
                     {%- endcall %}
 
                     {%- call items.container("-cell-xl-8 blockcenter actionsTextButtonEditor", "-cell-xl-12 MyActionButtonsUpdate") -%}

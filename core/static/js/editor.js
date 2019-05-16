@@ -5,7 +5,6 @@ import { S } from "./config.js"
 
 /**
  * Manager Editor
- * @param {*} idEditor
  * @param {*} NameEditor
  * @param {*} tiggers
  * @param {*} SaveData
@@ -18,7 +17,7 @@ import { S } from "./config.js"
  * @param {*} formulary
  * @param {*} updateformulary
  */
-export function editor(idEditor, tiggers, SaveData, colordata, data, value, datainput, updateinput, UpdateData, formulary, updateformulary) {
+export function editor(tiggers, SaveData, colordata, data, value, datainput, updateinput, UpdateData, formulary, updateformulary) {
     // Define Node Actions
     //let TextEditor = TextEditor
     let nodetypes = {
@@ -64,13 +63,12 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
     }
 
     // Function for creator
-    if ( idEditor ) {
+    if ( TextEditor ) {
         TextEditor.document.designMode = 'On';
 
         // Target Events
         tiggers.event.on('click', (e) => {
             const nodename = e.target.nodeName;
-            console.log(nodename)
             if(nodename === 'I')
             {
                 const nodevalue = e.target.textContent;
@@ -78,10 +76,10 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                 for(name in nodetypes) {
                     if (name == nodevalue) {
                         if (name == 'http' || name == 'link') {
-                            execCommandWidthArg(nodetypes[name],prompt('Añade la direccion del vinculo','http://'))
+                            execCommandWidthArg(TextEditor, nodetypes[name] ,prompt('Añade la direccion del vinculo','http://'))
                             break
                         } else if (name == 'insert_photo' || name == 'attach_file' || name == 'perm_media') {
-                            execCommandWidthArg(nodetypes[name],prompt('Añade la Ruta del Elemento Multimedia','./'))
+                            execCommandWidthArg(TextEditor, nodetypes[name] ,prompt('Añade la Ruta del Elemento Multimedia','./'))
                             break
                         } else if (name == 'format_color_fill' || name == 'format_color_text') {
                             colordata.event.click();
@@ -91,13 +89,13 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                             })
                             break
                         } else if (name == 'code') {
-                            toogleSource()
+                            toogleSource(TextEditor)
                             break
                         } else if (name == 'visibility') {
-                            toogleEdit()
+                            toogleEdit(TextEditor)
                             break
                         } else {
-                            execCmd(nodetypes[name])
+                            execCmd(TextEditor, nodetypes[name])
                             break
                         }
                     }
@@ -111,7 +109,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                 for(name in nodetypes) {
                     if(name == nodevalue)
                     {
-                        execCommandWidthArg(nodetypes[name],valuedata);
+                        execCommandWidthArg(TextEditor, nodetypes[name],valuedata);
                         break
                     }
                 }
@@ -129,7 +127,8 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                 if (nodevalue == 'save' || nodevalue == 'send') {
                     let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
                     console.log(data)
-                    datainput.value = data;
+                    datainput.input.set(data);
+                    console.log(datainput.input.data());
                     formulary.event.submit();
                 } else if (nodevalue == 'cancel') {
                     formulary.event.reset();
@@ -145,8 +144,8 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
 
     // Function for update post
     if ( data ) {
-        TextEditor.document.designMode = 'On';
-        TextEditor.document.getElementsByTagName('body')[0].innerHTML = value.value;
+        TextEditorUpdate.document.getElementsByTagName('body')[0].innerHTML += value.input.data();
+        TextEditorUpdate.document.designMode = 'On';
 
         tiggers.event.on('click', (e) => {
             const nodename = e.target.nodeName;
@@ -157,26 +156,26 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                 for(name in nodetypes) {
                     if (name == nodevalue) {
                         if (name == 'http' || name == 'link') {
-                            execCommandWidthArg(nodetypes[name],prompt('Añade la direccion del vinculo','http://'))
+                            execCommandWidthArg(TextEditorUpdate, nodetypes[name],prompt('Añade la direccion del vinculo','http://'))
                             break
                         } else if (name == 'insert_photo' || name == 'attach_file' || name == 'perm_media') {
-                            execCommandWidthArg(nodetypes[name],prompt('Añade la Ruta del Elemento Multimedia','./'))
+                            execCommandWidthArg(TextEditorUpdate, nodetypes[name],prompt('Añade la Ruta del Elemento Multimedia','./'))
                             break
                         } else if (name == 'format_color_fill' || name == 'format_color_text') {
                             colordata.event.click();
                             colordata.event.on('change', (e) => {
                                 const color = e.target.value;
-                                execCommandWidthArg(nodetypes[name],color)
+                                execCommandWidthArg(TextEditorUpdate, nodetypes[name],color)
                             })
                             break
                         } else if (name == 'code') {
-                            toogleSource()
+                            toogleSource(TextEditorUpdate)
                             break
                         } else if (name == 'visibility') {
-                            toogleEdit()
+                            toogleEdit(TextEditorUpdate)
                             break
                         } else {
-                            execCmd(nodetypes[name])
+                            execCmd(TextEditorUpdate, nodetypes[name])
                             break
                         }
                     }
@@ -190,7 +189,7 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
                 for(name in nodetypes) {
                     if(name == nodevalue)
                     {
-                        execCommandWidthArg(nodetypes[name],valuedata);
+                        execCommandWidthArg(TextEditorUpdate, nodetypes[name],valuedata);
                         break
                     }
                 }
@@ -204,14 +203,14 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
             if (nodename == 'I') {
                 let nodevalue = e.target.textContent;
                 if (nodevalue == 'save' || nodevalue == 'send') {
-                    let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
-                    updateinput.value = data;
+                    let data = TextEditorUpdate.document.getElementsByTagName('body')[0].innerHTML;
+                    updateinput.input.set(data);
                     updateformulary.event.submit();
                 } else if (nodevalue == 'cancel') {
                     updateformulary.event.reset();
                 } else if (nodevalue == 'visibility') {
                     let dataframe = S('.actionsTextButtonEditor');
-                    let data = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
+                    let data = TextEditorUpdate.document.getElementsByTagName('body')[0].innerHTML;
                 }
             }
         }
@@ -220,49 +219,53 @@ export function editor(idEditor, tiggers, SaveData, colordata, data, value, data
     }
 
     // custom varibale control
-    let showSourceCode = false
-    let showEditMode = true
 
     // Manager Handlers Actions
     /**
      * Execute command
-     * @param {*} command
+     * @param {String} name
+     * @param {args} command
      */
-    function execCmd(command) {
-        TextEditor.document.execCommand(command, false, null);
+    function execCmd(name,command) {
+        name.document.execCommand(command, false, null);
     }
 
     /**
      * Function execute commands and arguments
-     * @param {*} command
-     * @param {*} arg
+     * @param {String} name
+     * @param {args} command
+     * @param {args} arg
      */
-    function execCommandWidthArg(command, arg) {
-        TextEditor.document.execCommand(command, false, arg);
+    function execCommandWidthArg(name, command, arg) {
+        name.document.execCommand(command, false, arg);
     }
 
     /**
-     * @method
+     * View Code Source
+     * @param {String} name
      */
-    function toogleSource() {
+    function toogleSource(name) {
+        let showSourceCode = false
         if (showSourceCode) {
-            TextEditor.document.getElementsByTagName('body')[0].innerHTML = TextEditor.document.getElementsByTagName('body')[0].textContent;
+            name.document.getElementsByTagName('body')[0].innerHTML = name.document.getElementsByTagName('body')[0].textContent;
             showSourceCode = false
         } else {
-            TextEditor.document.getElementsByTagName('body')[0].textContent = TextEditor.document.getElementsByTagName('body')[0].innerHTML;
+            name.document.getElementsByTagName('body')[0].textContent = name.document.getElementsByTagName('body')[0].innerHTML;
             showSourceCode = true
         }
     }
 
     /**
-     * @method
+     * Enable Edit Mode
+     * @param {String} name
      */
-    function toogleEdit() {
+    function toogleEdit(name) {
+        let showEditMode = true
         if (showEditMode) {
-            TextEditor.document.designMode = 'Off';
+            name.document.designMode = 'Off';
             showEditMode = false
         } else {
-            TextEditor.document.designMode = 'On';
+            name.document.designMode = 'On';
             showEditMode = true
         }
     }

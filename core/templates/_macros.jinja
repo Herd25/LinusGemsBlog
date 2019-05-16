@@ -63,7 +63,7 @@
 {#
     #  enctype using fomats:
       application/xwwwformurlencoded
-      multipart/formdata
+      multipart/form-data
       text/plain
 #}
 <form class="{{ custom }}" id="{{ id }}" action="{{ url_for(url) }}" method="{{ method }}" enctype="{{ type }}">
@@ -109,7 +109,9 @@
 {%- macro list(one, values) %}
 <ul class="{{ one }}">
     {% for element in values %}
-      <li>{{ element | join(', ') | safe | replace(',','') }}</li>
+      <li>
+          {{ element | join(', ') | safe | replace(',','') }}
+      </li>
     {% endfor %}
 </ul>
 {%- endmacro %}
