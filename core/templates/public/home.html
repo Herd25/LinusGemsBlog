@@ -8,23 +8,23 @@
 {% block subtitle %} Bienvenidos {% endblock %}
 
 {% block body %}
-  {%- call items.container("table","-cell-xl-10 material-white blockcenter flx") -%}
-    {%- call items.contend("-cell-xl-12 slider grey-100") -%}
-      {%- call items.contend("-cell-xl-2 teal") -%}
+  {%- call items.container("table","cell__grid__xl__10 material-white blockcenter flx") -%}
+    {%- call items.contend("cell__grid__xl__12 slider grey-100") -%}
+      {%- call items.contend("cell__grid__xl__2 teal") -%}
         {{ items.img(atributtes=[ ("http://lorempixel.com/400/200/","imagen","noticia","noticia destacada") ]) }}
         <p>Titulo de la noticia</p>
         <a href="#" class="button txt-material-white material-teal">Ver Mas</a>
       {%- endcall -%}
     {%- endcall -%}
-    {% call items.contend("-cell-xl-8", "ModalSession") %}
-      {% call items.modal("SessionUser","-cell-xl-5 modal material-teal","-cell-xl-12 material-white","Sesion de Usuario <button title='cerrar ventana' class='closemodal' type='button'><i class='material-icons'>add_circle</i></button>") %}
+    {% call items.contend("cell__grid__xl__8", "ModalSession") %}
+      {% call items.modal("SessionUser","cell__grid__xl__5 modal material-teal","cell__grid__xl__12 material-white","Sesion de Usuario <button title='cerrar ventana' class='closemodal' type='button'><i class='material-icons'>add_circle</i></button>") %}
         {% call items.formulary("FormularySession", "auth.login", "post", "multipart/form-data", "Iniciar Session", "&#xf007;", "active") %}
-          {% call items.contend("-cell-xl-12 padding-3") %}
+          {% call items.contend("cell__grid__xl__12 padding-3") %}
             <label for="username"><i class="material-icons prefix">account_circle</i></label>
             {{ items.input("text", "username", "username", "", "Usuario", "material-input") }}
           {% endcall %}
 
-          {% call items.contend("-cell-xl-12 padding-3") %}
+          {% call items.contend("cell__grid__xl__12 padding-3") %}
             <label for="password"><i class="material-icons prefix">vpn_key</i></label>
             {{ items.input("password", "password", "password", "", "Contraseña", "material-input") }}
           {% endcall %}
@@ -34,22 +34,22 @@
         {% endcall %}
 
         {% call items.formulary("FormularyRegister", "auth.register", "post", "multipart/form-data", "Registrarse", "&#xf007;", "") %}
-          {% call items.contend("-cell-xl-3 padding-3 CustomPreview", "FileIcon") %}
+          {% call items.contend("cell__grid__xl__3 padding-3 CustomPreview", "FileIcon") %}
             {{ items.input("file", "avatar", "fileicon", "", "Avatar", "CustomInputFile txt-material-white material-teal") }}
             {{ items.buttonicon(values=[ ("Añade un Avatar", "CustomChooser", "button", "material-icons", "insert_photo") ]) }}
           {% endcall %}
 
-          {% call items.contend("-cell-xl-7 padding-3") %}
+          {% call items.contend("cell__grid__xl__7 padding-3") %}
             <label for="usernamerg"><i class="material-icons prefix">account_circle</i></label>
             {{ items.input("text", "username", "usernamerg", "", "Usuario", "material-input") }}
           {% endcall %}
 
-          {% call items.contend("-cell-xl-12 padding-3") %}
+          {% call items.contend("cell__grid__xl__12 padding-3") %}
             <label for="email"><i class="material-icons prefix">email</i></label>
             {{ items.input("email", "email", "email", "", "Correo", "material-input") }}
           {% endcall %}
 
-          {% call items.contend("-cell-xl-12 padding-3") %}
+          {% call items.contend("cell__grid__xl__12 padding-3") %}
             <label for="passwordrg"><i class="material-icons prefix">vpn_key</i></label>
             {{ items.input("password", "password", "passwordrg", "", "Tu contraseña", "material-input") }}
           {% endcall %}
@@ -58,14 +58,14 @@
           {{ items.buttonsend("Enviar", "&#xf1d8;", "Registarse", "button txt-material-white material-teal") }}
         {% endcall %}
       {% endcall %}
-      {% call items.section("-cell-xl-12 spantitle") %}
+      {% call items.section("cell__grid__xl__12 spantitle") %}
         <span><strong>Ultimas</strong>&nbsp;Notas</span><hr><span><p>Lo más destacado en Noticias</p></span>
       {% endcall %}
-      {% call items.section("-cell-xl-12 NoticeSpan") %}
+      {% call items.section("cell__grid__xl__12 NoticeSpan") %}
         <a href="http://lorempixel.com/400/200/">
           {{ items.img(atributtes=[ ("http://lorempixel.com/400/200/", "Imagen de Noticias", "noticias", "Popular") ]) }}
         </a>
-        {% call items.section("-cell-xl-12 NoticeArticle") %}
+        {% call items.section("cell__grid__xl__12 NoticeArticle") %}
           <a href="#"><h3>Titulo de La noticia</h3></a>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia magnam numquam sapiente ut aliquid dicta esse itaque molestias quaerat vero.
@@ -75,9 +75,9 @@
         {% endcall %}
       {% endcall %}
       {% for post in posts %}
-        {%- call items.article("-cell-xl-12") -%}
-          {%- call items.article("-cell-xl-12") -%}
-            {%- call items.contend("-cell-xl-12 NoticeArticle") -%}
+        {%- call items.article("cell__grid__xl__12") -%}
+          {%- call items.article("cell__grid__xl__12") -%}
+            {%- call items.contend("cell__grid__xl__12 NoticeArticle") -%}
               <h1 class="customtitleone" style="color: black;">{{ post['title'] }}</h1>
               {%- call items.contend("about") -%}
                 publicado por {{ post['username'] }} el {{ post['created'].strftime('%Y-%m-%d') }} {% if update %} Actualizado el {{ post['created'].strftime('%Y-%m-%d') }} a las {{ post['created'].strftime('%H-%M-%S') }} {% endif %}
@@ -87,7 +87,7 @@
               <a class="button material-teal" href="{{ url_for('public.update', id=post['id']) }}">Editar</a>
             {% endif %}
           {%- endcall -%}
-          {%- call items.contend("-cell-xl-12") -%}
+          {%- call items.contend("cell__grid__xl__12") -%}
             <p class="body">{{ post['body']|safe }}</p>
           {%- endcall -%}
         {%- endcall -%}
@@ -96,16 +96,16 @@
         {% endif %}
       {% endfor %}
     {%- endcall -%}
-    {% call items.contend("-cell-xl-4 teal") %}
-      {% call items.section("-cell-xl-12") %}
+    {% call items.contend("cell__grid__xl__4 teal") %}
+      {% call items.section("cell__grid__xl__12") %}
         <a href="https://www.presearch.org/signup?rid=1335844" target="_blank">
           {{ items.img(atributtes=[ ("https://www.presearch.org/images/rf/ban-3.jpg","Presearch", "presearch","") ]) }}
         </a>
       {% endcall %}
 
-      {% call items.section("-cell-xl-12 spantitle flx") %}
+      {% call items.section("cell__grid__xl__12 spantitle flx") %}
         <span><strong>Popular</strong></span><hr><span><p>&nbsp;Lo más destacado esta semana</p></span>
-        {% call items.navbar("-cell-xl-8 blockcenter", "PopularWeek") %}
+        {% call items.navbar("cell__grid__xl__8 blockcenter", "PopularWeek") %}
           {{ items.list_call(values=[ ('<div>
             <a href="#">
               <img src="http://lorempixel.com/200/100/" >
@@ -122,13 +122,13 @@
         {% endcall %}
       {% endcall %}
 
-      {% call items.section("-cell-xl-12") %}
+      {% call items.section("cell__grid__xl__12") %}
         <a href="https://www.presearch.org/signup?rid=1335844" target="_blank">
           {{ items.img(atributtes=[ ("https://www.presearch.org/images/rf/ban-1.jpg","Presearch", "presearch","") ]) }}
         </a>
       {% endcall %}
 
-      {% call items.section("-cell-xl-12 spantitle") %}
+      {% call items.section("cell__grid__xl__12 spantitle") %}
         <span><strong>Comentarios</strong></span><hr><span><p>&nbsp;Lo más destacado esta semana</p></span>
       {% endcall %}
     {%- endcall -%}

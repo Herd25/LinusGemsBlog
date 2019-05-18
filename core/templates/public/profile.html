@@ -144,7 +144,7 @@
                 {%- endcall %}
                 {%- endcall -%}
 
-                {%- call items.contend("-cell-xl-12 tabs__contents__items active","charbart") -%}
+                {%- call items.contend("-cell-xl-12 tabs__contents__items","charbart") -%}
                     <script>
                         var graphs = {{ plot | safe }};
                         Plotly.plot('charbart',graphs,{});
@@ -193,22 +193,36 @@
                     {% endcall %}
                 {% endcall %}
 
-                {%- call items.contend("-cell-xl-12 tabs__contents__items") -%}
+                {%- call items.contend("-cell-xl-12 tabs__contents__items clearfix") -%}
                     {{ items.titles("h3","padding-3","Configuracion") }}
                     <hr>
-                    {% call items.formulary("UpdateProfile", "public.index", "post", "multipart/form-data", "Datos de Usuario", "&#xf2bb;", "-cell-xl-12 card__formulary") %}
-                        {% call items.contend("-cell-xl-8") %}
-                            {% call items.contend("-cell-xl-8") %}
-                                {{ items.input("text", "firstname", "firstname", "{}".format(g.user.username), "" ,custom) }}
-                                {{ items.input("text", "lastname", "lastname", "{}".format(g.user.username), "" ,custom) }}
-                                {{ items.input("text", "username", "username", "{}".format(g.user.username), "" ,custom) }}
-                                {{ items.input("text", "address", "address", "{}".format(g.user.username), "" ,custom) }}
-                                {{ items.input("text", "city", "city", "{}".format(g.user.username), "" ,custom) }}
-                                {{ items.input("text", "province", "province", "{}".format(g.user.username), "" ,custom) }}
-                                {{ items.input("text", "zipcode", "zipcode", "{}".format(g.user.username), "" ,custom) }}
-                                {{ items.input("text", "number", "number", "{}".format(g.user.username), "" ,custom) }}
+                    {% call items.formulary("UpdateProfile", "public.index", "post", "multipart/form-data", "Datos de Usuario", "&#xf2bb;", "-cell-xl-12 flx card__formulary clearfix") %}
+                        {% call items.contend("-cell-xl-8 card__container") %}
+                            {% call items.contend("-cell-xl-12 flx card__container__items") %}
+                                {% call items.contend("-cell-xl-6 card__formulary__items") %}
+                                    <label for="firstname"><i class="material-icons">face</i></label>
+                                    {{ items.input("text", "firstname", "firstname", "{}".format('Alexnader'), "" ,"flat-input") }}
+                                    <label for="username"><i class="material-icons">account_circle</i></label>
+                                    {{ items.input("text", "username", "username", "{}".format(g.user.username), "" ,"flat-input") }}
+                                    <label for="city"><i class="material-icons">location_on</i></label>
+                                    {{ items.input("text", "city", "city", "{}".format('Guayaquil'), "" ,"flat-input") }}
+                                    <label for="zipcode"><i class="material-icons">ballot</i></label>
+                                    {{ items.input("text", "zipcode", "zipcode", "{}".format('031457'), "" ,"flat-input") }}
+                                {% endcall %}
+
+                                {% call items.contend("-cell-xl-6 card__formulary__items") %}
+                                    <label for="lastname"><i class="material-icons">info</i></label>
+                                    {{ items.input("text", "lastname", "lastname", "{}".format('Leon'), "" ,"flat-input") }}
+                                    <label for="address"><i class="material-icons">home</i></label>
+                                    {{ items.input("text", "address", "address", "{}".format('City Prot Number'), "" ,"flat-input") }}
+                                    <label for="province"><i class="material-icons">location_on</i></label>
+                                    {{ items.input("text", "province", "province", "{}".format('Guayas'), "" ,"flat-input") }}
+                                    <label for="number"><i class="material-icons">phonelink_ring</i></label>
+                                    {{ items.input("text", "number", "number", "{}".format('0991494979'), "" ,"flat-input") }}
+                                {% endcall %}
+                                <label for="countries"><i class="material-icons">flag</i></label>
                                 <select name="country" id="countries" id="state" title="escoje tu pais de residencia">
-                                        <option value="AG"><span class="flag-icon flag-icon-ar flag-icon-squared"></span></option>
+                                        <option value="AG">&#x1F1E6;&#x1F1F7;</option>
                                         <option value="BL">🇧🇴</option>
                                         <option value="CH">🇨🇱</option>
                                         <option value="CO">🇨🇴</option>
@@ -231,14 +245,39 @@
                                 </select>
                             {% endcall %}
                             <hr>
-                            {% call items.contend("-cell-xl-8") %}
-                                Despues vendran opciones
+                            {% call items.contend("-cell-xl-12 card__container__items") %}
+                                <center><span>Guardar Ajustes</span></center>
+                                {{ items.buttonsend("Guardar", "&#xf0c7;", "Guardar Cambios", "button material-teal txt-material-white") }}
                             {% endcall %}
                             <hr>
                         {% endcall %}
 
-                        {% call items.contend("-cell-xl-4 blockright") %}
-                            conatiner One
+                        {% call items.contend("-cell-xl-4 blockright card__container") %}
+                            {{ items.titles("h3","padding-3","Mas ajustes") }}
+
+                            {% call items.contend("-cell-xl-12 card__container__items") %}
+                                <figure>
+                                    <form action="{{ url_for('public.update_avatar') }}" id="UpdateAvatar">
+                                        <input type="file" name="avatar" id="Avatar" hidden>
+                                    </form>
+
+                                    {% call items.contend("tooltip", "PreviewAvatar") %}
+                                        {% for item in image %}
+                                            {{ items.img(atributtes=[ (url_for('static', filename='avatar/{}'.format(item.image)) ,"Photo", "avatar {{ g.user.username }}", "{{ g.user.username }}") ]) }}
+                                        {% endfor %}
+                                    {% endcall %}
+
+                                    <figcaption>
+                                        <form action="{{ url_for('public.update_username') }}" id="UpdateAvatar">
+                                            <input type="text" name="username" id="userid" hidden>
+                                        </form>
+                                        <span>@{{ g.user.username }} <i id="EditUserName" class="material-icons">edit</i></strong></span>
+                                    </figcaption>
+                                </figure>
+                            {% endcall %}
+
+                            {% call items.contend("-cell-xl-12 card__container__items") %}
+                            {% endcall %}
                         {% endcall %}
                     {% endcall %}
                 {% endcall %}

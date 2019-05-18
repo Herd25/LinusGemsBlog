@@ -3,7 +3,7 @@
                     adding colors
 /*-----------------------------------------------------*/
 @import 'components/variables', 'components/mixins', 'components/functions', 'components/extends'
-@import 'components/icons', 'components/animations'
+@import 'components/icons', 'components/animations', 'components/wigets', 'components/vendor'
 
 /* create custom buttons */
 //+button(map-keys($flat-colors)...)
@@ -120,8 +120,11 @@ img
 .margin-bottom
     margin-bottom: 80px
 
+.clearfix
+  overflow: auto
+
 /* large desktop */
-+blocks(left,12,12,cell,xl,desktop)
++blocks(left,12,12,grid,xl,desktop)
 
 /* buttons */
 +button(1rem ,map-keys($flat-colors)...)
@@ -301,6 +304,9 @@ img
 
 .material-input
     @extend %materialinput
+
+.flat-input
+    @extend %flatinput
 
 /* scrollbar settings */
 ::-webkit-scrollbar
@@ -656,3 +662,5 @@ img
                 display: block
                 background-color: #fff
                 border: 1px solid teal
+
+/* cards styles */

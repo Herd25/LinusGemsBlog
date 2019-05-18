@@ -1,23 +1,11 @@
 /* icons cloud status */
 
 .weatherIcon {
-	display: inline-block;
-	font-family: Helvetica, sans-serif;
-	/* Redefine this font size if resizing height & width */
-	font-size: 1em;
-	height: 100px;
-	line-height: 1em;
-	margin: 2%;
-	position: relative;
-	width: 100px;
+	
 }
 
 .weatherIcon:before, .weatherIcon:after {
-	content: "";
-	height: inherit;
-	left: 0;
-	top: 0;
-	width: inherit;
+	
 }
 
 .weatherIcon > div:before, .weatherIcon > div:after,
@@ -28,8 +16,7 @@
 }
 
 .clear, .sunny, .mostlysunny, .partlycloudy, .mostlycloudy, .partlysunny, .cloudy, .fog, .hazy, .chancerain, .rain, .chancetstorms, .tstorms, .chancesleet, .sleet, .chanceflurries, .flurries, .chancesnow, .snow, .inner {
-	height: inherit;
-	width: inherit;
+	
 }
 
 /*** Clear/Sunny ***/

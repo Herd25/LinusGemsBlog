@@ -55,19 +55,19 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    {%- call items.contend("-cell-xl-12 blockcenter {} txt-material-white".format(category), "AlertsMessage") -%}
+                    {%- call items.contend("cell__grid__xl__12 blockcenter {} txt-material-white".format(category), "AlertsMessage") -%}
                         <center><p class="padding-2 customtitletwo">{{ message }}</p></center>
                     {%- endcall -%}
                 {% endfor %}
             {% else %}
-                {% call items.contend("table flx", "AlertWelcome") %}
-                    {%- call items.contend("-cell-xl-6 flat-wetasphalt flx txt-material-white") -%}
+                {% call items.contend("table", "AlertWelcome") %}
+                    {%- call items.contend("cell__grid__xl__6 flat-wetasphalt flx txt-material-white") -%}
                         <div class="offline-notification">Se ha desconectado. Verifica tu conexion!</div>
                         {{ items.titles("h4", "customtitletwo", "Modo Movil") }}
                         <center><p class="padding-2">Quieres probar el modo movil!</p></center>
                         {{ items.buttonicon(values=[ ("Modo Movil", "add-button", "button", "", "Añadir al inicio de pantalla") ]) }}
                     {%- endcall -%}
-                    {%- call items.contend("-cell-xl-6 flat-wetasphalt flx txt-material-white") -%}
+                    {%- call items.contend("cell__grid__xl__6 blockright flat-wetasphalt flx txt-material-white") -%}
                         {{ items.titles("h4", "customtitletwo", "Este sitio trabaja con cookies para mejorar la experiencia") }}
                         {{ items.buttonicon(values=[ ("Politica de Privacidad", "add-button", "button", "", "Privacidad") ]) }}
                         {{ items.buttonicon(values=[ ("Cerrar Alerta", "iconclose", "button", "material-icons", "add_circle") ]) }}
@@ -83,7 +83,7 @@
                     <p>{% block subtitle %}{% endblock %}</p>
                 {%- endcall -%}
 
-                {%- call links.navbar("-cell-xl-12 mx-height material-teal", "navigation") -%}
+                {%- call links.navbar("cell__grid__xl__12 mx-height material-teal", "navigation") -%}
                     {% if g.user %}
                         {{ links.itemlisticons(values=[ (url_for('public.index'), "Inicio", "material-icons", "home",""), (url_for('public.index'), "Noticias", "material-icons", "fiber_new",""),
                         (url_for('public.index'), "Notas Interesantes", "material-icons", "new_releases","") ]) }}
@@ -115,14 +115,14 @@
             {%- block body %}{%- endblock %}
 
             {%- call items.contend("jumbotrom-400px flat-wetasphalt") -%}
-                {%- call items.contend("-cell-xl-5 blockcenter margin-bottom") -%}
+                {%- call items.contend("cell__grid__xl__5 blockcenter margin-bottom") -%}
                     {{ items.titles("h4", "customtitletwo padding-3", "Unete y no te pierdas de las novedades Semanalmente") }}
-                    {%- call items.navbar("-cell-xl-12 blockcenter", "navigation center") -%}
+                    {%- call items.navbar("cell__grid__xl__12 blockcenter", "navigation center") -%}
                         {{ links.itemlisticons(values=[ ("#", "Siguenos en Facebook", "fab fa", "&#xf09a;",""),
                         ("#", "Siguenos en Twitter", "fab fa", "&#xf099;",""), ("#", "Suscribete al Canal de Youtube", "fab fa", "&#xf167;","") ]) }}
                     {%- endcall -%}
                     {{ items.titles("h4", "customtitletwo padding-3", "Contenido y Secciones Recomendadas") }}
-                    {%- call items.navbar("-cell-xl-12 blockcenter", "navigation center") -%}
+                    {%- call items.navbar("cell__grid__xl__12 blockcenter", "navigation center") -%}
                         {{ links.itemlisticons(values=[ (url_for('public.index'), "Segmento de Noticias", "material-icons", "import_contacts","&nbsp;Noticias"),
                         (url_for('public.index'), "Segmento de Notas", "material-icons", "library_books","&nbsp;Notas Destacadas"), (url_for('public.index'), "Segmento de Tutoriales", "material-icons", "receipt","&nbsp;Tutoriales"), ]) }}
                     {%- endcall -%}

@@ -28,17 +28,17 @@ import { S } from "./config.js"
         /**
          * Manager Modals
          */
-        //if(tiggers) {
-            //Modal(tiggers, 'active');
-        //}
+        if(tiggers) {
+            Modal(tiggers, 'active');
+        }
 
         // close alters
-        //if(close) {
+        if(close) {
             //close.event.on('click', e => {
-                //e.preventDefault();
-                //alertwelcome.css.add('hidde');
+            //    e.preventDefault();
+            //    alertwelcome.css.add('hidde');
             //});
-        //}
+        }
 
         // create collapse formularie
         let toggle = S('a[data-toggle=collapse], button[data-toggle=collapse]');
@@ -48,17 +48,17 @@ import { S } from "./config.js"
         /**
          * Manager collapse formulary
          */
-        //if(toggle) {
+        if(toggle) {
             //Collapse(itemcoll, toggle, form);
-        //}
+        }
 
         // close Modal
-        //if(closemodl) {
+        if(closemodl) {
             //closemodl.event.on('click', e => {
-                //e.preventDefault();
-                //itemcoll.css.rm('active');
+            //    e.preventDefault();
+            //    itemcoll.css.rm('active');
             //});
-        //}
+        }
 
         // LiveImagePreview
         let event = S('#FileIcon');
@@ -83,7 +83,7 @@ import { S } from "./config.js"
         let text = S('#AboutText');
         let previewtext = S('#Description')
 
-        //ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, avatarlive, previewtext);
+        ManagerEdit(social, about, photo, editabout, description, editfeed, avatar, text, changes, avatarlive, previewtext);
 
         /* Editor Instance  */
         let Update = S('#MyEditorPostUpdate');

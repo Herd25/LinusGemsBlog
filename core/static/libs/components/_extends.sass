@@ -1,5 +1,10 @@
 // add default styles
 
+%clearfix:after
+    display: block
+    clear: both
+    content: ''
+
 %reset
     margin: 0
     padding: 0
@@ -195,3 +200,11 @@
     border: none
     outline: none
     border-bottom: 2px solid teal
+
+%flatinput
+    @extend %input
+    padding: .5rem !important
+    background-color: none
+    border: 1px solid black
+    border-radius: 5px
+    outline: none
